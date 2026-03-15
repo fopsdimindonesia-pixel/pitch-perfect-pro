@@ -5,6 +5,7 @@ import { StatCard } from "@/components/shared/StatCard";
 import { MatchCard } from "@/components/shared/MatchCard";
 import { Trophy, Users, Calendar, Activity, Edit } from "lucide-react";
 import { mockClubData } from "@/lib/mockClubData";
+import { StatusBadge } from "@/components/shared/StatusBadge";
 
 export default function ClubDashboard() {
   const { stats, recentMatches, upcomingMatches, activityTimeline } = mockClubData;

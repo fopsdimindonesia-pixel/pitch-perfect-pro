@@ -3,8 +3,9 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Plus, Shield } from "lucide-react";
+import { Plus, Shield, Trash2 } from "lucide-react";
 import { useState } from "react";
+import { ConfirmDialog } from "@/components/ConfirmDialog";
 
 interface StaffRole {
   id: string;
@@ -18,6 +19,11 @@ interface StaffRole {
 
 export default function StaffRoles() {
   const [selectedRole, setSelectedRole] = useState<string | null>(null);
+  const [confirmDialog, setConfirmDialog] = useState({
+    open: false,
+    roleToDelete: null as StaffRole | null,
+    isLoading: false,
+  });
 
   const roles: StaffRole[] = [
     {
@@ -122,6 +128,26 @@ export default function StaffRoles() {
   };
 
   const selectedRoleData = roles.find(r => r.id === selectedRole);
+
+  const handleDeleteRole = (role: StaffRole) => {
+    setConfirmDialog({
+      open: true,
+      roleToDelete: role,
+      isLoading: false,
+    });
+  };
+
+  const handleConfirmDelete = async () => {
+    setConfirmDialog(prev => ({ ...prev, isLoading: true }));
+    // Simulate async deletion
+    await new Promise(resolve => setTimeout(resolve, 500));
+    setConfirmDialog({
+      open: false,
+      roleToDelete: null,
+      isLoading: false,
+    });
+    // In real app, would delete the role
+  };
 
   return (
     <div className="space-y-6 animate-fade-in">
@@ -276,13 +302,23 @@ export default function StaffRoles() {
                       {role.permissions.length} permissions
                     </TableCell>
                     <TableCell>
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        onClick={() => setSelectedRole(role.id)}
-                      >
-                        View
-                      </Button>
+                      <div className="flex gap-2">
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => setSelectedRole(role.id)}
+                        >
+                          View
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                          onClick={() => handleDeleteRole(role)}
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </Button>
+                      </div>
                     </TableCell>
                   </TableRow>
                 ))}
@@ -312,9 +348,19 @@ export default function StaffRoles() {
           <div>
             <p className="font-semibold text-sm text-blue-900">View-Only</p>
             <p className="text-sm text-blue-800 mt-1">Can read data but cannot create or modify</p>
-          </div>
-        </CardContent>
       </Card>
+
+      <ConfirmDialog
+        open={confirmDialog.open}
+        title="Delete Role"
+        description={`Are you sure you want to delete the "${confirmDialog.roleToDelete?.name}" role? This action cannot be undone.`}
+        actionLabel="Delete Role"
+        cancelLabel="Cancel"
+        isDangerous={true}
+        isLoading={confirmDialog.isLoading}
+        onConfirm={handleConfirmDelete}
+        onCancel={() => setConfirmDialog({ open: false, roleToDelete: null, isLoading: false })}
+      />
     </div>
   );
 }

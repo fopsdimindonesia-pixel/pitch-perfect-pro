@@ -1,16 +1,54 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Lock, AlertTriangle, Users } from "lucide-react";
+import { Lock, AlertTriangle, Users, Trash2 } from "lucide-react";
+import { useState } from "react";
+import { ConfirmDialog } from "@/components/ConfirmDialog";
+
+interface AccessLevel {
+  id: number;
+  name: string;
+  access: string;
+  zones: string;
+  status: string;
+}
 
 export default function SecurityManagement() {
-  const accessLevels = [
+  const [confirmDialog, setConfirmDialog] = useState({
+    open: false,
+    accessLevelToRemove: null as AccessLevel | null,
+    isLoading: false,
+  });
+
+  const [accessLevels, setAccessLevels] = useState<AccessLevel[]>([
     { id: 1, name: "Players", access: "Full", zones: "All Areas", status: "Active" },
     { id: 2, name: "Staff", access: "Full", zones: "All Areas", status: "Active" },
     { id: 3, name: "Media", access: "Limited", zones: "Media Room, Stadium", status: "Active" },
     { id: 4, name: "Contractors", access: "Limited", zones: "Designated Areas", status: "Active" },
     { id: 5, name: "Visitors", access: "Restricted", zones: "Lobby, Tours", status: "Active" },
-  ];
+  ]);
+
+  const handleRemoveAccess = (level: AccessLevel) => {
+    setConfirmDialog({
+      open: true,
+      accessLevelToRemove: level,
+      isLoading: false,
+    });
+  };
+
+  const handleConfirmRemove = async () => {
+    setConfirmDialog(prev => ({ ...prev, isLoading: true }));
+    // Simulate async deletion
+    await new Promise(resolve => setTimeout(resolve, 500));
+    if (confirmDialog.accessLevelToRemove) {
+      setAccessLevels(prev => prev.filter(level => level.id !== confirmDialog.accessLevelToRemove.id));
+    }
+    setConfirmDialog({
+      open: false,
+      accessLevelToRemove: null,
+      isLoading: false,
+    });
+  };
 
   return (
     <div className="space-y-6 animate-fade-in">
@@ -45,15 +83,25 @@ export default function SecurityManagement() {
         <div className="space-y-2">
           {accessLevels.map(level => (
             <Card key={level.id}>
-              <CardContent className="pt-4">
+              <CardContent className="pt-4 pb-4">
                 <div className="flex items-center justify-between">
-                  <div>
+                  <div className="flex-1">
                     <p className="font-semibold">{level.name}</p>
                     <p className="text-sm text-muted-foreground">{level.zones}</p>
                   </div>
-                  <div className="text-right">
-                    <Badge variant="outline">{level.access}</Badge>
-                    <p className="text-xs text-muted-foreground mt-1">{level.status}</p>
+                  <div className="flex items-center gap-4">
+                    <div className="text-right">
+                      <Badge variant="outline">{level.access}</Badge>
+                      <p className="text-xs text-muted-foreground mt-1">{level.status}</p>
+                    </div>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                      onClick={() => handleRemoveAccess(level)}
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </Button>
                   </div>
                 </div>
               </CardContent>
@@ -81,6 +129,18 @@ export default function SecurityManagement() {
           <Button className="w-full mt-2">Manage Verifications</Button>
         </CardContent>
       </Card>
+
+      <ConfirmDialog
+        open={confirmDialog.open}
+        title="Remove Access Level"
+        description={`Are you sure you want to remove access for "${confirmDialog.accessLevelToRemove?.name}"? This will immediately revoke their system access.`}
+        actionLabel="Remove Access"
+        cancelLabel="Cancel"
+        isDangerous={true}
+        isLoading={confirmDialog.isLoading}
+        onConfirm={handleConfirmRemove}
+        onCancel={() => setConfirmDialog({ open: false, accessLevelToRemove: null, isLoading: false })}
+      />
     </div>
   );
 }

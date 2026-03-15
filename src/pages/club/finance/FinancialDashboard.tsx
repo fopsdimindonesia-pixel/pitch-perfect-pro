@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Bar, BarChart, Legend, ResponsiveContainer } from "recharts";
+import { StatusBadge } from "@/components/shared/StatusBadge";
 
 export default function FinancialDashboard() {
   const monthlyData = [
