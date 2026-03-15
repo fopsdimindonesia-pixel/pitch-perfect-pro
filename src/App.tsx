@@ -8,12 +8,14 @@ import { AppShell } from "@/components/layout/AppShell";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 
 // Owner pages
-import OwnerOverview from "./pages/owner/OwnerOverview";
-import EOManagement from "./pages/owner/EOManagement";
-import ClubManagement from "./pages/owner/ClubManagement";
-import OwnerFinancial from "./pages/owner/OwnerFinancial";
-import AuditLog from "./pages/owner/AuditLog";
-import SystemConfig from "./pages/owner/SystemConfig";
+import {
+  OwnerOverview,
+  EOManagement,
+  ClubManagement_owner as ClubManagement,
+  OwnerFinancial,
+  AuditLog,
+  SystemConfig
+} from "./modules/owner";
 
 // EO pages
 import EOOverview from "./pages/eo/EOOverview";
@@ -40,7 +42,7 @@ import MatchArchive from "./pages/match/archive/MatchArchive";
 import CompetitionOverview from "./pages/competition/CompetitionOverview";
 import CompetitionSetup from "./pages/competition/CompetitionSetup";
 import CompetitionDetails from "./pages/competition/CompetitionDetails";
-import UserManagement from "./pages/competition/UserManagement";
+import CompetitionUserManagement from "./pages/competition/UserManagement";
 import CompetitionRules from "./pages/competition/CompetitionRules";
 import ParticipantRegistration from "./pages/competition/ParticipantRegistration";
 import WaiverManagement from "./pages/competition/WaiverManagement";
@@ -75,57 +77,58 @@ import MedicalStaff from "./pages/club/staff/MedicalStaff";
 // Club Analytics pages
 import PlayerStatistics from "./pages/club/analytics/PlayerStatistics";
 
-// Admin pages - Dashboard & Analytics
-import PlatformDashboard from "./pages/admin/PlatformDashboard";
-import GlobalAnalytics from "./pages/admin/GlobalAnalytics";
-import RevenueAnalytics from "./pages/admin/RevenueAnalytics";
+// Admin pages - imported from new modular structure
+import {
+  OwnerDashboard,
+  GlobalAnalytics,
+  RevenueAnalytics,
+  SystemMonitoring,
+  UserManagement,
+  OrganizationMonitoring,
+  CompetitionMonitoring,
+  PlayerMonitoring,
+  MatchMonitoring,
+  PerformanceMonitoring,
+  ServiceMonitoring,
+  APIMonitoring,
+  SubscriptionManagement,
+  BillingManagement,
+  PlatformFeeSettings,
+  PaymentReconciliation,
+  PlatformConfiguration,
+  SystemSettings,
+  LocalizationSettings,
+  BrandingConfiguration,
+  MaintenanceMode,
+  LogManagement,
+  SystemBackup,
+  SystemRestore,
+  DataExport,
+  DataImport,
+  FeatureFlags,
+  ErrorTracking,
+  AccessLogs,
+  SecurityAudit,
+  SecurityAlerts,
+  ComplianceReports,
+  APIKeyManagement,
+  APIUsageAnalytics,
+  WebhookManagement,
+  IntegrationSettings
+} from "./modules/owner";
 
-// Admin pages - Monitoring
-import SystemMonitoring from "./pages/admin/SystemMonitoring";
-import UserMonitoring from "./pages/admin/UserMonitoring";
-import OrganizationMonitoring from "./pages/admin/OrganizationMonitoring";
-import EventOrganizerManagement from "./pages/admin/EventOrganizerManagement";
-import CompetitionMonitoring from "./pages/admin/CompetitionMonitoring";
-import PlayerMonitoring from "./pages/admin/PlayerMonitoring";
-import MatchMonitoring from "./pages/admin/MatchMonitoring";
-import PerformanceMonitoring from "./pages/admin/PerformanceMonitoring";
-import ServiceMonitoring from "./pages/admin/ServiceMonitoring";
-import APIMonitoring from "./pages/admin/APIMonitoring";
-
-// Admin pages - Platform Management
-import SubscriptionManagement from "./pages/admin/SubscriptionManagement";
-import PlatformBilling from "./pages/admin/PlatformBilling";
-import PlatformFeeSettings from "./pages/admin/PlatformFeeSettings";
-import PaymentReconciliation from "./pages/admin/PaymentReconciliation";
-
-// Admin pages - Configuration
-import PlatformConfiguration from "./pages/admin/PlatformConfiguration";
-import GlobalSettings from "./pages/admin/GlobalSettings";
-import LocalizationSettings from "./pages/admin/LocalizationSettings";
-import BrandingConfiguration from "./pages/admin/BrandingConfiguration";
-import MaintenanceMode from "./pages/admin/MaintenanceMode";
-
-// Admin pages - System Management
-import SystemLogs from "./pages/admin/SystemLogs";
-import SystemBackup from "./pages/admin/SystemBackup";
-import SystemRestore from "./pages/admin/SystemRestore";
-import DataExport from "./pages/admin/DataExport";
-import DataImport from "./pages/admin/DataImport";
-import FeatureFlagManagement from "./pages/admin/FeatureFlagManagement";
-
-// Admin pages - Security & Compliance
-import ErrorTracking from "./pages/admin/ErrorTracking";
-import AccessLogs from "./pages/admin/AccessLogs";
-import AdminActivityLog from "./pages/admin/AdminActivityLog";
-import SecurityAlerts from "./pages/admin/SecurityAlerts";
-import ComplianceDashboard from "./pages/admin/ComplianceDashboard";
-import AuditReports from "./pages/admin/AuditReports";
-
-// Admin pages - Developer Tools
-import APIKeyManagement from "./pages/admin/APIKeyManagement";
-import APIUsageAnalytics from "./pages/admin/APIUsageAnalytics";
-import WebhookManagement from "./pages/admin/WebhookManagement";
-import IntegrationSettings from "./pages/admin/IntegrationSettings";
+// Aliases for backward compatibility with old names
+const PlatformDashboard = OwnerDashboard;
+const AdminUserManagement = UserManagement;
+const UserMonitoring = AdminUserManagement;
+const EventOrganizerManagement = EOManagement;
+const FeatureFlagManagement = FeatureFlags;
+const GlobalSettings = SystemSettings;
+const SystemLogs = LogManagement;
+const PlatformBilling = BillingManagement;
+const AdminActivityLog = SecurityAudit;
+const ComplianceDashboard = ComplianceReports;
+const AuditReports = SecurityAudit;
 
 import NotFound from "./pages/NotFound";
 
@@ -172,7 +175,7 @@ const App = () => (
               <Route path="/competition/overview" element={<CompetitionOverview />} />
               <Route path="/competition/setup" element={<CompetitionSetup />} />
               <Route path="/competition/details" element={<CompetitionDetails />} />
-              <Route path="/competition/users" element={<UserManagement />} />
+              <Route path="/competition/users" element={<CompetitionUserManagement />} />
               <Route path="/competition/rules" element={<CompetitionRules />} />
               <Route path="/competition/registration" element={<ParticipantRegistration />} />
               <Route path="/competition/waivers" element={<WaiverManagement />} />
