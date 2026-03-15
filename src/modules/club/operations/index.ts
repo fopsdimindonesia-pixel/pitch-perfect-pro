@@ -5,3 +5,4 @@ export { default as GuestManagement } from './GuestManagement';
 export { default as InventoryManagement } from './InventoryManagement';
 export { default as SecurityManagement } from './SecurityManagement';
 export { default as MatchDay } from './MatchDay';
+export { default as LineupManagement } from './LineupManagement';

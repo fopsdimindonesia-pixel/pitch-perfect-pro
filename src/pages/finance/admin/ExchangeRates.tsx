@@ -139,7 +139,7 @@ export default function ExchangeRates() {
           <CardContent className="space-y-2 text-sm">
             <div className="p-2 bg-blue-50 rounded">
               <p className="font-medium">Volatility Alert</p>
-              <p className="text-xs text-muted-foreground">Trigger if change > 1%</p>
+              <p className="text-xs text-muted-foreground">Trigger if change &gt; 1%</p>
             </div>
             <div className="p-2 bg-green-50 rounded">
               <p className="font-medium">Status</p>

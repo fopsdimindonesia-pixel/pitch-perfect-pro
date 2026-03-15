@@ -1,7 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import {
   validateCompetitionForm,
-  validatePlayerRegistration,
 } from './validation';
 
 describe('Validation Functions', () => {
@@ -12,6 +11,7 @@ describe('Validation Functions', () => {
         format: 'league',
         ageGroup: 'U17',
         registrationFee: '100000',
+        startDate: '2026-04-01',
       });
 
       expect(result.isValid).toBe(false);
@@ -24,6 +24,7 @@ describe('Validation Functions', () => {
         format: 'league',
         ageGroup: 'U17',
         registrationFee: '100000',
+        startDate: '2026-04-01',
       });
 
       expect(result.isValid).toBe(false);
@@ -36,6 +37,7 @@ describe('Validation Functions', () => {
         format: '',
         ageGroup: 'U17',
         registrationFee: '100000',
+        startDate: '2026-04-01',
       });
 
       expect(result.isValid).toBe(false);
@@ -48,6 +50,7 @@ describe('Validation Functions', () => {
         format: 'league',
         ageGroup: '',
         registrationFee: '100000',
+        startDate: '2026-04-01',
       });
 
       expect(result.isValid).toBe(false);
@@ -60,6 +63,7 @@ describe('Validation Functions', () => {
         format: 'league',
         ageGroup: 'U17',
         registrationFee: '',
+        startDate: '2026-04-01',
       });
 
       expect(result.isValid).toBe(false);

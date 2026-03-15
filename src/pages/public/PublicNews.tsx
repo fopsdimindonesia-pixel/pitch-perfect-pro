@@ -34,7 +34,7 @@ export default function PublicNews() {
                     <h3 className="font-semibold text-lg">{item.title}</h3>
                     <p className="text-sm text-muted-foreground mt-1">{item.date}</p>
                   </div>
-                  {item.featured && <StatusBadge status="approved" label="Featured" />}
+                  {item.featured && <Badge className="bg-gold text-white">Featured</Badge>}
                 </div>
                 <Badge variant="outline">{item.category}</Badge>
                 <Button variant="outline" size="sm">Read More</Button>

@@ -7,13 +7,13 @@ export interface ApiResponse<T> {
   success: boolean;
   data?: T;
   error?: string;
-  statusCode: number;
+  readonly statusCode: number;
 }
 
-export interface ApiError {
+export interface ApiErrorInterface {
   message: string;
-  statusCode: number;
-  details?: unknown;
+  readonly statusCode: number;
+  readonly details?: unknown;
 }
 
 class ApiClient {

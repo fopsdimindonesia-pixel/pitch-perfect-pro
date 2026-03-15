@@ -141,6 +141,7 @@ import {
   InventoryManagement,
   SecurityManagement,
   MatchDay,
+  LineupManagement,
   
   // Fan
   FanEngagement,
@@ -326,7 +327,8 @@ const clubRoutes = [
   { path: "/club/players", element: <Players /> },
   { path: "/club/ecard", element: <ECard /> },
   { path: "/club/roster", element: <Roster /> },
-  { path: "/club/match-day", element: <MatchDay /> },
+  { path: "/club/match-day", element: <LineupManagement /> },
+  { path: "/club/lineup", element: <LineupManagement /> },
   { path: "/club/match-history", element: <MatchHistory /> },
   { path: "/club/financial", element: <ClubFinancial /> },
   { path: "/club/training/schedule", element: <TrainingSchedule /> },

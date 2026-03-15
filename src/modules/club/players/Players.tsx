@@ -13,6 +13,8 @@ import { focusVisibleClass } from "@/lib/accessibility";
 import {
   DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { AddPlayerModal, EditPlayerModal } from "./modals";
+import type { PlayerFormData } from "./PlayerManagement";
 
 const ITEMS_PER_PAGE = 10;
 
@@ -21,6 +23,9 @@ export default function Players() {
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [addModalOpen, setAddModalOpen] = useState(false);
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [editingPlayer, setEditingPlayer] = useState<(typeof mockPlayers)[0] | null>(null);
 
   const handleRefresh = () => {
     setIsLoading(true);
@@ -54,7 +59,7 @@ export default function Players() {
         </div>
         <div className="flex gap-2">
           <Button size="sm" className={cn("gap-2", focusVisibleClass)} onClick={handleRefresh} disabled={isLoading} aria-label="Refresh player list"><RefreshCw className={cn("w-4 h-4", isLoading && "animate-spin")} /></Button>
-          <Button size="sm" className={cn("gap-2", focusVisibleClass)} aria-label="Add new player"><Plus className="w-4 h-4" />Tambah Pemain</Button>
+          <Button size="sm" className={cn("gap-2", focusVisibleClass)} onClick={() => setAddModalOpen(true)} aria-label="Add new player"><Plus className="w-4 h-4" />Tambah Pemain</Button>
         </div>
       </div>
 
@@ -83,7 +88,18 @@ export default function Players() {
             </TableHeader>
             <TableBody>
               {paged.map((p) => (
-                <TableRow key={p.id} className="hover:bg-accent/30">
+                <TableRow 
+                  key={p.id} 
+                  className="hover:bg-accent/30 cursor-pointer transition-colors"
+                  onClick={() => navigate(`/club/players/${p.id}`)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      navigate(`/club/players/${p.id}`);
+                    }
+                  }}
+                >
                   <TableCell className="text-center text-xs font-bold tabular-nums text-muted-foreground">{p.number}</TableCell>
                   <TableCell>
                     <div className="flex items-center gap-3">
@@ -104,7 +120,7 @@ export default function Players() {
                   <TableCell className="text-center text-sm tabular-nums">{p.age}</TableCell>
                   <TableCell className="text-xs text-muted-foreground">{p.dob}</TableCell>
                   <TableCell><PlayerEligibilityBadge status={p.eligibility} /></TableCell>
-                  <TableCell>
+                  <TableCell onClick={(e) => e.stopPropagation()}>
                     <div className="flex items-center justify-center gap-1">
                       <Button variant="ghost" size="icon" className={cn("w-7 h-7", focusVisibleClass)} onClick={() => navigate("/club/ecard")} aria-label={`View e-card for ${p.name}`}>
                         <QrCode className="w-3.5 h-3.5 text-muted-foreground" />
@@ -114,9 +130,22 @@ export default function Players() {
                           <Button variant="ghost" size="icon" className={cn("w-7 h-7", focusVisibleClass)} aria-label={`Actions for ${p.name}`}><MoreHorizontal className="w-3.5 h-3.5" /></Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end" className="w-36">
-                          <DropdownMenuItem className="text-sm">Edit</DropdownMenuItem>
-                          <DropdownMenuItem className="text-sm">Detail</DropdownMenuItem>
-                          <DropdownMenuItem className="text-sm text-destructive">Hapus</DropdownMenuItem>
+                          <DropdownMenuItem 
+                            className="text-sm cursor-pointer"
+                            onClick={() => {
+                              setEditingPlayer(p);
+                              setEditModalOpen(true);
+                            }}
+                          >
+                            Edit
+                          </DropdownMenuItem>
+                          <DropdownMenuItem 
+                            className="text-sm cursor-pointer"
+                            onClick={() => navigate(`/club/players/${p.id}`)}
+                          >
+                            Detail
+                          </DropdownMenuItem>
+                          <DropdownMenuItem className="text-sm text-destructive cursor-pointer">Hapus</DropdownMenuItem>
                         </DropdownMenuContent>
                       </DropdownMenu>
                     </div>
@@ -140,6 +169,49 @@ export default function Players() {
           )}
         </CardContent>
       </Card>
+
+      {/* Add Player Modal */}
+      <AddPlayerModal
+        open={addModalOpen}
+        onOpenChange={setAddModalOpen}
+        onSuccess={() => {
+          setAddModalOpen(false);
+          handleRefresh();
+        }}
+      />
+
+      {/* Edit Player Modal */}
+      {editingPlayer && (
+        <EditPlayerModal
+          open={editModalOpen}
+          onOpenChange={(open) => {
+            setEditModalOpen(open);
+            if (!open) setEditingPlayer(null);
+          }}
+          playerData={{
+            id: editingPlayer.id,
+            firstName: editingPlayer.name.split(" ")[0],
+            lastName: editingPlayer.name.split(" ").slice(1).join(" "),
+            dateOfBirth: editingPlayer.dob || "",
+            nationality: editingPlayer.nationality || "Indonesia",
+            idNumber: editingPlayer.idNumber || "",
+            position: editingPlayer.position,
+            jerNumber: editingPlayer.number.toString(),
+            height: editingPlayer.height?.toString() || "",
+            weight: editingPlayer.weight?.toString() || "",
+            foot: "Right",
+            joinDate: "",
+            contractExpiry: "",
+            currentStatus: "Active",
+            medicalApproval: editingPlayer.eligibility === "Eligible",
+          }}
+          onSuccess={() => {
+            setEditModalOpen(false);
+            setEditingPlayer(null);
+            handleRefresh();
+          }}
+        />
+      )}
     </div>
   );
 }
