@@ -9,9 +9,9 @@ export default function PayrollManagement() {
   ];
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-6 animate-fade-in" role="main" aria-label="Payroll management">
       <div>
-        <h1 className="text-3xl font-bold">Payroll Management</h1>
+        <h1 id="page-title" className="text-3xl font-bold">Payroll Management</h1>
         <p className="text-muted-foreground mt-1">Staff salary and compensation</p>
       </div>
 

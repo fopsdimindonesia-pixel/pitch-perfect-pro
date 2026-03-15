@@ -14,13 +14,14 @@ const transactions = [
 
 export default function TransactionMonitoring() {
   return (
-    <main role="main" className="space-y-6 p-6">
-      <section>
-        <h1 className="text-3xl font-bold tracking-tight">Transaction Monitoring</h1>
+    <main role="main" aria-label="Transaction monitoring">
+      <section aria-labelledby="page-title">
+        <h1 id="page-title" className="text-3xl font-bold tracking-tight">Transaction Monitoring</h1>
         <p className="text-muted-foreground mt-1">Monitor all financial transactions in real-time</p>
       </section>
 
-      <section aria-label="Transaction metrics" className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+      <section aria-labelledby="metrics-title" className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+        <h2 id="metrics-title" className="sr-only">Transaction Metrics</h2>
         <Card>
           <CardContent className="pt-4">
             <p className="text-xs text-muted-foreground">Transactions Today</p>

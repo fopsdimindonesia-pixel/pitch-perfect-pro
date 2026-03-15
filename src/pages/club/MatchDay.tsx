@@ -23,7 +23,7 @@ export default function MatchDay() {
   };
 
   return (
-    <div className="space-y-6 animate-fade-in max-w-2xl mx-auto">
+    <div className="space-y-6 animate-fade-in max-w-2xl mx-auto" role="main" aria-label="Match day information">
       {/* Match header */}
       <Card className="match-card-scheduled overflow-hidden">
         <div className="bg-navy text-navy-foreground p-4" role="region" aria-label="Match information">

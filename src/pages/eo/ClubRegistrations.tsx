@@ -58,9 +58,9 @@ export default function ClubRegistrations() {
   const rest = regs.filter((r) => r.status !== "Pending");
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-6 animate-fade-in" role="main" aria-label="Club registration management">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight">Club Registration</h1>
+        <h1 id="page-title" className="text-2xl font-bold tracking-tight">Club Registration</h1>
         <p className="text-muted-foreground text-sm mt-1">Approve atau reject pendaftaran klub ke kompetisi.</p>
       </div>
 

@@ -21,10 +21,10 @@ export default function PlayerContract() {
   const monthsRemaining = Math.floor((daysRemaining % 365) / 30);
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-6 animate-fade-in" role="main" aria-label="Player contracts">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold">Player Contract</h1>
+          <h1 id="page-title" className="text-3xl font-bold">Player Contract</h1>
           <p className="text-muted-foreground mt-1">{player.name} • Contract management</p>
         </div>
         <div className="flex gap-2">

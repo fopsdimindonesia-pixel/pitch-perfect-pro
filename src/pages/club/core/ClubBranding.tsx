@@ -9,10 +9,10 @@ export default function ClubBranding() {
   const [isEditing, setIsEditing] = useState(false);
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-6 animate-fade-in" role="main" aria-label="Club branding">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold">Club Branding</h1>
+          <h1 id="page-title" className="text-3xl font-bold">Club Branding</h1>
           <p className="text-muted-foreground mt-1">Manage your club's visual identity</p>
         </div>
         <Button

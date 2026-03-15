@@ -25,9 +25,9 @@ export default function AcademyRegistration() {
   };
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-6 animate-fade-in" role="main" aria-label="Academy registration">
       <div>
-        <h1 className="text-3xl font-bold">Academy Registration</h1>
+        <h1 id="page-title" className="text-3xl font-bold">Academy Registration</h1>
         <p className="text-muted-foreground mt-1">Register youth players</p>
       </div>
 

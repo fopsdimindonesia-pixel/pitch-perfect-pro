@@ -22,9 +22,9 @@ export default function OwnerFinancial() {
   const growth = Math.round(((thisMonth - lastMonth) / lastMonth) * 100);
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-6 animate-fade-in" role="main" aria-label="Platform financial overview">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight">Financial</h1>
+        <h1 id="page-title" className="text-2xl font-bold tracking-tight">Financial</h1>
         <p className="text-muted-foreground text-sm mt-1">Revenue platform dari subscription dan registration fee.</p>
       </div>
 

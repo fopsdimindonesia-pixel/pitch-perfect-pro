@@ -22,9 +22,9 @@ const platformSettings = [
 
 export default function SystemConfig() {
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-6 animate-fade-in" role="main" aria-label="System configuration and access control">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight">Config & RBAC</h1>
+        <h1 id="page-title" className="text-2xl font-bold tracking-tight">Config & RBAC</h1>
         <p className="text-muted-foreground text-sm mt-1">Konfigurasi platform dan manajemen role akses.</p>
       </div>
 

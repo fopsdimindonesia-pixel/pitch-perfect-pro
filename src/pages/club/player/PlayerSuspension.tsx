@@ -24,9 +24,9 @@ export default function PlayerSuspension() {
   const allDisciplineRecords = mockPlayerData.disciplineRecords.filter(d => d.playerId === player.id);
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-6 animate-fade-in" role="main" aria-label="Player suspensions">
       <div>
-        <h1 className="text-3xl font-bold">Suspension Records</h1>
+        <h1 id="page-title" className="text-3xl font-bold">Suspension Records</h1>
         <p className="text-muted-foreground mt-1">{player.name} • Suspension and discipline history</p>
       </div>
 

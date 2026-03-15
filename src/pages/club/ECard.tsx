@@ -12,10 +12,10 @@ export default function ECard() {
   const player = mockPlayers.find((p) => p.id === selectedId) || mockPlayers[0];
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-6 animate-fade-in" role="main" aria-label="Digital player cards">
       <div className="flex items-center justify-between gap-4 flex-wrap">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">E-Card Pemain (QR)</h1>
+          <h1 id="page-title" className="text-2xl font-bold tracking-tight">E-Card Pemain (QR)</h1>
           <p className="text-muted-foreground text-sm mt-1">Cetak kartu digital pemain dengan QR code verifikasi.</p>
         </div>
         <div className="flex gap-2">

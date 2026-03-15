@@ -9,9 +9,9 @@ export default function InjuryTrends() {
   ];
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-6 animate-fade-in" role="main" aria-label="Injury trends analysis">
       <div>
-        <h1 className="text-3xl font-bold">Injury Trends</h1>
+        <h1 id="page-title" className="text-3xl font-bold">Injury Trends</h1>
         <p className="text-muted-foreground mt-1">Health and injury analysis</p>
       </div>
 

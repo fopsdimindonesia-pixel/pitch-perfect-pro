@@ -7,9 +7,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 
 export default function InvoiceGenerator() {
   return (
-    <main role="main" className="space-y-6 p-6">
-      <section>
-        <h1 className="text-3xl font-bold tracking-tight">Invoice Generator</h1>
+    <main role="main" aria-label="Invoice generation">
+      <section aria-labelledby="page-title">
+        <h1 id="page-title" className="text-3xl font-bold tracking-tight">Invoice Generator</h1>
         <p className="text-muted-foreground mt-1">Create and manage invoices for payments and fees</p>
       </section>
 

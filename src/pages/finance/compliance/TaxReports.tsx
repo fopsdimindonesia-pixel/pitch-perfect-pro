@@ -13,13 +13,14 @@ const taxReports = [
 
 export default function TaxReports() {
   return (
-    <main role="main" className="space-y-6 p-6">
-      <section>
-        <h1 className="text-3xl font-bold tracking-tight">Tax Reports</h1>
+    <main role="main" aria-label="Tax compliance reports">
+      <section aria-labelledby="page-title">
+        <h1 id="page-title" className="text-3xl font-bold tracking-tight">Tax Reports</h1>
         <p className="text-muted-foreground mt-1">Generate and manage tax compliance reports</p>
       </section>
 
-      <section aria-label="Tax metrics" className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+      <section aria-labelledby="metrics-title" className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+        <h2 id="metrics-title" className="sr-only">Tax Metrics</h2>
         <Card>
           <CardContent className="pt-4">
             <p className="text-xs text-muted-foreground">YTD Tax Amount</p>

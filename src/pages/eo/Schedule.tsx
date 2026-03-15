@@ -19,10 +19,10 @@ export default function Schedule() {
   const [weekOffset, setWeekOffset] = useState(0);
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-6 animate-fade-in" role="main" aria-label="Match schedule">
       <div className="flex items-center justify-between gap-4 flex-wrap">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Jadwal Pertandingan</h1>
+          <h1 id="page-title" className="text-2xl font-bold tracking-tight">Jadwal Pertandingan</h1>
           <p className="text-muted-foreground text-sm mt-1">Kelola jadwal pertandingan semua kompetisi.</p>
         </div>
         <div className="flex items-center gap-2">

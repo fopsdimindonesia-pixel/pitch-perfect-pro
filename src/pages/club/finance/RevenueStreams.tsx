@@ -10,9 +10,9 @@ export default function RevenueStreams() {
   ];
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-6 animate-fade-in" role="main" aria-label="Revenue streams">
       <div>
-        <h1 className="text-3xl font-bold">Revenue Streams</h1>
+        <h1 id="page-title" className="text-3xl font-bold">Revenue Streams</h1>
         <p className="text-muted-foreground mt-1">Income sources breakdown</p>
       </div>
 

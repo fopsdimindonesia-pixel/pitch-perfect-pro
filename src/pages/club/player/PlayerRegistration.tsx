@@ -63,10 +63,10 @@ export default function PlayerRegistration() {
   };
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-6 animate-fade-in" role="main" aria-label="Player registration">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold">Player Registration</h1>
+          <h1 id="page-title" className="text-3xl font-bold">Player Registration</h1>
           <p className="text-muted-foreground mt-1">Register a new player to the club</p>
         </div>
       </div>

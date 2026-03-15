@@ -12,10 +12,10 @@ export default function Reports() {
   const totalCards = 8;
 
   return (
-    <div className="space-y-6 animate-fade-in">
-      <div className="flex items-center justify-between gap-4 flex-wrap">
+    <div className="space-y-6 animate-fade-in" role="main" aria-label="Competition reports">
+      <div className="flex items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Laporan</h1>
+          <h1 id="page-title" className="text-2xl font-bold tracking-tight">Reports</h1>
           <p className="text-muted-foreground text-sm mt-1">Statistik dan laporan kompetisi.</p>
         </div>
         <Button variant="outline" size="sm" className="gap-2">

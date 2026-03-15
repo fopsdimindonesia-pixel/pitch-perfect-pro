@@ -12,9 +12,9 @@ export default function EOOverview() {
   const todayMatches = mockMatches.filter((m) => m.status === "Live" || m.status === "Scheduled").length;
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-6 animate-fade-in" role="main" aria-label="Event organizer overview">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight">EO Overview</h1>
+        <h1 id="page-title" className="text-2xl font-bold tracking-tight">EO Overview</h1>
         <p className="text-muted-foreground text-sm mt-1">Dashboard Event Organizer — PSSI Makassar</p>
       </div>
 

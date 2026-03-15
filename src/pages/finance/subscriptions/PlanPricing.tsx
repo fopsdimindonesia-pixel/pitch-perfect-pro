@@ -12,13 +12,14 @@ const pricingTiers = [
 
 export default function PlanPricing() {
   return (
-    <main role="main" className="space-y-6 p-6">
-      <section>
-        <h1 className="text-3xl font-bold tracking-tight">Pricing Management</h1>
+    <main role="main" aria-label="Pricing management">
+      <section aria-labelledby="page-title">
+        <h1 id="page-title" className="text-3xl font-bold tracking-tight">Pricing Management</h1>
         <p className="text-muted-foreground mt-1">Configure price tiers and billing options for all plans</p>
       </section>
 
-      <section aria-label="Pricing metrics" className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+      <section aria-labelledby="metrics-title" className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+        <h2 id="metrics-title" className="sr-only">Pricing Metrics</h2>
         <Card>
           <CardContent className="pt-4">
             <p className="text-xs text-muted-foreground">Price Tiers</p>

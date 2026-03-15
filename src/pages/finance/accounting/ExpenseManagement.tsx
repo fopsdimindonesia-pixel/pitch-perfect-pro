@@ -13,13 +13,14 @@ const expenses = [
 
 export default function ExpenseManagement() {
   return (
-    <main role="main" className="space-y-6 p-6">
-      <section>
-        <h1 className="text-3xl font-bold tracking-tight">Expense Management</h1>
+    <main role="main" aria-label="Expense management">
+      <section aria-labelledby="page-title">
+        <h1 id="page-title" className="text-3xl font-bold tracking-tight">Expense Management</h1>
         <p className="text-muted-foreground mt-1">Track and manage operational expenses</p>
       </section>
 
-      <section aria-label="Expense metrics" className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+      <section aria-labelledby="metrics-title" className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+        <h2 id="metrics-title" className="sr-only">Expense Metrics</h2>
         <Card>
           <CardContent className="pt-4">
             <p className="text-xs text-muted-foreground">Total Expenses</p>

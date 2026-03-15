@@ -23,13 +23,14 @@ const monthlyIncomeData = [
 
 export default function FinancialReports() {
   return (
-    <main role="main" className="space-y-6 p-6">
-      <section>
-        <h1 className="text-3xl font-bold tracking-tight">Financial Reports</h1>
+    <main role="main" aria-label="Financial reports and analysis">
+      <section aria-labelledby="page-title">
+        <h1 id="page-title" className="text-3xl font-bold tracking-tight">Financial Reports</h1>
         <p className="text-muted-foreground mt-1">Revenue growth, payment methods, and income analysis</p>
       </section>
 
-      <section aria-label="Financial summary" className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+      <section aria-labelledby="metrics-title" className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+        <h2 id="metrics-title" className="sr-only">Financial Summary</h2>
         <Card>
           <CardContent className="pt-4">
             <p className="text-xs text-muted-foreground">Total Revenue (4 months)</p>

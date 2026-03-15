@@ -69,9 +69,9 @@ export default function CreateCompetition() {
   ][step];
 
   return (
-    <div className="space-y-6 animate-fade-in max-w-2xl">
+    <div className="space-y-6 animate-fade-in max-w-2xl" role="main" aria-label="Create competition form">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight">Buat Kompetisi</h1>
+        <h1 id="page-title" className="text-2xl font-bold tracking-tight">Buat Kompetisi</h1>
         <p className="text-muted-foreground text-sm mt-1">Langkah demi langkah membuat kompetisi baru.</p>
       </div>
 

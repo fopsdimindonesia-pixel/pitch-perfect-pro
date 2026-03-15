@@ -14,13 +14,14 @@ const paymentStatusData = [
 
 export default function PaymentStatus() {
   return (
-    <main role="main" className="space-y-6 p-6">
-      <section>
-        <h1 className="text-3xl font-bold tracking-tight">Payment Status Overview</h1>
+    <main role="main" aria-label="Payment status overview">
+      <section aria-labelledby="page-title">
+        <h1 id="page-title" className="text-3xl font-bold tracking-tight">Payment Status Overview</h1>
         <p className="text-muted-foreground mt-1">Real-time payment status and analytics</p>
       </section>
 
-      <section aria-label="Payment status metrics" className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <section aria-labelledby="metrics-title" className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <h2 id="metrics-title" className="sr-only">Payment Status Metrics</h2>
         <Card className="border-green-200">
           <CardContent className="pt-6">
             <div className="flex items-center gap-3">

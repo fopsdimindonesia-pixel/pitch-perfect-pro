@@ -26,9 +26,9 @@ export default function PlayerHistory() {
   };
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-6 animate-fade-in" role="main" aria-label="Player history">
       <div>
-        <h1 className="text-3xl font-bold">Player Career History</h1>
+        <h1 id="page-title" className="text-3xl font-bold">Player History</h1>
         <p className="text-muted-foreground mt-1">{player.name} • Career timeline</p>
       </div>
 

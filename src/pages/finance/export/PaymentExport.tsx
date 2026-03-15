@@ -13,13 +13,14 @@ const payments = [
 
 export default function PaymentExport() {
   return (
-    <main role="main" className="space-y-6 p-6">
-      <section>
-        <h1 className="text-3xl font-bold tracking-tight">Payment Export</h1>
+    <main role="main" aria-label="Payment export">
+      <section aria-labelledby="page-title">
+        <h1 id="page-title" className="text-3xl font-bold tracking-tight">Payment Export</h1>
         <p className="text-muted-foreground mt-1">Export payment transaction records and reconciliation data</p>
       </section>
 
-      <section aria-label="Payment export metrics" className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+      <section aria-labelledby="metrics-title" className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+        <h2 id="metrics-title" className="sr-only">Payment Export Metrics</h2>
         <Card>
           <CardContent className="pt-4">
             <p className="text-xs text-muted-foreground">Total Transactions</p>

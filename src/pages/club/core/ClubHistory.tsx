@@ -6,9 +6,9 @@ export default function ClubHistory() {
   const { history, club } = mockClubData;
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-6 animate-fade-in" role="main" aria-label="Club history">
       <div>
-        <h1 className="text-3xl font-bold">Club History</h1>
+        <h1 id="page-title" className="text-3xl font-bold">Club History</h1>
         <p className="text-muted-foreground mt-1">{club.name} - Timeline of milestones</p>
       </div>
 

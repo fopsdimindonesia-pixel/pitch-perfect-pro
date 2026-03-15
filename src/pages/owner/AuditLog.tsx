@@ -34,10 +34,10 @@ export default function AuditLog() {
     new Date(ts).toLocaleString("id-ID", { dateStyle: "short", timeStyle: "short" });
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-6 animate-fade-in" role="main" aria-label="Audit log">
       <div className="flex items-center justify-between gap-4 flex-wrap">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Audit Log</h1>
+          <h1 id="page-title" className="text-2xl font-bold tracking-tight">Audit Log</h1>
           <p className="text-muted-foreground text-sm mt-1">Riwayat aktivitas seluruh pengguna platform.</p>
         </div>
         <div className="relative max-w-xs w-full">

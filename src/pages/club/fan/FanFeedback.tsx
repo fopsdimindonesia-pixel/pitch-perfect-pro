@@ -8,9 +8,9 @@ export default function FanFeedback() {
   ];
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-6 animate-fade-in" role="main" aria-label="Fan feedback">
       <div>
-        <h1 className="text-3xl font-bold">Fan Feedback</h1>
+        <h1 id="page-title" className="text-3xl font-bold">Fan Feedback</h1>
         <p className="text-muted-foreground mt-1">Recent customer reviews</p>
       </div>
 

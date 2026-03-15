@@ -32,10 +32,10 @@ export default function MatchHistory() {
   const losses = mockMatchHistory.filter((m) => m.result === "L").length;
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-6 animate-fade-in" role="main" aria-label="Match history and records">
       <div className="flex items-center justify-between gap-4 flex-wrap">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Riwayat Pertandingan</h1>
+          <h1 id="page-title" className="text-2xl font-bold tracking-tight">Riwayat Pertandingan</h1>
           <p className="text-muted-foreground text-sm mt-1">Seluruh pertandingan yang telah dimainkan.</p>
         </div>
         <Button size="sm" variant="outline" className={cn("gap-2", focusVisibleClass)} onClick={handleRefresh} disabled={isLoading} aria-label="Refresh match history">

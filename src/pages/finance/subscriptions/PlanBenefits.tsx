@@ -44,15 +44,15 @@ const plans = [
 
 export default function PlanBenefits() {
   return (
-    <main role="main" className="space-y-6 p-6">
-      <section>
-        <h1 className="text-3xl font-bold tracking-tight">Plan Benefits</h1>
+    <main role="main" aria-label="Subscription plan benefits">
+      <section aria-labelledby="page-title">
+        <h1 id="page-title" className="text-3xl font-bold tracking-tight">Plan Benefits</h1>
         <p className="text-muted-foreground mt-1">Configure features and benefits for each subscription tier</p>
       </section>
 
       <Card>
         <CardHeader>
-          <CardTitle id="benefits-comparison">Features Comparison</CardTitle>
+          <CardTitle id="benefits-title">Features Comparison</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="overflow-x-auto">

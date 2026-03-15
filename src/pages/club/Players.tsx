@@ -46,10 +46,10 @@ export default function Players() {
   };
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-6 animate-fade-in" role="main" aria-label="Club players directory">
       <div className="flex items-center justify-between gap-4 flex-wrap">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Daftar Pemain</h1>
+          <h1 id="page-title" className="text-2xl font-bold tracking-tight">Daftar Pemain</h1>
           <p className="text-muted-foreground text-sm mt-1" role="status" aria-live="polite">{filtered.length} pemain terdaftar di klub ini.</p>
         </div>
         <div className="flex gap-2">

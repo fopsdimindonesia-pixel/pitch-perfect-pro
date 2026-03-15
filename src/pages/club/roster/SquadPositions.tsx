@@ -10,9 +10,9 @@ export default function SquadPositions() {
   ];
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-6 animate-fade-in" role="main" aria-label="Squad positions">
       <div>
-        <h1 className="text-3xl font-bold">Squad Positions</h1>
+        <h1 id="page-title" className="text-3xl font-bold">Squad Positions</h1>
         <p className="text-muted-foreground mt-1">Formation and positioning</p>
       </div>
 

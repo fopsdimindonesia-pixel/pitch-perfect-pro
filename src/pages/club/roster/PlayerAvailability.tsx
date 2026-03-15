@@ -10,9 +10,9 @@ export default function PlayerAvailability() {
   ];
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-6 animate-fade-in" role="main" aria-label="Player availability">
       <div>
-        <h1 className="text-3xl font-bold">Player Availability</h1>
+        <h1 id="page-title" className="text-3xl font-bold">Player Availability</h1>
         <p className="text-muted-foreground mt-1">Current playing status</p>
       </div>
 

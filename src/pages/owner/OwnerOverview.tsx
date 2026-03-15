@@ -11,9 +11,9 @@ export default function OwnerOverview() {
     new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(v);
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-6 animate-fade-in" role="main" aria-label="Platform overview">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight">Platform Overview</h1>
+        <h1 id="page-title" className="text-2xl font-bold tracking-tight">Platform Overview</h1>
         <p className="text-muted-foreground text-sm mt-1">Monitoring seluruh ekosistem Football Platform.</p>
       </div>
 

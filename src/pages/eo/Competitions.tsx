@@ -26,10 +26,10 @@ export default function Competitions() {
   };
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-6 animate-fade-in" role="main" aria-label="Competition list">
       <div className="flex items-center justify-between gap-4 flex-wrap">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Kompetisi</h1>
+          <h1 id="page-title" className="text-2xl font-bold tracking-tight">Kompetisi</h1>
           <p className="text-muted-foreground text-sm mt-1">Kelola seluruh kompetisi yang Anda buat.</p>
         </div>
         <Button size="sm" className="gap-2" onClick={() => navigate("/eo/competitions/create")}>

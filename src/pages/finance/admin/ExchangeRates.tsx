@@ -13,13 +13,14 @@ const exchangeRates = [
 
 export default function ExchangeRates() {
   return (
-    <main role="main" className="space-y-6 p-6">
-      <section>
-        <h1 className="text-3xl font-bold tracking-tight">Exchange Rates</h1>
+    <main role="main" aria-label="Exchange rates management">
+      <section aria-labelledby="page-title">
+        <h1 id="page-title" className="text-3xl font-bold tracking-tight">Exchange Rates</h1>
         <p className="text-muted-foreground mt-1">Monitor and manage currency exchange rates</p>
       </section>
 
-      <section aria-label="Exchange rate metrics" className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+      <section aria-labelledby="metrics-title" className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+        <h2 id="metrics-title" className="sr-only">Exchange Rate Metrics</h2>
         <Card>
           <CardContent className="pt-4">
             <p className="text-xs text-muted-foreground">Rates Tracked</p>

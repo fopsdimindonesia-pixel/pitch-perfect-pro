@@ -5,13 +5,14 @@ import { Activity, Server, AlertCircle, CheckCircle } from 'lucide-react';
 
 export default function SystemHealth() {
   return (
-    <main role="main" className="space-y-6 p-6">
-      <section>
-        <h1 className="text-3xl font-bold tracking-tight">System Health</h1>
+    <main role="main" aria-label="Finance system health monitoring">
+      <section aria-labelledby="page-title">
+        <h1 id="page-title" className="text-3xl font-bold tracking-tight">System Health</h1>
         <p className="text-muted-foreground mt-1">Monitor finance system performance and infrastructure</p>
       </section>
 
-      <section aria-label="System health metrics" className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+      <section aria-labelledby="metrics-title" className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+        <h2 id="metrics-title" className="sr-only">System Health Metrics</h2>
         <Card>
           <CardContent className="pt-4">
             <p className="text-xs text-muted-foreground">System Status</p>

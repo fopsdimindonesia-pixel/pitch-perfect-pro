@@ -20,13 +20,14 @@ const revenueData = [
 
 export default function ClubSubscription() {
   return (
-    <main role="main" className="space-y-6 p-6">
-      <section>
-        <h1 className="text-3xl font-bold tracking-tight">Club Subscriptions</h1>
+    <main role="main" aria-label="Club subscriptions management">
+      <section aria-labelledby="page-title">
+        <h1 id="page-title" className="text-3xl font-bold tracking-tight">Club Subscriptions</h1>
         <p className="text-muted-foreground mt-1">Manage club subscription plans and billing</p>
       </section>
 
-      <section aria-label="Subscription metrics" className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+      <section aria-labelledby="metrics-title" className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+        <h2 id="metrics-title" className="sr-only">Subscription Metrics</h2>
         <Card>
           <CardContent className="pt-4">
             <p className="text-xs text-muted-foreground">Active Clubs</p>

@@ -25,10 +25,10 @@ export default function TeamManager() {
   ];
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-6 animate-fade-in" role="main" aria-label="Team manager">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold">Team Manager</h1>
+          <h1 id="page-title" className="text-3xl font-bold">Team Manager</h1>
           <p className="text-muted-foreground mt-1">Primary team coordinator and liaison</p>
         </div>
         <Button className="gap-2">

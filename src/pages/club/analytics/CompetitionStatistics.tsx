@@ -9,9 +9,9 @@ export default function CompetitionStatistics() {
   ];
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-6 animate-fade-in" role="main" aria-label="Competition statistics">
       <div>
-        <h1 className="text-3xl font-bold">Competition Statistics</h1>
+        <h1 id="page-title" className="text-3xl font-bold">Competition Statistics</h1>
         <p className="text-muted-foreground mt-1">Performance across competitions</p>
       </div>
 

@@ -48,13 +48,14 @@ const plans = [
 
 export default function SubscriptionPlans() {
   return (
-    <main role="main" className="space-y-6 p-6">
-      <section>
-        <h1 className="text-3xl font-bold tracking-tight">Subscription Plans</h1>
+    <main role="main" aria-label="Subscription plans management">
+      <section aria-labelledby="page-title">
+        <h1 id="page-title" className="text-3xl font-bold tracking-tight">Subscription Plans</h1>
         <p className="text-muted-foreground mt-1">Manage subscription tiers and plan configurations</p>
       </section>
 
-      <section aria-label="Plan metrics" className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+      <section aria-labelledby="metrics-title" className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+        <h2 id="metrics-title" className="sr-only">Plan Metrics</h2>
         <Card>
           <CardContent className="pt-4">
             <p className="text-xs text-muted-foreground">Active Plans</p>

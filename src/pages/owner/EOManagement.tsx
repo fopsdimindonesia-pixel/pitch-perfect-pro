@@ -24,10 +24,10 @@ export default function EOManagement() {
   const filtered = mockEOs.filter((eo) => eo.name.toLowerCase().includes(search.toLowerCase()));
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-6 animate-fade-in" role="main" aria-label="Event organizer management">
       <div className="flex items-center justify-between gap-4 flex-wrap">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">EO Management</h1>
+          <h1 id="page-title" className="text-2xl font-bold tracking-tight">EO Management</h1>
           <p className="text-muted-foreground text-sm mt-1">Kelola semua Event Organizer di platform.</p>
         </div>
         <Button size="sm" className="gap-2">

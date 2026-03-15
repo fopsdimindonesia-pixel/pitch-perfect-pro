@@ -29,10 +29,10 @@ export default function Roster() {
   const warnings = inRoster.filter((p) => p.eligibility !== "Verified");
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-6 animate-fade-in" role="main" aria-label="Club roster management">
       <div className="flex items-center justify-between gap-4 flex-wrap">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Roster Kompetisi</h1>
+          <h1 id="page-title" className="text-2xl font-bold tracking-tight">Roster Kompetisi</h1>
           <p className="text-muted-foreground text-sm mt-1">Kelola daftar pemain untuk setiap kompetisi.</p>
         </div>
         <Button size="sm" className="gap-2" onClick={() => toast({ title: "Roster Disimpan", description: `${inRoster.length} pemain didaftarkan.` })}>

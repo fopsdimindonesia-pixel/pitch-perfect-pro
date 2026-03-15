@@ -15,10 +15,10 @@ export default function ClubManagement() {
   const filtered = mockClubs.filter((c) => c.name.toLowerCase().includes(search.toLowerCase()));
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-6 animate-fade-in" role="main" aria-label="Club management">
       <div className="flex items-center justify-between gap-4 flex-wrap">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Club Management</h1>
+          <h1 id="page-title" className="text-2xl font-bold tracking-tight">Club Management</h1>
           <p className="text-muted-foreground text-sm mt-1">Kelola semua klub sepak bola di platform.</p>
         </div>
         <Button size="sm" className="gap-2"><Plus className="w-4 h-4" />Tambah Klub</Button>

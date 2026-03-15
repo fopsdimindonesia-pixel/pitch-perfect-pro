@@ -11,10 +11,10 @@ export default function ClubDashboard() {
   const { stats, recentMatches, upcomingMatches, activityTimeline } = mockClubData;
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-6 animate-fade-in" role="main" aria-label="Club dashboard">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold">Club Dashboard</h1>
+          <h1 id="page-title" className="text-3xl font-bold">Club Dashboard</h1>
           <p className="text-muted-foreground mt-1">SSB Garuda Muda - Complete overview</p>
         </div>
         <Button variant="outline" className="gap-2">
@@ -24,7 +24,8 @@ export default function ClubDashboard() {
       </div>
 
       {/* Statistics */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4" role="group" aria-labelledby="stats-title">
+        <h2 id="stats-title" className="sr-only">Club Statistics</h2>
         <StatCard title="Total Players" value={stats.totalPlayers} icon={Users} accent="primary" />
         <StatCard title="Staff" value={stats.totalStaff} icon={Trophy} accent="navy" />
         <StatCard title="Active Competitions" value={stats.activeCompetitions} icon={Calendar} accent="gold" />
@@ -33,8 +34,8 @@ export default function ClubDashboard() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Recent Matches */}
-        <div className="lg:col-span-2 space-y-3">
-          <h2 className="text-lg font-semibold">Recent Matches</h2>
+        <div className="lg:col-span-2 space-y-3" aria-labelledby="recent-matches-title">
+          <h2 id="recent-matches-title" className="text-lg font-semibold">Recent Matches</h2>
           {recentMatches.map((match) => (
             <Card key={match.id} className="hover:shadow-card-hover transition-all">
               <CardContent className="p-4 flex items-center justify-between">

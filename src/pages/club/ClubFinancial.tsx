@@ -32,10 +32,10 @@ export default function ClubFinancial() {
   }
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-6 animate-fade-in" role="main" aria-label="Club financial management">
       <div className="flex items-center justify-between gap-4 flex-wrap">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Financial Klub</h1>
+          <h1 id="page-title" className="text-2xl font-bold tracking-tight">Financial Klub</h1>
           <p className="text-muted-foreground text-sm mt-1">Status iuran bulanan pemain.</p>
         </div>
         <Button size="sm" variant="outline" className={cn("gap-2", focusVisibleClass)} onClick={handleRefresh} disabled={isLoading} aria-label="Refresh financial data">

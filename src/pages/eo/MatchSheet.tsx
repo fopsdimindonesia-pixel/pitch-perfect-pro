@@ -31,9 +31,9 @@ export default function MatchSheet() {
   };
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-6 animate-fade-in" role="main" aria-label="Match score sheet">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight">Match Sheet</h1>
+        <h1 id="page-title" className="text-2xl font-bold tracking-tight">Match Sheet</h1>
         <p className="text-muted-foreground text-sm mt-1">Input skor, verifikasi pemain, dan catat event pertandingan.</p>
       </div>
 
