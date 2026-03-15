@@ -201,9 +201,9 @@ export const mockMatchHistory = [
 export const mockPlayerFees = mockPlayers.slice(0, 12).map((p, i) => ({
   playerId: p.id,
   playerName: p.name,
-  months: [
-    { month: "Jan 2024", status: "Paid" as const },
-    { month: "Feb 2024", status: (i % 4 === 3 ? "Unpaid" : "Paid") as const },
-    { month: "Mar 2024", status: (i % 3 === 2 ? "Unpaid" : "Paid") as const },
+    months: [
+    { month: "Jan 2024", status: "Paid" as "Paid" | "Unpaid" },
+    { month: "Feb 2024", status: (i % 4 === 3 ? "Unpaid" : "Paid") as "Paid" | "Unpaid" },
+    { month: "Mar 2024", status: (i % 3 === 2 ? "Unpaid" : "Paid") as "Paid" | "Unpaid" },
   ],
 }));
