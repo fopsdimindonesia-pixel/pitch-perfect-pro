@@ -11,9 +11,9 @@ const mockReports = [
 
 export default function CompetitionReports() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" role="main" aria-label="Competition reports">
       <div>
-        <h1 className="text-3xl font-bold">Reports</h1>
+        <h1 id="page-title" className="text-3xl font-bold">Competition Reports</h1>
         <p className="text-muted-foreground mt-1">Generate and view competition reports</p>
       </div>
 

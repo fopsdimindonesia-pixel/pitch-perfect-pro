@@ -10,9 +10,9 @@ const mockWithdrawals = [
 
 export default function TeamWithdrawal() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" role="main" aria-label="Team withdrawal">
       <div>
-        <h1 className="text-3xl font-bold">Team Withdrawal Requests</h1>
+        <h1 id="page-title" className="text-3xl font-bold">Team Withdrawal</h1>
         <p className="text-muted-foreground mt-1">Manage team withdrawal requests</p>
       </div>
 

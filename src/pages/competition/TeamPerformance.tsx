@@ -10,9 +10,9 @@ const performanceData = [
 
 export default function TeamPerformance() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" role="main" aria-label="Team performance">
       <div>
-        <h1 className="text-3xl font-bold">Team Performance Analysis</h1>
+        <h1 id="page-title" className="text-3xl font-bold">Team Performance</h1>
         <p className="text-muted-foreground mt-1">Compare team statistics</p>
       </div>
 

@@ -12,9 +12,9 @@ const mockTeams = [
 
 export default function TeamConfirmation() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" role="main" aria-label="Team confirmation">
       <div>
-        <h1 className="text-3xl font-bold">Team Confirmation</h1>
+        <h1 id="page-title" className="text-3xl font-bold">Team Confirmation</h1>
         <p className="text-muted-foreground mt-1">Confirm team participation</p>
       </div>
 

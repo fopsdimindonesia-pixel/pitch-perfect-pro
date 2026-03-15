@@ -3,9 +3,9 @@ import { useState } from "react";
 
 export default function BracketBuilder() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" role="main" aria-label="Tournament bracket builder">
       <div>
-        <h1 className="text-3xl font-bold">Bracket Builder</h1>
+        <h1 id="page-title" className="text-3xl font-bold">Bracket Builder</h1>
         <p className="text-muted-foreground mt-1">Design knockout tournament bracket</p>
       </div>
 

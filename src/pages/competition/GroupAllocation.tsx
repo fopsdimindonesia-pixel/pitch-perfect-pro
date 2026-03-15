@@ -11,9 +11,9 @@ const mockGroups = [
 
 export default function GroupAllocation() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" role="main" aria-label="Group allocation">
       <div>
-        <h1 className="text-3xl font-bold">Group Allocation</h1>
+        <h1 id="page-title" className="text-3xl font-bold">Group Allocation</h1>
         <p className="text-muted-foreground mt-1">Drag and drop teams into groups</p>
       </div>
 

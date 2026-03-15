@@ -25,9 +25,9 @@ export default function CompetitionRules() {
   });
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" role="main" aria-label="Competition rules">
       <div>
-        <h1 className="text-3xl font-bold">Competition Rules</h1>
+        <h1 id="page-title" className="text-3xl font-bold">Competition Rules</h1>
         <p className="text-muted-foreground mt-1">Manage competition rules and regulations</p>
       </div>
 

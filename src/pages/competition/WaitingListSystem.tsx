@@ -10,9 +10,9 @@ const mockWaitlist = [
 
 export default function WaitingListSystem() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" role="main" aria-label="Waiting list system">
       <div>
-        <h1 className="text-3xl font-bold">Waiting List Management</h1>
+        <h1 id="page-title" className="text-3xl font-bold">Waiting List System</h1>
         <p className="text-muted-foreground mt-1">Manage clubs on the waiting list</p>
       </div>
 

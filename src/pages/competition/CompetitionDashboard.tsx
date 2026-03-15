@@ -4,9 +4,9 @@ import { Trophy, Users, Calendar, TrendingUp } from "lucide-react";
 
 export default function CompetitionDashboard() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" role="main" aria-label="Competition dashboard">
       <div>
-        <h1 className="text-3xl font-bold">Competition Dashboard</h1>
+        <h1 id="page-title" className="text-3xl font-bold">Competition Dashboard</h1>
         <p className="text-muted-foreground mt-1">Live competition overview</p>
       </div>
 

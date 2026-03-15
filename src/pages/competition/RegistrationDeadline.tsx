@@ -9,9 +9,9 @@ export default function RegistrationDeadline() {
   const hoursRemaining = 5;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" role="main" aria-label="Registration deadline">
       <div>
-        <h1 className="text-3xl font-bold">Registration Deadline</h1>
+        <h1 id="page-title" className="text-3xl font-bold">Registration Deadline</h1>
         <p className="text-muted-foreground mt-1">Configure and monitor registration deadlines</p>
       </div>
 

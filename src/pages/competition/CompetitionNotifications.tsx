@@ -10,9 +10,9 @@ const mockNotifications = [
 
 export default function CompetitionNotifications() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" role="main" aria-label="Notifications settings">
       <div>
-        <h1 className="text-3xl font-bold">Notification Center</h1>
+        <h1 id="page-title" className="text-3xl font-bold">Notifications</h1>
         <p className="text-muted-foreground mt-1">Manage competition notifications</p>
       </div>
 

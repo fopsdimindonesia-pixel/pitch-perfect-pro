@@ -11,10 +11,10 @@ const mockMatches = [
 
 export default function MatchManagement() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" role="main" aria-label="Match management">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold">Match Management</h1>
+          <h1 id="page-title" className="text-3xl font-bold">Match Management</h1>
           <p className="text-muted-foreground mt-1">Create and manage match schedules</p>
         </div>
         <Button className="gap-2">

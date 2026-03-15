@@ -10,9 +10,9 @@ const analyticsData = [
 
 export default function CompetitionAnalytics() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" role="main" aria-label="Competition analytics">
       <div>
-        <h1 className="text-3xl font-bold">Competition Analytics</h1>
+        <h1 id="page-title" className="text-3xl font-bold">Competition Analytics</h1>
         <p className="text-muted-foreground mt-1">Detailed competition insights</p>
       </div>
 

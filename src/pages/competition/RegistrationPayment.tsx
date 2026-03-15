@@ -11,9 +11,9 @@ const mockPayments = [
 
 export default function RegistrationPayment() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" role="main" aria-label="Registration payment">
       <div>
-        <h1 className="text-3xl font-bold">Registration Payments</h1>
+        <h1 id="page-title" className="text-3xl font-bold">Registration Payment</h1>
         <p className="text-muted-foreground mt-1">Track registration fee payments</p>
       </div>
 

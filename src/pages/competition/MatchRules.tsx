@@ -5,9 +5,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function MatchRules() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" role="main" aria-label="Match rules">
       <div>
-        <h1 className="text-3xl font-bold">Match Rules Configuration</h1>
+        <h1 id="page-title" className="text-3xl font-bold">Match Rules</h1>
         <p className="text-muted-foreground mt-1">Set match duration and substitution rules</p>
       </div>
 

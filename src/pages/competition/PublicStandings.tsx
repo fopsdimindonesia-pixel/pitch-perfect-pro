@@ -10,9 +10,9 @@ const mockStandings = [
 
 export default function PublicStandings() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" role="main" aria-label="Standings">
       <div>
-        <h1 className="text-3xl font-bold">Standings</h1>
+        <h1 id="page-title" className="text-3xl font-bold">Standings</h1>
         <p className="text-muted-foreground mt-1">Current league table</p>
       </div>
 

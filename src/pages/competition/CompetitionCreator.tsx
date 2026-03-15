@@ -19,9 +19,9 @@ export default function CompetitionCreator() {
   const [currentStep, setCurrentStep] = useState(3);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" role="main" aria-label="Create competition">
       <div>
-        <h1 className="text-3xl font-bold">Create New Competition</h1>
+        <h1 id="page-title" className="text-3xl font-bold">Create Competition</h1>
         <p className="text-muted-foreground mt-1">Multi-step wizard to set up your competition</p>
       </div>
 

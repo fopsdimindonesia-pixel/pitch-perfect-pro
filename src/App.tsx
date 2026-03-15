@@ -45,7 +45,7 @@ import CompetitionRules from "./pages/competition/CompetitionRules";
 import ParticipantRegistration from "./pages/competition/ParticipantRegistration";
 import WaiverManagement from "./pages/competition/WaiverManagement";
 import MatchManagement from "./pages/competition/MatchManagement";
-import RefereeAssignment from "./pages/competition/RefereeAssignment";
+import CompetitionRefereeAssignment from "./pages/competition/RefereeAssignment";
 import ScoringSystem from "./pages/competition/ScoringSystem";
 import PrizePrizeDistribution from "./pages/competition/PrizePrizeDistribution";
 import DocumentManagement from "./pages/competition/DocumentManagement";
@@ -177,7 +177,7 @@ const App = () => (
               <Route path="/competition/registration" element={<ParticipantRegistration />} />
               <Route path="/competition/waivers" element={<WaiverManagement />} />
               <Route path="/competition/matches" element={<MatchManagement />} />
-              <Route path="/competition/referees" element={<RefereeAssignment />} />
+              <Route path="/competition/referees" element={<CompetitionRefereeAssignment />} />
               <Route path="/competition/scoring" element={<ScoringSystem />} />
               <Route path="/competition/prizes" element={<PrizePrizeDistribution />} />
               <Route path="/competition/documents" element={<DocumentManagement />} />

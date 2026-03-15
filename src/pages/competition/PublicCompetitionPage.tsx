@@ -4,10 +4,10 @@ import { Badge } from "@/components/ui/badge";
 
 export default function PublicCompetitionPage() {
   return (
-    <div className="space-y-8">
+    <div className="space-y-8" role="main" aria-label="Public competition page">
       {/* Hero Banner */}
       <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white p-12 rounded-lg">
-        <h1 className="text-4xl font-bold">PSSI U-16 Championship 2024</h1>
+        <h1 id="page-title" className="text-4xl font-bold">PSSI U-16 Championship 2024</h1>
         <p className="text-blue-100 mt-2">Annual championship for youth football players</p>
       </div>
 

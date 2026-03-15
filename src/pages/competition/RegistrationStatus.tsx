@@ -11,10 +11,10 @@ const mockStatuses = [
 
 export default function RegistrationStatus() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" role="main" aria-label="Registration status">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold">Registration Status</h1>
+          <h1 id="page-title" className="text-3xl font-bold">Registration Status</h1>
           <p className="text-muted-foreground mt-1">Track team registration progress</p>
         </div>
         <Button className="gap-2">

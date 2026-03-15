@@ -11,9 +11,9 @@ const mockApprovals = [
 
 export default function CompetitionApproval() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" role="main" aria-label="Competition approval">
       <div>
-        <h1 className="text-3xl font-bold">Competition Approval</h1>
+        <h1 id="page-title" className="text-3xl font-bold">Competition Approval</h1>
         <p className="text-muted-foreground mt-1">Track approval status of competition components</p>
       </div>
 

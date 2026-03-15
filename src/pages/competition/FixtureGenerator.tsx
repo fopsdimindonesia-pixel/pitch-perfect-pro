@@ -5,9 +5,9 @@ import { Users, ArrowRight } from "lucide-react";
 
 export default function FixtureGenerator() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" role="main" aria-label="Fixture generator">
       <div>
-        <h1 className="text-3xl font-bold">Fixture Generator</h1>
+        <h1 id="page-title" className="text-3xl font-bold">Fixture Generator</h1>
         <p className="text-muted-foreground mt-1">Generate match fixtures automatically</p>
       </div>
 

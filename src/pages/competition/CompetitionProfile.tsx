@@ -20,9 +20,9 @@ const mockCompetition = {
 
 export default function CompetitionProfile() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" role="main" aria-label="Competition profile">
       <div>
-        <h1 className="text-3xl font-bold">{mockCompetition.name}</h1>
+        <h1 id="page-title" className="text-3xl font-bold">Competition Profile</h1>
         <p className="text-muted-foreground mt-1">{mockCompetition.organizer}</p>
       </div>
 

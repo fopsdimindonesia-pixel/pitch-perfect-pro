@@ -14,9 +14,9 @@ const mockRegistrations = [
 
 export default function ClubRegistration() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" role="main" aria-label="Club registration">
       <div>
-        <h1 className="text-3xl font-bold">Club Registration</h1>
+        <h1 id="page-title" className="text-3xl font-bold">Club Registration</h1>
         <p className="text-muted-foreground mt-1">Manage club registrations for this competition</p>
       </div>
 

@@ -11,10 +11,10 @@ const mockAnnouncements = [
 
 export default function Announcement() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" role="main" aria-label="Competition announcements">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold">Announcements</h1>
+          <h1 id="page-title" className="text-3xl font-bold">Announcements</h1>
           <p className="text-muted-foreground mt-1">Create and manage competition announcements</p>
         </div>
         <Button className="gap-2">

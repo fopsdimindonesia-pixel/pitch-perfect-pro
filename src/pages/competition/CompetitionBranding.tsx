@@ -5,9 +5,9 @@ import { Upload, Palette } from "lucide-react";
 
 export default function CompetitionBranding() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" role="main" aria-label="Competition branding">
       <div>
-        <h1 className="text-3xl font-bold">Competition Branding</h1>
+        <h1 id="page-title" className="text-3xl font-bold">Competition Branding</h1>
         <p className="text-muted-foreground mt-1">Customize competition appearance</p>
       </div>
 

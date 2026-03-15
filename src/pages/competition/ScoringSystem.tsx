@@ -5,10 +5,10 @@ import { Settings } from "lucide-react";
 
 export default function ScoringSystem() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" role="main" aria-label="Scoring system">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold">Scoring System</h1>
+          <h1 id="page-title" className="text-3xl font-bold">Scoring System</h1>
           <p className="text-muted-foreground mt-1">Configure scoring rules and point system</p>
         </div>
       </div>

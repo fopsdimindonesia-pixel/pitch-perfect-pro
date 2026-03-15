@@ -11,10 +11,10 @@ const mockVolunteers = [
 
 export default function VolunteerManagement() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" role="main" aria-label="Volunteer management">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold">Volunteer Management</h1>
+          <h1 id="page-title" className="text-3xl font-bold">Volunteer Management</h1>
           <p className="text-muted-foreground mt-1">Manage competition volunteers</p>
         </div>
         <Button className="gap-2">

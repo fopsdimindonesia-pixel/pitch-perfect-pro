@@ -4,9 +4,9 @@ import { BarChart3, Users } from "lucide-react";
 
 export default function TeamSlotManagement() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" role="main" aria-label="Team slot management">
       <div>
-        <h1 className="text-3xl font-bold">Team Slot Management</h1>
+        <h1 id="page-title" className="text-3xl font-bold">Team Slot Management</h1>
         <p className="text-muted-foreground mt-1">Manage available slots for teams</p>
       </div>
 

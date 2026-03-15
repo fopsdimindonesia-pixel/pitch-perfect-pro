@@ -5,10 +5,10 @@ import { Plus, Medal } from "lucide-react";
 
 export default function MedalManagement() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" role="main" aria-label="Medal management">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold">Medal Management</h1>
+          <h1 id="page-title" className="text-3xl font-bold">Medal Management</h1>
           <p className="text-muted-foreground mt-1">Configure medals for awards</p>
         </div>
         <Button className="gap-2">

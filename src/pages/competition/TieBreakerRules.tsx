@@ -14,9 +14,9 @@ export default function TieBreakerRules() {
   const [rules, setRules] = useState(initialRules);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" role="main" aria-label="Tie breaker rules">
       <div>
-        <h1 className="text-3xl font-bold">Tie-Breaker Rules</h1>
+        <h1 id="page-title" className="text-3xl font-bold">Tie Breaker Rules</h1>
         <p className="text-muted-foreground mt-1">Drag and drop to rank tie-breaker rules</p>
       </div>
 
