@@ -231,12 +231,12 @@ export default function MedicalStaff() {
                           </TableCell>
                           <TableCell colSpan={2}>
                             <div className="flex gap-1">
-                              <Button size="xs" onClick={handleSave}>
-                                <Save className="w-3 h-3" />
-                              </Button>
-                              <Button size="xs" variant="outline" onClick={handleCancel}>
-                                <X className="w-3 h-3" />
-                              </Button>
+              <Button size="sm" onClick={handleSave}>
+                <Save className="w-3 h-3" />
+              </Button>
+              <Button size="sm" variant="outline" onClick={handleCancel}>
+                <X className="w-3 h-3" />
+              </Button>
                             </div>
                           </TableCell>
                         </>

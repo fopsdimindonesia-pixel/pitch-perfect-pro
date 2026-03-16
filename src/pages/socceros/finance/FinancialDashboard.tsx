@@ -161,7 +161,7 @@ export default function FinancialDashboard() {
                 <div className="flex-1 bg-gray-200 rounded-full h-8" style={{ width: '100%' }}>
                   <div
                     className="bg-gradient-to-r from-green-400 to-green-600 h-8 rounded-full flex items-center justify-center text-white text-sm font-semibold transition-all"
-                    style={{ width: `${(item.value / 70) * 100}%` }}
+                    style={{ width: `${((item.value as number) / 70) * 100}%` }}
                   >
                     ${item.value}M
                   </div>

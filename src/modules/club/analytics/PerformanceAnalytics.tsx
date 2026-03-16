@@ -68,7 +68,7 @@ export default function PerformanceAnalytics() {
         <CardContent>
           <ResponsiveContainer width="100%" height={250}>
             <PieChart>
-              <Pie data={stats} cx="50%" cy="50%" labelLine={false} label={({category, value}) => `${category} ${value}`} outerRadius={80}>
+              <Pie data={stats} cx="50%" cy="50%" labelLine={false} label={(entry: { category?: string; value?: number; name?: string }) => `${entry.category ?? entry.name} ${entry.value}`} outerRadius={80}>
                 {stats.map((entry, index) => (
                   <Cell key={index} fill={entry.color} />
                 ))}

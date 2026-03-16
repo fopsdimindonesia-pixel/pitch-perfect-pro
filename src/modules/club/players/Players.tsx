@@ -203,7 +203,7 @@ export default function Players() {
             joinDate: "",
             contractExpiry: "",
             currentStatus: "Active",
-            medicalApproval: editingPlayer.eligibility === "Eligible",
+            medicalApproval: editingPlayer.eligibility === "Verified",
           }}
           onSuccess={() => {
             setEditModalOpen(false);

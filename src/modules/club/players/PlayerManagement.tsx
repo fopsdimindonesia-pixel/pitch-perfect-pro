@@ -55,6 +55,7 @@ export interface VerificationStatus {
 interface PlayerManagementProps {
   playerId?: string;
   mode?: "create" | "edit";
+  initialData?: PlayerFormData;
 }
 
 export default function PlayerManagement({ playerId, mode = "create" }: PlayerManagementProps) {

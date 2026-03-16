@@ -57,7 +57,7 @@ export default function RevenueDistribution() {
           <div className="w-full h-64">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
-                <Pie data={revenueDistribution} cx="50%" cy="50%" labelLine={false} label={(entry) => `${entry.category}: ${entry.percentage}%`} outerRadius={80} fill="#8884d8" dataKey="amount">
+                <Pie data={revenueDistribution} cx="50%" cy="50%" labelLine={false} label={(entry: { category?: string; percentage?: number; name?: string; percent?: number }) => `${entry.category ?? entry.name}: ${entry.percentage ?? Math.round((entry.percent ?? 0) * 100)}%`} outerRadius={80} fill="#8884d8" dataKey="amount">
                   {revenueDistribution.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={entry.color} />
                   ))}

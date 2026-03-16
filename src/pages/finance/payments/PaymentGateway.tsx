@@ -5,11 +5,11 @@ import { Switch } from '@/components/ui/switch';
 import { CreditCard, Landmark, Smartphone } from 'lucide-react';
 
 const gateways = [
-  { id: 1, name: 'Bank Transfer (BCA)', provider: 'BCA Virtual Account', status: 'active', fee: 0.5, icon: Bank },
+  { id: 1, name: 'Bank Transfer (BCA)', provider: 'BCA Virtual Account', status: 'active', fee: 0.5, icon: Landmark },
   { id: 2, name: 'Credit Card (Visa/MC)', provider: 'Stripe', status: 'active', fee: 2.9, icon: CreditCard },
   { id: 3, name: 'E-Wallet (GCash)', provider: 'GCash Integration', status: 'active', fee: 1.5, icon: Smartphone },
-  { id: 4, name: 'Bank Deposit', provider: 'Manual Transfer', status: 'inactive', fee: 0, icon: Bank },
-  { id: 5, name: 'Online Banking', provider: 'MultiBank Platform', status: 'active', fee: 0.75, icon: Bank },
+  { id: 4, name: 'Bank Deposit', provider: 'Manual Transfer', status: 'inactive', fee: 0, icon: Landmark },
+  { id: 5, name: 'Online Banking', provider: 'MultiBank Platform', status: 'active', fee: 0.75, icon: Landmark },
 ];
 
 export default function PaymentGateway() {
