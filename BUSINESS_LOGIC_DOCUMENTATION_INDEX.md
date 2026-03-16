@@ -12,7 +12,7 @@ This is a comprehensive business logic reference for the **Pitch Perfect Pro** f
 **Comprehensive Overview**
 - System overview and architecture
 - 10 detailed module descriptions
-- Entity relationships
+- Entity relationships 
 - Critical workflows
 - Business rules by module
 
