@@ -5,11 +5,20 @@ import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Download, Printer, QrCode, ShieldCheck, AlertTriangle } from "lucide-react";
 import { globalPlayers } from "@/lib/playerEcosystemData";
+import { useRole } from "@/context/RoleContext";
 
 export default function PlayerECard() {
-  const [selectedId, setSelectedId] = useState(globalPlayers[0].id);
+  const { role } = useRole();
+  const isClub = role === "club";
+  const clubName = "SSB Garuda Muda";
+  
+  const visiblePlayers = isClub
+    ? globalPlayers.filter(p => p.currentClub === clubName)
+    : globalPlayers;
+
+  const [selectedId, setSelectedId] = useState(visiblePlayers[0]?.id || globalPlayers[0].id);
   const cardRef = useRef<HTMLDivElement>(null);
-  const player = globalPlayers.find((p) => p.id === selectedId) || globalPlayers[0];
+  const player = visiblePlayers.find((p) => p.id === selectedId) || visiblePlayers[0] || globalPlayers[0];
 
   const handlePrint = () => {
     window.print();
