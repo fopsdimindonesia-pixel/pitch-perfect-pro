@@ -35,6 +35,12 @@ const ownerNav = [
     { title: "Event Organizers", url: "/owner/organizations/event-organizers", icon: UserCheck },
     { title: "Monitoring", url: "/owner/organizations/monitoring", icon: Monitor },
   ]},
+  { group: "Player Ecosystem", items: [
+    { title: "Player Registry", url: "/player/registry", icon: Globe },
+    { title: "E-Card (QR)", url: "/player/ecard", icon: IdCard },
+    { title: "Verification", url: "/player/verification", icon: ScanLine },
+    { title: "Player Stats", url: "/player/stats", icon: TrendingUp },
+  ]},
   { group: "Competitions", items: [
     { title: "Monitoring", url: "/owner/competitions/monitoring", icon: Trophy },
     { title: "Match Data", url: "/owner/competitions/matches", icon: Swords },
