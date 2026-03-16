@@ -5,17 +5,18 @@ import { useCompetition } from "../context/CompetitionContext";
 import { CompetitionSwitcher } from "../components/CompetitionSwitcher";
 
 export default function TeamSlotManagement() {
-  const { activeCompetition, registrations } = useCompetition();
-  const totalSlots = activeCompetition?.clubs ?? 0;
+  const { activeCompetition, registrations, competitionConfig } = useCompetition();
+  const totalSlots = competitionConfig.categories.reduce((sum, c) => sum + c.maxTeams, 0);
   const filledSlots = registrations.filter((r) => r.status === "Approved").length;
   const availableSlots = Math.max(0, totalSlots - filledSlots);
   const fillPercent = totalSlots > 0 ? Math.round((filledSlots / totalSlots) * 100) : 0;
+  const pendingCount = registrations.filter((r) => r.status === "Pending").length;
 
   return (
     <div className="space-y-6" role="main" aria-label="Team slot management">
       <div>
-        <h1 id="page-title" className="text-3xl font-bold">Team Slot Management</h1>
-        <p className="text-muted-foreground mt-1">Manage available slots for teams</p>
+        <h1 className="text-2xl font-bold tracking-tight">Team Slot Management</h1>
+        <p className="text-muted-foreground text-sm mt-1">Kelola slot tim yang tersedia</p>
       </div>
 
       <CompetitionSwitcher />
@@ -68,11 +69,33 @@ export default function TeamSlotManagement() {
               <div>
                 <div className="flex justify-between text-sm mb-1">
                   <span className="font-medium">Pending</span>
-                  <span className="text-muted-foreground">{registrations.filter((r) => r.status === "Pending").length}</span>
+                  <span className="text-muted-foreground">{pendingCount}</span>
                 </div>
               </div>
             </div>
           </Card>
+
+          {/* Per-category breakdown */}
+          {competitionConfig.categories.length > 1 && (
+            <Card className="p-6">
+              <h2 className="font-semibold mb-4">Per Kategori</h2>
+              <div className="space-y-3">
+                {competitionConfig.categories.map((cat) => (
+                  <div key={cat.id} className="flex items-center justify-between p-3 rounded-lg border">
+                    <div>
+                      <span className="text-sm font-medium">{cat.name}</span>
+                      <span className="text-xs text-muted-foreground ml-2">{cat.ageGroup}</span>
+                    </div>
+                    <div className="text-sm">
+                      <span className="text-muted-foreground">Maks: </span>
+                      <span className="font-medium">{cat.maxTeams} tim</span>
+                      <span className="text-muted-foreground ml-2">· Roster: {cat.minRoster}-{cat.maxPlayers}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </Card>
+          )}
         </>
       )}
     </div>
