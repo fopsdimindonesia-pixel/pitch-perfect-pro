@@ -283,11 +283,8 @@ const eoRoutes = [
   { path: "/eo/standings", element: <Standings /> },
   { path: "/eo/reports", element: <Reports /> },
   
-  // Setup & Rules (Blueprint 76-85)
-  { path: "/eo/competition/profile", element: <CompetitionProvider><CompetitionProfile /></CompetitionProvider> },
-  { path: "/eo/competition/categories", element: <CompetitionProvider><CompetitionCategories /></CompetitionProvider> },
-  { path: "/eo/competition/rules", element: <CompetitionProvider><CompetitionRules /></CompetitionProvider> },
-  { path: "/eo/competition/eligibility", element: <CompetitionProvider><EligibilityRules /></CompetitionProvider> },
+  // Setup (unified)
+  { path: "/eo/competition/setup", element: <CompetitionProvider><CompetitionSetup /></CompetitionProvider> },
   
   // Registration & Teams (Blueprint 86-95)
   { path: "/eo/competition/approval", element: <CompetitionProvider><RegistrationApproval /></CompetitionProvider> },
