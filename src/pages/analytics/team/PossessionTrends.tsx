@@ -87,7 +87,7 @@ export default function PossessionTrends() {
               </div>
               <div>
                 <p className="text-2xl font-bold">83%</p>
-                <p className="text-xs text-muted-foreground">Matches >50%</p>
+                <p className="text-xs text-muted-foreground">Matches {'>'}50%</p>
               </div>
             </div>
           </CardContent>
