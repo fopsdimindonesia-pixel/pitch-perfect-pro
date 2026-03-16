@@ -30,12 +30,51 @@ const LIFECYCLE_STEPS: { status: CompetitionStatus; icon: React.ElementType }[] 
   { status: 'archived', icon: Archive },
 ];
 
+interface ChecklistItem {
+  label: string;
+  passed: boolean;
+  description: string;
+}
+
+function usePrePublishChecklist(): ChecklistItem[] {
+  const { activeCompetition, competitionConfig } = useCompetition();
+  if (!activeCompetition || activeCompetition.status !== 'draft') return [];
+
+  const hasCategories = competitionConfig.categories.length >= 1;
+  const hasGeneralRules = competitionConfig.rules.general.trim().length > 10;
+  const hasMatchRules = competitionConfig.rules.match.trim().length > 10;
+  const hasDisciplineRules = competitionConfig.rules.discipline.trim().length > 10;
+  const hasStartDate = !!activeCompetition.startDate;
+  const hasEndDate = !!activeCompetition.endDate;
+
+  return [
+    { label: 'Minimal 1 kategori', passed: hasCategories, description: 'Tambahkan kategori di tab Kategori' },
+    { label: 'Peraturan umum terisi', passed: hasGeneralRules, description: 'Isi peraturan umum di tab Peraturan' },
+    { label: 'Peraturan pertandingan terisi', passed: hasMatchRules, description: 'Isi peraturan pertandingan di tab Peraturan' },
+    { label: 'Peraturan disiplin terisi', passed: hasDisciplineRules, description: 'Isi peraturan disiplin di tab Peraturan' },
+    { label: 'Tanggal mulai diatur', passed: hasStartDate, description: 'Atur tanggal mulai di tab Profil' },
+    { label: 'Tanggal selesai diatur', passed: hasEndDate, description: 'Atur tanggal selesai di tab Profil' },
+  ];
+}
+
 function StatusLifecycleBar() {
   const { activeCompetition, transitionStatus } = useCompetition();
+  const [showChecklist, setShowChecklist] = useState(false);
+  const checklist = usePrePublishChecklist();
   if (!activeCompetition) return null;
 
   const currentIdx = LIFECYCLE_STEPS.findIndex((s) => s.status === activeCompetition.status);
   const nextStatuses = STATUS_TRANSITIONS[activeCompetition.status];
+  const allChecksPassed = checklist.length === 0 || checklist.every((c) => c.passed);
+  const isDraftToOpen = activeCompetition.status === 'draft' && nextStatuses[0] === 'registration_open';
+
+  const handleTransition = () => {
+    if (isDraftToOpen && !allChecksPassed) {
+      setShowChecklist(true);
+      return;
+    }
+    transitionStatus(nextStatuses[0]);
+  };
 
   return (
     <Card className="p-4">
@@ -49,8 +88,9 @@ function StatusLifecycleBar() {
         {nextStatuses.length > 0 && (
           <Button
             size="sm"
-            onClick={() => transitionStatus(nextStatuses[0])}
+            onClick={handleTransition}
             className="gap-1.5 text-xs"
+            variant={isDraftToOpen && !allChecksPassed ? 'outline' : 'default'}
           >
             <ArrowRight className="w-3.5 h-3.5" />
             {STATUS_LABELS[nextStatuses[0]]}
