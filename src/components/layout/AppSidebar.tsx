@@ -152,7 +152,12 @@ const clubNav = [
 
 const adminNav = ownerNav; // Admin uses same navigation as Owner
 
-const navMap = { owner: ownerNav, eo: eoNav, club: clubNav, admin: adminNav };
+const navMap = {
+  owner: ownerNav,
+  eo: [...eoNav, ...playerEcosystemNav],
+  club: [...clubNav, ...playerEcosystemNav],
+  admin: adminNav,
+};
 
 export function AppSidebar() {
   const { role } = useRole();
