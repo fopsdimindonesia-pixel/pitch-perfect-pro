@@ -279,29 +279,29 @@ const eoRoutes = [
   { path: "/eo/reports", element: <Reports /> },
   
   // Setup & Rules (Blueprint 76-85)
-  { path: "/eo/competition/profile", element: <CompetitionProfile /> },
-  { path: "/eo/competition/categories", element: <CompetitionCategories /> },
-  { path: "/eo/competition/rules", element: <CompetitionRules /> },
-  { path: "/eo/competition/eligibility", element: <EligibilityRules /> },
+  { path: "/eo/competition/profile", element: <CompetitionProvider><CompetitionProfile /></CompetitionProvider> },
+  { path: "/eo/competition/categories", element: <CompetitionProvider><CompetitionCategories /></CompetitionProvider> },
+  { path: "/eo/competition/rules", element: <CompetitionProvider><CompetitionRules /></CompetitionProvider> },
+  { path: "/eo/competition/eligibility", element: <CompetitionProvider><EligibilityRules /></CompetitionProvider> },
   
   // Registration & Teams (Blueprint 86-95)
-  { path: "/eo/competition/approval", element: <RegistrationApproval /> },
-  { path: "/eo/competition/slots", element: <TeamSlotManagement /> },
-  { path: "/eo/competition/groups", element: <GroupAllocation /> },
+  { path: "/eo/competition/approval", element: <CompetitionProvider><RegistrationApproval /></CompetitionProvider> },
+  { path: "/eo/competition/slots", element: <CompetitionProvider><TeamSlotManagement /></CompetitionProvider> },
+  { path: "/eo/competition/groups", element: <CompetitionProvider><GroupAllocation /></CompetitionProvider> },
   
   // Tools & Operations (Blueprint 96-105)
-  { path: "/eo/competition/fixtures", element: <FixtureGenerator /> },
-  { path: "/eo/competition/bracket", element: <BracketBuilder /> },
-  { path: "/eo/competition/dashboard", element: <CompetitionDashboard /> },
-  { path: "/eo/competition/documents", element: <CompetitionDocuments /> },
+  { path: "/eo/competition/fixtures", element: <CompetitionProvider><FixtureGenerator /></CompetitionProvider> },
+  { path: "/eo/competition/bracket", element: <CompetitionProvider><BracketBuilder /></CompetitionProvider> },
+  { path: "/eo/competition/dashboard", element: <CompetitionProvider><CompetitionDashboard /></CompetitionProvider> },
+  { path: "/eo/competition/documents", element: <CompetitionProvider><CompetitionDocuments /></CompetitionProvider> },
   
   // Advanced (Blueprint 106-110)
-  { path: "/eo/competition/analytics", element: <CompetitionAnalytics /> },
-  { path: "/eo/competition/awards", element: <AwardSystem /> },
+  { path: "/eo/competition/analytics", element: <CompetitionProvider><CompetitionAnalytics /></CompetitionProvider> },
+  { path: "/eo/competition/awards", element: <CompetitionProvider><AwardSystem /></CompetitionProvider> },
   
   // Public (Blueprint 116-120)
-  { path: "/eo/competition/public", element: <PublicCompetitionPage /> },
-  { path: "/eo/competition/public-standings", element: <PublicStandings /> },
+  { path: "/eo/competition/public", element: <CompetitionProvider><PublicCompetitionPage /></CompetitionProvider> },
+  { path: "/eo/competition/public-standings", element: <CompetitionProvider><PublicStandings /></CompetitionProvider> },
   
   // Backward compatibility: redirect old /competition/* to /eo/competition/*
   { path: "/competition/*", element: <Navigate to="/eo/competitions" replace /> },
