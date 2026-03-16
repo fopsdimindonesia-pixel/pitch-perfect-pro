@@ -58,7 +58,7 @@ import {
   PublicStandings,
 } from "./modules/eo";
 
-// Match Management pages
+// Match Management — legacy pages (kept for backward compat)
 import MatchScheduler from "./pages/match/setup/MatchScheduler";
 import RefereeAssignment from "./pages/match/setup/RefereeAssignment";
 import LineupSubmission from "./pages/match/lineup/LineupSubmission";
@@ -68,6 +68,16 @@ import MatchStatistics from "./pages/match/data/MatchStatistics";
 import PlayerRatings from "./pages/match/data/PlayerRatings";
 import TacticalAnalysis from "./pages/match/analytics/TacticalAnalysis";
 import MatchArchive from "./pages/match/archive/MatchArchive";
+
+// Match Management — new modular system (Blueprint 201-240)
+import {
+  MatchProvider,
+  DigitalMatchSheet,
+  MatchEventRecorder,
+  LiveScoreboard,
+  RefereeReport,
+  MatchStatsDashboard,
+} from "./modules/match";
 
 // Club pages - all from new modular structure
 import {
@@ -307,8 +317,15 @@ const eoRoutes = [
   { path: "/competition/*", element: <Navigate to="/eo/competitions" replace /> },
 ];
 
-// Match Management Routes
+// Match Management Routes (Blueprint 201-240)
 const matchRoutes = [
+  // New modular pages (with MatchProvider)
+  { path: "/match/match-sheet", element: <MatchProvider><DigitalMatchSheet /></MatchProvider> },
+  { path: "/match/event-recorder", element: <MatchProvider><MatchEventRecorder /></MatchProvider> },
+  { path: "/match/live", element: <MatchProvider><LiveScoreboard /></MatchProvider> },
+  { path: "/match/referee-report", element: <MatchProvider><RefereeReport /></MatchProvider> },
+  { path: "/match/stats-dashboard", element: <MatchProvider><MatchStatsDashboard /></MatchProvider> },
+  // Legacy pages (kept for backward compat)
   { path: "/match/scheduler", element: <MatchScheduler /> },
   { path: "/match/referees", element: <RefereeAssignment /> },
   { path: "/match/lineup", element: <LineupSubmission /> },
