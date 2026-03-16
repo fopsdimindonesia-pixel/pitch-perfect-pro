@@ -1,45 +1,41 @@
-import { mockCompetitions } from "@/lib/mockData";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Plus, Users, Calendar, ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { useCompetition, STATUS_LABELS, STATUS_COLORS, type CompetitionStatus } from "./context/CompetitionContext";
 
 const formatColors: Record<string, string> = {
   League: "bg-primary/10 text-primary",
   Knockout: "bg-destructive/10 text-destructive",
-  "Group+KO": "bg-gold/15 text-gold-foreground",
-};
-
-const statusColors: Record<string, string> = {
-  Active: "bg-primary/10 text-primary",
-  Draft: "bg-secondary text-muted-foreground",
-  Finished: "bg-navy/10 text-navy",
+  "Group+KO": "bg-chart-4/15 text-chart-4",
 };
 
 export default function Competitions() {
   const navigate = useNavigate();
+  const { competitions, setActiveCompetitionId } = useCompetition();
 
   const handleCompetitionClick = (compId: string) => {
-    navigate(`/eo/competitions/${compId}`);
+    setActiveCompetitionId(compId);
+    navigate("/eo/competition/setup");
   };
 
   return (
     <div className="space-y-6 animate-fade-in" role="main" aria-label="Competition list">
       <div className="flex items-center justify-between gap-4 flex-wrap">
         <div>
-          <h1 id="page-title" className="text-2xl font-bold tracking-tight">Kompetisi</h1>
+          <h1 className="text-2xl font-bold tracking-tight">Kompetisi</h1>
           <p className="text-muted-foreground text-sm mt-1">Kelola seluruh kompetisi yang Anda buat.</p>
         </div>
-        <Button size="sm" className="gap-2" onClick={() => navigate("/eo/competitions/create")}>
+        <Button size="sm" className="gap-2" onClick={() => navigate("/eo/competition/setup")}>
           <Plus className="w-4 h-4" />
           Buat Kompetisi
         </Button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-        {mockCompetitions.map((comp) => (
+        {competitions.map((comp) => (
           <Card
             key={comp.id}
             className="hover:shadow-card-hover transition-all duration-200 cursor-pointer group"
@@ -49,7 +45,7 @@ export default function Competitions() {
               <div className="flex items-start justify-between gap-2">
                 <div className="space-y-1">
                   <div className="flex items-center gap-2 flex-wrap">
-                    <Badge className={cn("text-[10px] px-2 py-0.5 rounded-full border-0", formatColors[comp.format])}>
+                    <Badge className={cn("text-[10px] px-2 py-0.5 rounded-full border-0", formatColors[comp.format] ?? "bg-muted text-muted-foreground")}>
                       {comp.format}
                     </Badge>
                     <Badge className="text-[10px] px-2 py-0.5 rounded-full border border-border bg-background text-muted-foreground">
@@ -58,8 +54,8 @@ export default function Competitions() {
                   </div>
                   <CardTitle className="text-base leading-tight group-hover:text-primary transition-colors">{comp.name}</CardTitle>
                 </div>
-                <Badge className={cn("text-[10px] px-2 py-0.5 rounded-full border-0 flex-shrink-0", statusColors[comp.status])}>
-                  {comp.status}
+                <Badge className={cn("text-[10px] px-2 py-0.5 rounded-full border-0 flex-shrink-0", STATUS_COLORS[comp.status as CompetitionStatus] ?? "bg-muted text-muted-foreground")}>
+                  {STATUS_LABELS[comp.status as CompetitionStatus] ?? comp.status}
                 </Badge>
               </div>
               <CardDescription className="text-xs">{comp.description}</CardDescription>
