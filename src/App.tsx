@@ -41,7 +41,6 @@ import {
   // Competition sub-modules (Blueprint 76-120)
   CompetitionProvider,
   CompetitionSetup,
-  RegistrationApproval,
   TeamSlotManagement,
   GroupAllocation,
   FixtureGenerator,
@@ -274,7 +273,7 @@ const ownerRoutes = [
 const eoRoutes = [
   // Dashboard
   { path: "/eo/overview", element: <EOOverview /> },
-  { path: "/eo/competitions", element: <Competitions /> },
+  { path: "/eo/competitions", element: <CompetitionProvider><Competitions /></CompetitionProvider> },
   
   // Existing core EO pages
   { path: "/eo/registrations", element: <CompetitionProvider><ClubRegistrations /></CompetitionProvider> },
@@ -287,7 +286,7 @@ const eoRoutes = [
   { path: "/eo/competition/setup", element: <CompetitionProvider><CompetitionSetup /></CompetitionProvider> },
   
   // Registration & Teams (Blueprint 86-95)
-  { path: "/eo/competition/approval", element: <CompetitionProvider><RegistrationApproval /></CompetitionProvider> },
+  { path: "/eo/competition/approval", element: <CompetitionProvider><ClubRegistrations /></CompetitionProvider> },
   { path: "/eo/competition/slots", element: <CompetitionProvider><TeamSlotManagement /></CompetitionProvider> },
   { path: "/eo/competition/groups", element: <CompetitionProvider><GroupAllocation /></CompetitionProvider> },
   

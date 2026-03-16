@@ -14,31 +14,7 @@ import { cn } from "@/lib/utils";
 const formatIDR = (v: number) =>
   new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(v);
 
-// ─── Countdown Hook ─────────────────────────────────────────────────────────
-function useCountdown(targetDate: string | undefined) {
-  const [remaining, setRemaining] = useState<{ days: number; hours: number; minutes: number; expired: boolean } | null>(null);
-
-  useEffect(() => {
-    if (!targetDate) { setRemaining(null); return; }
-
-    const calc = () => {
-      const now = Date.now();
-      const target = new Date(targetDate).getTime();
-      const diff = target - now;
-      if (diff <= 0) return { days: 0, hours: 0, minutes: 0, expired: true };
-      const days = Math.floor(diff / 86400000);
-      const hours = Math.floor((diff % 86400000) / 3600000);
-      const minutes = Math.floor((diff % 3600000) / 60000);
-      return { days, hours, minutes, expired: false };
-    };
-
-    setRemaining(calc());
-    const interval = setInterval(() => setRemaining(calc()), 60000);
-    return () => clearInterval(interval);
-  }, [targetDate]);
-
-  return remaining;
-}
+import { useCountdown } from "../competitions/hooks/useCountdown";
 
 // ─── Countdown Card ─────────────────────────────────────────────────────────
 function CountdownCard({ deadline, status }: { deadline: string | undefined; status: CompetitionStatus | undefined }) {

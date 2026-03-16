@@ -7,8 +7,8 @@ export { CompetitionProvider, useCompetition } from './context/CompetitionContex
 // Setup (unified)
 export { default as CompetitionSetup } from './setup/CompetitionSetup';
 
-// Registration (86-90)
-export { default as RegistrationApproval } from './registration/RegistrationApproval';
+// Hooks
+export { useCountdown } from './hooks/useCountdown';
 
 // Teams (91-95)
 export { default as TeamSlotManagement } from './teams/TeamSlotManagement';
