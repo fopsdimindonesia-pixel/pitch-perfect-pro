@@ -811,7 +811,7 @@ export default function GroupAllocation() {
                     <div className="flex items-center gap-2">
                       <h3 className="font-semibold text-lg">{group.name}</h3>
                       {groupsLocked && (
-                        <Lock className="w-4 h-4 text-red-600" title="Alokasi grup terkunci" />
+                        <Lock className="w-4 h-4 text-destructive" aria-label="Alokasi grup terkunci" />
                       )}
                     </div>
                     <div className="flex items-center gap-2">
