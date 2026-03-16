@@ -34,10 +34,10 @@ export default function GlobalPlayerRegistry() {
   });
 
   const stats = {
-    total: globalPlayers.length,
-    verified: globalPlayers.filter((p) => p.verificationStatus === "Verified").length,
-    pending: globalPlayers.filter((p) => p.verificationStatus === "Pending").length,
-    active: globalPlayers.filter((p) => p.status === "Active").length,
+    total: visiblePlayers.length,
+    verified: visiblePlayers.filter((p) => p.verificationStatus === "Verified").length,
+    pending: visiblePlayers.filter((p) => p.verificationStatus === "Pending").length,
+    active: visiblePlayers.filter((p) => p.status === "Active").length,
   };
 
   const getStatusColor = (status: string) => {
