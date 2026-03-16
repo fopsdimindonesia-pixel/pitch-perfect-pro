@@ -119,7 +119,7 @@ export default function MinutesPlayedLeaderboard() {
         <CardContent className="space-y-3">
           <div>
             <div className="flex justify-between items-center mb-2">
-              <span className="text-sm font-medium">Regular Starters (>1500 min)</span>
+              <span className="text-sm font-medium">Regular Starters ({'>'}1500 min)</span>
               <span className="text-sm font-bold text-green-600">5 players</span>
             </div>
             <div className="h-3 bg-green-500 rounded" style={{ width: '50%' }}></div>
