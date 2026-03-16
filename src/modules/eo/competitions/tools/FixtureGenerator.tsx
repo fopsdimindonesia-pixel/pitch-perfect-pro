@@ -4,15 +4,20 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { AlertCircle, Shuffle, Trash2, Check, ChevronDown, ChevronUp } from "lucide-react";
+import { AlertCircle, Shuffle, Trash2, Check, ChevronDown, ChevronUp, MapPin, Loader2 } from "lucide-react";
 import { useCompetition, type MatchData } from "../context/CompetitionContext";
 import { CompetitionSwitcher } from "../components/CompetitionSwitcher";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
-
-// ─── Generator Algorithms ───────────────────────────────────────────────────
-
-function generateRoundRobin(teams: string[], competitionId: string, competitionName: string, startDate: string): MatchData[] {
+import {
+  generateRoundRobin,
+  generateKnockout,
+  generateHybrid,
+  validateFixtures,
+  getFixtureStats,
+} from "@/lib/fixtures";
+import { useVenues } from "../hooks/useVenues";
+import { saveFixtures, publishFixtures, clearFixtures } from "../api";
   const list = teams.length % 2 === 0 ? [...teams] : [...teams, 'BYE'];
   const n = list.length;
   const rounds = n - 1;
@@ -204,21 +209,25 @@ function generateHybrid(teams: string[], competitionId: string, competitionName:
   const koStart = new Date(start);
   koStart.setDate(koStart.getDate() + (maxMatchday + 1) * 7);
 
-  const koMatches = generateKnockout(koTeams, competitionId, competitionName, koStart.toISOString().split('T')[0]);
-  koMatches.forEach((m) => { m.matchday += maxMatchday; });
-
-  return [...matches, ...koMatches];
-}
+  generateHybrid,
+  validateFixtures,
+  getFixtureStats,
+} from "@/lib/fixtures";
 
 // ─── Component ──────────────────────────────────────────────────────────────
 
 export default function FixtureGenerator() {
   const { toast } = useToast();
   const { activeCompetition, matches, registrations, addMatches, clearMatches } = useCompetition();
+  const { venues, getVenueUtilization, addAssignment, stats } = useVenues();
   const approvedTeams = registrations.filter((r) => r.status === "Approved");
   const teamNames = approvedTeams.map((r) => r.clubName);
   const [preview, setPreview] = useState<MatchData[]>([]);
+  const [validationErrors, setValidationErrors] = useState<Array<{ type: string; message: string }>>([]);
   const [showAll, setShowAll] = useState(false);
+  const [selectedVenueTab, setSelectedVenueTab] = useState(false);
+  const [fromFormat, setFromFormat] = useState<'league' | 'knockout' | 'hybrid'>('league');
+  const [isSaving, setIsSaving] = useState(false);
 
   const generate = (format: 'league' | 'knockout' | 'hybrid') => {
     if (teamNames.length < 2) {
@@ -232,19 +241,80 @@ export default function FixtureGenerator() {
       case 'knockout': generated = generateKnockout(teamNames, comp.id, comp.name, comp.startDate); break;
       case 'hybrid': generated = generateHybrid(teamNames, comp.id, comp.name, comp.startDate); break;
     }
+    
+    // Validate generated fixtures
+    const errors = validateFixtures(generated, { checkVenue: true, checkTeams: true });
+    setValidationErrors(errors);
+    setFromFormat(format);
+    
     setPreview(generated);
     setShowAll(false);
   };
 
-  const confirmFixtures = () => {
-    addMatches(preview);
-    toast({ title: "Fixture Disimpan", description: `${preview.length} pertandingan berhasil ditambahkan.` });
-    setPreview([]);
+  const confirmFixtures = async () => {
+    if (!activeCompetition || !preview.length) return;
+
+    setIsSaving(true);
+    try {
+      // Call API to save fixtures
+      const result = await saveFixtures(
+        activeCompetition.id,
+        preview,
+        fromFormat
+      );
+
+      if (result.success) {
+        // Add to local context
+        addMatches(preview);
+        
+        toast({
+          title: "✓ Fixture Disimpan",
+          description: `${preview.length} pertandingan berhasil ditambahkan ke server`,
+        });
+        
+        setPreview([]);
+        setValidationErrors([]);
+      } else {
+        toast({
+          title: "✗ Gagal Menyimpan",
+          description: result.message,
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "✗ Error",
+        description: "Gagal menyimpan fixture: " + (error as Error).message,
+        variant: "destructive",
+      });
+    } finally {
+      setIsSaving(false);
+    }
   };
 
-  const handleClear = () => {
-    clearMatches();
-    toast({ title: "Fixture Dihapus", description: "Semua fixture kompetisi ini telah dihapus." });
+  const handleClear = async () => {
+    if (!activeCompetition) return;
+
+    try {
+      const result = await clearFixtures(activeCompetition.id);
+      
+      if (result.success) {
+        clearMatches();
+        toast({ title: "✓ Fixture Dihapus", description: result.message });
+      } else {
+        toast({
+          title: "✗ Gagal Menghapus",
+          description: result.message,
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "✗ Error",
+        description: "Gagal menghapus fixture: " + (error as Error).message,
+        variant: "destructive",
+      });
+    }
   };
 
   const displayPreview = showAll ? preview : preview.slice(0, 10);
@@ -317,31 +387,152 @@ export default function FixtureGenerator() {
 
           {/* Preview */}
           {preview.length > 0 && (
-            <Card className="p-5 border-chart-2/30 bg-chart-2/5">
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="font-semibold text-sm">Preview ({preview.length} pertandingan)</h2>
-                <div className="flex gap-2">
-                  <Button size="sm" variant="outline" onClick={() => setPreview([])} className="text-xs">Batal</Button>
-                  <Button size="sm" onClick={confirmFixtures} className="gap-1 text-xs">
-                    <Check className="w-3.5 h-3.5" />Simpan Fixture
-                  </Button>
+            <>
+              {/* Validation Errors */}
+              {validationErrors.length > 0 && (
+                <div className="space-y-2">
+                  {validationErrors.map((error, idx) => (
+                    <Alert
+                      key={idx}
+                      className={
+                        error.type === "error"
+                          ? "bg-red-50 border-red-200"
+                          : "bg-yellow-50 border-yellow-200"
+                      }
+                    >
+                      <AlertCircle className="h-4 w-4" />
+                      <AlertDescription
+                        className={
+                          error.type === "error" ? "text-red-800" : "text-yellow-800"
+                        }
+                      >
+                        {error.message}
+                      </AlertDescription>
+                    </Alert>
+                  ))}
                 </div>
-              </div>
-              <div className="space-y-1.5">
-                {displayPreview.map((m) => (
-                  <div key={m.id} className="flex items-center justify-between p-2 text-xs border-b border-border/50 last:border-b-0">
-                    <span className="text-muted-foreground font-mono w-20">{m.date}</span>
-                    <Badge variant="outline" className="text-[9px] mx-2">{m.round ?? `MD ${m.matchday}`}</Badge>
-                    <span className="flex-1 text-center truncate">{m.homeTeam} vs {m.awayTeam}</span>
-                  </div>
-                ))}
-              </div>
-              {preview.length > 10 && (
-                <Button variant="ghost" size="sm" className="w-full mt-2 text-xs gap-1" onClick={() => setShowAll(!showAll)}>
-                  {showAll ? <><ChevronUp className="w-3 h-3" />Sembunyikan</> : <><ChevronDown className="w-3 h-3" />Lihat semua ({preview.length})</>}
-                </Button>
               )}
-            </Card>
+
+              {/* Venue Assignment Section */}
+              <Card className="p-5 bg-blue-50/50 border-blue-200">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-2">
+                    <MapPin className="w-4 h-4 text-blue-600" />
+                    <h2 className="font-semibold text-sm">Venue Assignment</h2>
+                  </div>
+                  <Badge variant="outline">{venues.length} Venue(s) Available</Badge>
+                </div>
+
+                {/* Venue Utilization Stats */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mb-4">
+                  <div className="bg-white p-2 rounded border border-blue-100">
+                    <p className="text-xs text-muted-foreground">Total Venues</p>
+                    <p className="text-lg font-bold text-blue-600">{stats.totalVenues}</p>
+                  </div>
+                  <div className="bg-white p-2 rounded border border-blue-100">
+                    <p className="text-xs text-muted-foreground">Avg Utilization</p>
+                    <p className="text-lg font-bold text-blue-600">{stats.averageUtilization}%</p>
+                  </div>
+                  <div className="bg-white p-2 rounded border border-blue-100">
+                    <p className="text-xs text-muted-foreground">Max Utilization</p>
+                    <p className="text-lg font-bold text-blue-600">{stats.maxUtilization}%</p>
+                  </div>
+                  <div className="bg-white p-2 rounded border border-blue-100">
+                    <p className="text-xs text-muted-foreground">Total Capacity</p>
+                    <p className="text-lg font-bold text-blue-600">{stats.availableCapacity.toLocaleString()}</p>
+                  </div>
+                </div>
+
+                {/* Venue Distribution */}
+                <div className="space-y-1.5">
+                  <p className="text-xs font-medium text-muted-foreground mb-2">Venue Utilization Distribution</p>
+                  {stats.distribution.map((dist) => (
+                    <div key={dist.venueId} className="flex items-center gap-2 text-xs">
+                      <span className="w-24 truncate font-medium">{dist.name}</span>
+                      <div className="flex-1 bg-gray-200 rounded-full h-2 overflow-hidden">
+                        <div
+                          className={`h-full transition-all duration-300 ${
+                            dist.utilization > 80
+                              ? "bg-red-500"
+                              : dist.utilization > 50
+                              ? "bg-yellow-500"
+                              : "bg-green-500"
+                          }`}
+                          style={{ width: `${dist.utilization}%` }}
+                        />
+                      </div>
+                      <span className="w-12 text-right text-muted-foreground">
+                        {dist.totalMatches} match(es)
+                      </span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Auto-assign venues suggestion */}
+                <Button
+                  className="w-full mt-4 gap-2"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    // Auto-assign venues to fixtures based on utilization
+                    let venueIndex = 0;
+                    preview.forEach((match, idx) => {
+                      const venue = venues[venueIndex % venues.length];
+                      addAssignment(match.id, venue.id, match.time);
+                      venueIndex++;
+                    });
+                    toast({
+                      title: "Venues Assigned",
+                      description: `${preview.length} matches assigned to ${venues.length} venue(s)`,
+                    });
+                  }}
+                >
+                  <MapPin className="w-4 h-4" />
+                  Auto-assign Venues
+                </Button>
+              </Card>
+
+              <Card className="p-5 border-chart-2/30 bg-chart-2/5">
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="font-semibold text-sm">Preview ({preview.length} pertandingan)</h2>
+                  <div className="flex gap-2">
+                    <Button size="sm" variant="outline" onClick={() => { setPreview([]); setValidationErrors([]); }} className="text-xs" disabled={isSaving}>Batal</Button>
+                    <Button 
+                      size="sm" 
+                      onClick={confirmFixtures} 
+                      disabled={validationErrors.some((e) => e.type === "error") || isSaving}
+                      className="gap-1 text-xs"
+                    >
+                      {isSaving ? (
+                        <>
+                          <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                          Menyimpan...
+                        </>
+                      ) : (
+                        <>
+                          <Check className="w-3.5 h-3.5" />
+                          Simpan Fixture
+                        </>
+                      )}
+                    </Button>
+                  </div>
+                </div>
+                <div className="space-y-1.5">
+                  {displayPreview.map((m) => (
+                    <div key={m.id} className="flex items-center justify-between p-2 text-xs border-b border-border/50 last:border-b-0">
+                      <span className="text-muted-foreground font-mono w-20">{m.date}</span>
+                      <Badge variant="outline" className="text-[9px] mx-2">{m.round ?? `MD ${m.matchday}`}</Badge>
+                      <span className="flex-1 text-center truncate">{m.homeTeam} vs {m.awayTeam}</span>
+                    </div>
+                  ))}
+                </div>
+                {preview.length > 10 && (
+                  <Button variant="ghost" size="sm" className="w-full mt-2 text-xs gap-1" onClick={() => setShowAll(!showAll)}>
+                    {showAll ? <><ChevronUp className="w-3 h-3" />Sembunyikan</> : <><ChevronDown className="w-3 h-3" />Lihat semua ({preview.length})</>}
+                  </Button>
+                )}
+              </Card>
+            </>
           )}
 
           {/* Existing fixtures */}
