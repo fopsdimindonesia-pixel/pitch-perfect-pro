@@ -824,7 +824,7 @@ export default function GroupAllocation() {
                       <TooltipProvider>
                         <Tooltip>
                           <TooltipTrigger asChild>
-                            <Badge variant="ghost" className="text-xs">
+                            <Badge variant="outline" className="text-xs">
                               {limits.min}-{limits.max}
                             </Badge>
                           </TooltipTrigger>
