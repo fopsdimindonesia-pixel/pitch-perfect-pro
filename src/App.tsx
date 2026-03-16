@@ -494,9 +494,11 @@ const App = () => (
       <ErrorBoundary>
         <BrowserRouter>
           <RoleProvider>
-            <AppShell>
-              <RoutesRenderer />
-            </AppShell>
+            <CompetitionDataProvider>
+              <AppShell>
+                <RoutesRenderer />
+              </AppShell>
+            </CompetitionDataProvider>
           </RoleProvider>
         </BrowserRouter>
       </ErrorBoundary>

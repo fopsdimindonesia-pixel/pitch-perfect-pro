@@ -139,6 +139,7 @@ const clubNav = [
     { title: "Roster", url: "/club/roster", icon: UserPlus },
   ]},
   { group: "Match Management", items: [
+    { title: "Jadwal Pertandingan", url: "/club/schedule", icon: Calendar },
     { title: "Match Day", url: "/club/match-day", icon: Swords },
     { title: "Match History", url: "/club/match-history", icon: History },
   ]},
