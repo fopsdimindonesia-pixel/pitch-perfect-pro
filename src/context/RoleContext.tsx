@@ -17,6 +17,7 @@ const tenantNames: Record<Role, string> = {
   owner: "Platform Admin",
   eo: "PSSI Makassar",
   club: "SSB Garuda Muda",
+  admin: "System Administrator",
 };
 
 export const RoleProvider = ({ children }: { children: React.ReactNode }) => {

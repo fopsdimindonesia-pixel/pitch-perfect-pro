@@ -1,0 +1,58 @@
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+
+interface ConfirmDialogProps {
+  open: boolean;
+  title: string;
+  description: string;
+  actionLabel?: string;
+  cancelLabel?: string;
+  isDangerous?: boolean;
+  onConfirm: () => void;
+  onCancel: () => void;
+  isLoading?: boolean;
+}
+
+export function ConfirmDialog({
+  open,
+  title,
+  description,
+  actionLabel = "Konfirmasi",
+  cancelLabel = "Batal",
+  isDangerous = false,
+  onConfirm,
+  onCancel,
+  isLoading = false,
+}: ConfirmDialogProps) {
+  return (
+    <AlertDialog open={open} onOpenChange={(isOpen) => !isOpen && onCancel()}>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>{title}</AlertDialogTitle>
+          <AlertDialogDescription className="text-sm">
+            {description}
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <div className="flex gap-3 justify-end">
+          <AlertDialogCancel disabled={isLoading}>
+            {cancelLabel}
+          </AlertDialogCancel>
+          <AlertDialogAction
+            onClick={onConfirm}
+            disabled={isLoading}
+            className={isDangerous ? "bg-destructive hover:bg-destructive/90" : ""}
+          >
+            {isLoading ? "Memproses..." : actionLabel}
+          </AlertDialogAction>
+        </div>
+      </AlertDialogContent>
+    </AlertDialog>
+  );
+}

@@ -14,6 +14,7 @@ const roleMeta: Record<Role, { label: string; color: string; home: string; tenan
   owner: { label: "Owner", color: "bg-gold/20 text-gold-foreground border-gold/30", home: "/owner/overview", tenant: "Platform Admin" },
   eo: { label: "Event Organizer", color: "bg-primary/10 text-primary border-primary/20", home: "/eo/overview", tenant: "PSSI Makassar" },
   club: { label: "Club", color: "bg-navy/10 text-navy border-navy/20", home: "/club/overview", tenant: "SSB Garuda Muda" },
+  admin: { label: "System Admin", color: "bg-slate-600/10 text-slate-600 border-slate-600/20", home: "/admin/dashboard", tenant: "System Administrator" },
 };
 
 export function TopHeader() {
@@ -49,9 +50,9 @@ export function TopHeader() {
         <DropdownMenuContent align="end" className="w-52">
           <DropdownMenuLabel className="text-xs text-muted-foreground">Switch Role (Demo)</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          {(["owner", "eo", "club"] as Role[]).map((r) => (
+          {(["owner", "eo", "club", "admin"] as Role[]).map((r) => (
             <DropdownMenuItem key={r} onClick={() => switchRole(r)} className={cn("gap-2 cursor-pointer", role === r && "bg-accent")}>
-              <span className={cn("w-2 h-2 rounded-full flex-shrink-0", r === "owner" ? "bg-gold" : r === "eo" ? "bg-primary" : "bg-navy")} />
+              <span className={cn("w-2 h-2 rounded-full flex-shrink-0", r === "owner" ? "bg-gold" : r === "eo" ? "bg-primary" : r === "club" ? "bg-navy" : "bg-slate-600")} />
               <div>
                 <p className="text-sm font-medium">{roleMeta[r].label}</p>
                 <p className="text-xs text-muted-foreground">{roleMeta[r].tenant}</p>

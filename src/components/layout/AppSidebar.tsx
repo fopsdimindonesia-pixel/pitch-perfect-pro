@@ -9,19 +9,59 @@ import {
   LayoutDashboard, Users, Trophy, Calendar, ClipboardList, BarChart3,
   Settings, CreditCard, ScrollText, Building2, UserCheck, Medal,
   Swords, ListOrdered, FileText, Shield, Shirt, History, Wallet, UserPlus, QrCode,
+  Monitor, MoreVertical, Zap, Lock, CheckSquare, Code, Key, Webhook, Palette,
+  Activity, Archive, BarChart4, Target,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const ownerNav = [
-  { group: "Platform", items: [
-    { title: "Overview", url: "/owner/overview", icon: LayoutDashboard },
-    { title: "EO Management", url: "/owner/eo-management", icon: Building2 },
-    { title: "Club Management", url: "/owner/club-management", icon: Shield },
-    { title: "Financial", url: "/owner/financial", icon: CreditCard },
+  { group: "Dashboard", items: [
+    { title: "Dashboard", url: "/owner/dashboard", icon: LayoutDashboard },
+    { title: "Overview", url: "/owner/overview", icon: BarChart3 },
   ]},
-  { group: "System", items: [
-    { title: "Audit Log", url: "/owner/audit-log", icon: ScrollText },
-    { title: "Config & RBAC", url: "/owner/config", icon: Settings },
+  { group: "Platform Management", items: [
+    { title: "Configuration", url: "/owner/platform-management/configuration", icon: Settings },
+    { title: "Settings", url: "/owner/platform-management/settings", icon: Settings },
+    { title: "Features", url: "/owner/platform-management/features", icon: Zap },
+    { title: "Branding", url: "/owner/platform-management/branding", icon: Palette },
+    { title: "Integrations", url: "/owner/platform-management/integrations", icon: Code },
+  ]},
+  { group: "User Management", items: [
+    { title: "Users", url: "/owner/users/management", icon: Users },
+    { title: "Audit Log", url: "/owner/users/audit", icon: ScrollText },
+  ]},
+  { group: "Organizations", items: [
+    { title: "Clubs", url: "/owner/organizations/clubs", icon: Building2 },
+    { title: "Event Organizers", url: "/owner/organizations/event-organizers", icon: UserCheck },
+    { title: "Monitoring", url: "/owner/organizations/monitoring", icon: Monitor },
+  ]},
+  { group: "Competitions", items: [
+    { title: "Monitoring", url: "/owner/competitions/monitoring", icon: Trophy },
+    { title: "Match Data", url: "/owner/competitions/matches", icon: Swords },
+  ]},
+  { group: "Finance", items: [
+    { title: "Dashboard", url: "/owner/finance/dashboard", icon: Wallet },
+    { title: "Reconciliation", url: "/owner/finance/reconciliation", icon: CheckSquare },
+    { title: "Billing", url: "/owner/finance/billing", icon: CreditCard },
+  ]},
+  { group: "Analytics", items: [
+    { title: "Global", url: "/owner/analytics/global", icon: BarChart3 },
+    { title: "Revenue", url: "/owner/analytics/revenue", icon: BarChart3 },
+  ]},
+  { group: "Infrastructure", items: [
+    { title: "System Monitor", url: "/owner/infrastructure/system-monitoring", icon: Monitor },
+    { title: "Performance", url: "/owner/infrastructure/performance", icon: Activity },
+    { title: "Logs", url: "/owner/infrastructure/logs", icon: ScrollText },
+    { title: "Backup", url: "/owner/infrastructure/backup", icon: Archive },
+  ]},
+  { group: "Security & Compliance", items: [
+    { title: "Alerts", url: "/owner/security/alerts", icon: Lock },
+    { title: "Reports", url: "/owner/security/reports", icon: FileText },
+    { title: "Audit", url: "/owner/security/audit", icon: ScrollText },
+  ]},
+  { group: "Developer Tools", items: [
+    { title: "API Keys", url: "/owner/developer-tools/api-keys", icon: Key },
+    { title: "Webhooks", url: "/owner/developer-tools/webhooks", icon: Webhook },
   ]},
 ];
 
@@ -31,31 +71,73 @@ const eoNav = [
     { title: "Competitions", url: "/eo/competitions", icon: Trophy },
     { title: "Club Registration", url: "/eo/registrations", icon: UserCheck },
   ]},
-  { group: "Match Ops", items: [
+  { group: "Match Operations", items: [
     { title: "Schedule", url: "/eo/schedule", icon: Calendar },
     { title: "Match Sheet", url: "/eo/match-sheet", icon: ClipboardList },
     { title: "Standings", url: "/eo/standings", icon: ListOrdered },
     { title: "Reports", url: "/eo/reports", icon: BarChart3 },
   ]},
+  { group: "Match Management", items: [
+    { title: "Match Scheduler", url: "/match/scheduler", icon: Calendar },
+    { title: "Referee Assignment", url: "/match/referees", icon: UserCheck },
+    { title: "Lineup", url: "/match/lineup", icon: Users },
+    { title: "Live Events", url: "/match/events", icon: Activity },
+    { title: "Timeline", url: "/match/timeline", icon: Activity },
+    { title: "Statistics", url: "/match/statistics", icon: BarChart3 },
+    { title: "Player Ratings", url: "/match/ratings", icon: Target },
+    { title: "Tactical Analysis", url: "/match/tactics", icon: BarChart4 },
+    { title: "Archive", url: "/match/archive", icon: Archive },
+  ]},
+  { group: "Competition Mgmt", items: [
+    { title: "Competition Setup", url: "/competition/setup", icon: Settings },
+    { title: "User Management", url: "/competition/users", icon: Users },
+    { title: "Rules", url: "/competition/rules", icon: ScrollText },
+    { title: "Participant Registration", url: "/competition/registration", icon: UserPlus },
+    { title: "Waivers", url: "/competition/waivers", icon: FileText },
+    { title: "Matches", url: "/competition/matches", icon: Swords },
+    { title: "Referees", url: "/competition/referees", icon: UserCheck },
+    { title: "Scoring", url: "/competition/scoring", icon: BarChart3 },
+    { title: "Prizes", url: "/competition/prizes", icon: Trophy },
+    { title: "Documents", url: "/competition/documents", icon: ScrollText },
+    { title: "Budget", url: "/competition/budget", icon: CreditCard },
+    { title: "Approval", url: "/competition/approval", icon: CheckSquare },
+    { title: "Announcements", url: "/competition/announcements", icon: Zap },
+    { title: "Volunteers", url: "/competition/volunteers", icon: Users },
+    { title: "Venues", url: "/competition/venues", icon: Building2 },
+    { title: "Organization", url: "/competition/hierarchy", icon: Building2 },
+  ]},
 ];
 
 const clubNav = [
-  { group: "Club", items: [
+  { group: "Dashboard", items: [
     { title: "Overview", url: "/club/overview", icon: LayoutDashboard },
+  ]},
+  { group: "Squad Management", items: [
     { title: "Players", url: "/club/players", icon: Users },
     { title: "E-Card (QR)", url: "/club/ecard", icon: QrCode },
-  ]},
-  { group: "Competition", items: [
     { title: "Roster", url: "/club/roster", icon: UserPlus },
+  ]},
+  { group: "Match Management", items: [
     { title: "Match Day", url: "/club/match-day", icon: Swords },
     { title: "Match History", url: "/club/match-history", icon: History },
   ]},
+  { group: "Training & Performance", items: [
+    { title: "Training Schedule", url: "/club/training/schedule", icon: Calendar },
+    { title: "Training Attendance", url: "/club/training/attendance", icon: CheckSquare },
+    { title: "Player Statistics", url: "/club/analytics/player-statistics", icon: BarChart3 },
+  ]},
+  { group: "Staff Management", items: [
+    { title: "Coaches", url: "/club/staff/coaches", icon: UserCheck },
+    { title: "Medical Staff", url: "/club/staff/medical", icon: Shield },
+  ]},
   { group: "Financial", items: [
-    { title: "Financial", url: "/club/financial", icon: Wallet },
+    { title: "Financial Status", url: "/club/financial", icon: Wallet },
   ]},
 ];
 
-const navMap = { owner: ownerNav, eo: eoNav, club: clubNav };
+const adminNav = ownerNav; // Admin uses same navigation as Owner
+
+const navMap = { owner: ownerNav, eo: eoNav, club: clubNav, admin: adminNav };
 
 export function AppSidebar() {
   const { role } = useRole();
@@ -68,11 +150,13 @@ export function AppSidebar() {
     owner: "bg-gold text-gold-foreground",
     eo: "bg-primary text-primary-foreground",
     club: "bg-navy text-navy-foreground",
+    admin: "bg-slate-600 text-white",
   };
   const roleLabels: Record<string, string> = {
     owner: "Owner",
     eo: "Event Organizer",
     club: "Club",
+    admin: "System Admin",
   };
 
   return (

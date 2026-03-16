@@ -1,6 +1,6 @@
 // ─── Mock Data — Football Ecosystem SaaS ───────────────────────────────────
 
-export type Role = "owner" | "eo" | "club";
+export type Role = "owner" | "eo" | "club" | "admin";
 
 // ─── EOs ────────────────────────────────────────────────────────────────────
 export const mockEOs = [
@@ -207,3 +207,187 @@ export const mockPlayerFees = mockPlayers.slice(0, 12).map((p, i) => ({
     { month: "Mar 2024", status: (i % 3 === 2 ? "Unpaid" : "Paid") as "Paid" | "Unpaid" },
   ],
 }));
+
+// ─── MULTI-TENANT ORGANIZATION SYSTEM (Modules 41-80) ─────────────────────────
+
+// ─── Organizations ──────────────────────────────────────────────────────────
+export const mockOrganizations = [
+  { 
+    id: "org-1", name: "PSSI Central", type: "Federation", owner: "Ahmad Riyadi", members: 45, status: "Active", createdAt: "2023-01-15", 
+    contact: { email: "info@pssi.id", phone: "+62-21-xxx-xxxx", address: "Jl. Stadion Utama, Jakarta" }, logo: "https://via.placeholder.com/100", website: "pssi.id"
+  },
+  { 
+    id: "org-2", name: "Makassar Regional FA", type: "Regional", owner: "Budi Santoso", members: 28, status: "Active", createdAt: "2023-03-20",
+    contact: { email: "makassar@fa.id", phone: "+62-411-xxx-xxxx", address: "Jl. Hasanuddin, Makassar" }, logo: "https://via.placeholder.com/100", website: "makassarfa.id"
+  },
+  { 
+    id: "org-3", name: "Jakarta Premier League", type: "League", owner: "Joko Widodo", members: 32, status: "Active", createdAt: "2023-05-10",
+    contact: { email: "jpl@league.id", phone: "+62-21-yyy-yyyy", address: "Jl. Senayan, Jakarta" }, logo: "https://via.placeholder.com/100", website: "jplindo.id"
+  },
+  { 
+    id: "org-4", name: "PSSI Surabaya", type: "Regional", owner: "Sukarno Hadi", members: 22, status: "Pending", createdAt: "2024-02-01",
+    contact: { email: "surabaya@pssi.id", phone: "+62-31-zzz-zzzz", address: "Jl. Tunjungan, Surabaya" }, logo: "https://via.placeholder.com/100", website: null
+  },
+];
+
+// ─── Organization Members ───────────────────────────────────────────────────
+export const mockOrgMembers = [
+  { id: "mem-1", userId: "user-1", name: "Ahmad Riyadi", email: "ahmad@pssi.id", role: "Admin", status: "Active", joinedAt: "2023-01-15" },
+  { id: "mem-2", userId: "user-2", name: "Budi Santoso", email: "budi@pssi.id", role: "Manager", status: "Active", joinedAt: "2023-03-20" },
+  { id: "mem-3", userId: "user-3", name: "Citra Dewi", email: "citra@pssi.id", role: "Editor", status: "Active", joinedAt: "2023-06-10" },
+  { id: "mem-4", userId: "user-4", name: "Doni Sutrisno", email: "doni@pssi.id", role: "Viewer", status: "Inactive", joinedAt: "2023-08-05" },
+  { id: "mem-5", userId: "user-5", name: "Eka Putri", email: "eka@pssi.id", role: "Editor", status: "Active", joinedAt: "2023-10-12" },
+];
+
+// ─── Organization Invitations ───────────────────────────────────────────────
+export const mockOrgInvitations = [
+  { id: "inv-1", email: "newuser@pssi.id", role: "Manager", status: "Pending", sentAt: "2024-03-10", expiresAt: "2024-03-24" },
+  { id: "inv-2", email: "another@pssi.id", role: "Editor", status: "Accepted", sentAt: "2024-03-08", expiresAt: "2024-03-22" },
+  { id: "inv-3", email: "pending@pssi.id", role: "Viewer", status: "Pending", sentAt: "2024-03-05", expiresAt: "2024-03-19" },
+  { id: "inv-4", email: "expired@pssi.id", role: "Editor", status: "Expired", sentAt: "2024-02-10", expiresAt: "2024-02-24" },
+];
+
+// ─── Organization Roles & Permissions ────────────────────────────────────────
+export const mockOrgRoles = [
+  { id: "role-1", name: "Admin", permissions: ["create", "read", "update", "delete", "manage_members"], description: "Full system access" },
+  { id: "role-2", name: "Manager", permissions: ["read", "update", "manage_members"], description: "Can manage content and members" },
+  { id: "role-3", name: "Editor", permissions: ["create", "read", "update"], description: "Can create and edit content" },
+  { id: "role-4", name: "Viewer", permissions: ["read"], description: "Read-only access" },
+];
+
+// ─── Billing & Subscription ─────────────────────────────────────────────────
+export const mockBillingPlans = [
+  { id: "plan-1", name: "Free", price: 0, members: 5, features: ["Basic features", "1 competition"], description: "Get started for free" },
+  { id: "plan-2", name: "Pro", price: 499000, members: 25, features: ["All features", "Unlimited competitions", "Analytics", "API access"], description: "For growing organizations" },
+  { id: "plan-3", name: "Enterprise", price: 999000, members: 100, features: ["Everything", "Priority support", "Custom integrations"], description: "For large organizations" },
+];
+
+export const mockPaymentHistory = [
+  { id: "pay-1", date: "2024-03-01", plan: "Pro", amount: 499000, status: "Paid", invoiceId: "INV-2024-001", method: "Bank Transfer" },
+  { id: "pay-2", date: "2024-02-01", plan: "Pro", amount: 499000, status: "Paid", invoiceId: "INV-2024-002", method: "Credit Card" },
+  { id: "pay-3", date: "2024-01-01", plan: "Pro", amount: 499000, status: "Paid", invoiceId: "INV-2024-003", method: "Bank Transfer" },
+];
+
+// ─── Organization Analytics ─────────────────────────────────────────────────
+export const mockOrgAnalytics = {
+  totalMembers: 45,
+  totalClubs: 14,
+  totalEOs: 3,
+  activeUsers: 38,
+  activityChart: [
+    { date: "Mon", value: 120 },
+    { date: "Tue", value: 145 },
+    { date: "Wed", value: 98 },
+    { date: "Thu", value: 167 },
+    { date: "Fri", value: 189 },
+    { date: "Sat", value: 145 },
+    { date: "Sun", value: 98 },
+  ],
+};
+
+// ─── Activity Log ────────────────────────────────────────────────────────────
+export const mockActivityLog = [
+  { id: "act-1", timestamp: "2024-03-15T14:30:00Z", user: "Ahmad Riyadi", action: "Created organization", details: "Jakarta Regional FA" },
+  { id: "act-2", timestamp: "2024-03-15T13:20:00Z", user: "Budi Santoso", action: "Added member", details: "Citra Dewi" },
+  { id: "act-3", timestamp: "2024-03-15T12:15:00Z", user: "Citra Dewi", action: "Updated settings", details: "Organization name" },
+  { id: "act-4", timestamp: "2024-03-15T11:00:00Z", user: "Ahmad Riyadi", action: "Removed member", details: "Doni Sutrisno" },
+  { id: "act-5", timestamp: "2024-03-15T10:45:00Z", user: "Eka Putri", action: "Uploaded document", details: "Annual Report 2024" },
+];
+
+// ─── Documents ──────────────────────────────────────────────────────────────
+export const mockOrgDocuments = [
+  { id: "doc-1", name: "Annual Report 2024", type: "pdf", size: "2.4 MB", uploadedAt: "2024-03-10", uploadedBy: "Ahmad Riyadi" },
+  { id: "doc-2", name: "Organizational Charter", type: "pdf", size: "1.8 MB", uploadedAt: "2024-02-20", uploadedBy: "Budi Santoso" },
+  { id: "doc-3", name: "Financial Statements", type: "xlsx", size: "845 KB", uploadedAt: "2024-03-05", uploadedBy: "Eka Putri" },
+  { id: "doc-4", name: "Membership List", type: "xlsx", size: "256 KB", uploadedAt: "2024-03-01", uploadedBy: "Citra Dewi" },
+];
+
+// ─── API Keys ────────────────────────────────────────────────────────────────
+export const mockAPIKeys = [
+  { id: "key-1", name: "Production", key: "pk_live_xxxxxxxxxxxxx", scope: ["read", "write"], created: "2024-01-15", lastUsed: "2024-03-15" },
+  { id: "key-2", name: "Development", key: "pk_test_xxxxxxxxxxxxx", scope: ["read"], created: "2024-02-01", lastUsed: "2024-03-14" },
+  { id: "key-3", name: "Mobile App", key: "pk_mobile_xxxxxxxxxx", scope: ["read"], created: "2024-03-01", lastUsed: "2024-03-13" },
+];
+
+// ─── Integrations ───────────────────────────────────────────────────────────
+export const mockIntegrations = [
+  { id: "int-1", name: "Stripe", category: "Payment", status: "connected", connectedAt: "2024-01-15" },
+  { id: "int-2", name: "Sendgrid", category: "Email", status: "connected", connectedAt: "2024-02-01" },
+  { id: "int-3", name: "AWS S3", category: "Storage", status: "connected", connectedAt: "2024-03-01" },
+  { id: "int-4", name: "Slack", category: "Communication", status: "disconnected", connectedAt: null },
+];
+
+// ─── Organization Hierarchy ─────────────────────────────────────────────────
+export const mockHierarchy = {
+  name: "PSSI Central",
+  children: [
+    {
+      name: "Jakarta Regional",
+      children: [
+        { name: "Jakarta Premier League", children: [] },
+        { name: "Jakarta Youth Cup", children: [] },
+      ],
+    },
+    {
+      name: "Makassar Regional",
+      children: [
+        { name: "Makassar League", children: [] },
+      ],
+    },
+  ],
+};
+
+// ─── Verification Queue ──────────────────────────────────────────────────────
+export const mockVerificationQueue = [
+  { id: "ver-1", organizationName: "Bandung FC Alliance", type: "Regional", submittedAt: "2024-03-10", status: "Pending", documents: 5 },
+  { id: "ver-2", organizationName: "Sumatra United League", type: "League", submittedAt: "2024-03-08", status: "In Review", documents: 7 },
+  { id: "ver-3", organizationName: "Kalimantan Youth Cup", type: "Regional", submittedAt: "2024-03-05", status: "Approved", documents: 4 },
+];
+
+// ─── Licenses & Certifications ──────────────────────────────────────────────
+export const mockLicenses = [
+  { id: "lic-1", name: "Organizational License", issueDate: "2023-01-15", expiryDate: "2026-01-15", status: "Valid" },
+  { id: "lic-2", name: "Event Hosting License", issueDate: "2023-06-01", expiryDate: "2024-06-01", status: "Expiring Soon" },
+];
+
+// ─── Media Library ───────────────────────────────────────────────────────────
+export const mockMediaLibrary = [
+  { id: "media-1", title: "Tournament Opening Ceremony", type: "image", uploadedAt: "2024-03-10", uploadedBy: "Ahmad Riyadi" },
+  { id: "media-2", title: "Final Match Highlights", type: "video", uploadedAt: "2024-03-12", uploadedBy: "Budi Santoso" },
+  { id: "media-3", title: "Team Photo 2024", type: "image", uploadedAt: "2024-03-08", uploadedBy: "Citra Dewi" },
+  { id: "media-4", title: "Award Ceremony", type: "video", uploadedAt: "2024-03-05", uploadedBy: "Eka Putri" },
+];
+
+// ─── Organization News ───────────────────────────────────────────────────────
+export const mockOrgNews = [
+  { id: "news-1", title: "New Season Announcements", publishedAt: "2024-03-15", author: "Ahmad Riyadi", content: "Exciting news about upcoming competitions..." },
+  { id: "news-2", title: "Member Recognition", publishedAt: "2024-03-10", author: "Budi Santoso", content: "Congratulations to our outstanding members..." },
+  { id: "news-3", title: "System Updates", publishedAt: "2024-03-05", author: "Citra Dewi", content: "We've made important improvements..." },
+];
+
+// ─── User Multi-Org Memberships ──────────────────────────────────────────────
+export const mockUserMultiOrgs = [
+  { id: "umo-1", userId: "user-1", userName: "Ahmad Riyadi", organizations: ["org-1", "org-2"], roles: ["Admin", "Manager"] },
+  { id: "umo-2", userId: "user-2", userName: "Budi Santoso", organizations: ["org-1", "org-3"], roles: ["Manager", "Editor"] },
+  { id: "umo-3", userId: "user-3", userName: "Citra Dewi", organizations: ["org-1"], roles: ["Editor"] },
+];
+
+// ─── Compliance Checklist ────────────────────────────────────────────────────
+export const mockComplianceChecklist = [
+  { id: "comp-1", item: "Registration forms completed", status: "Completed", dueDate: "2024-02-15" },
+  { id: "comp-2", item: "Tax documentation submitted", status: "Pending", dueDate: "2024-03-31" },
+  { id: "comp-3", item: "Officers identification verified", status: "Completed", dueDate: "2024-02-28" },
+  { id: "comp-4", item: "Financial records audit", status: "In Progress", dueDate: "2024-04-15" },
+];
+
+// ─── Archived Organizations ─────────────────────────────────────────────────
+export const mockArchivedOrgs = [
+  { id: "arch-1", name: "Old Tournament League", type: "League", archivedAt: "2023-12-31", reason: "Completed season" },
+  { id: "arch-2", name: "Test Federation", type: "Federation", archivedAt: "2023-11-15", reason: "Restructuring" },
+];
+
+// ─── Certifications ─────────────────────────────────────────────────────────
+export const mockCertifications = [
+  { id: "cert-1", name: "ISO 9001 Certification", issueDate: "2023-01-15", expiryDate: "2026-01-15", status: "Valid", issuer: "International Standards Org" },
+  { id: "cert-2", name: "Data Privacy Certification", issueDate: "2023-06-01", expiryDate: "2025-06-01", status: "Valid", issuer: "Privacy Board" },
+];
