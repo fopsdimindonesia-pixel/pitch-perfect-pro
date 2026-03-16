@@ -9,6 +9,16 @@ import { AppShell } from "@/components/layout/AppShell";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import type { Role } from "@/lib/mockData";
 
+// Player Digital Ecosystem pages
+import {
+  GlobalPlayerRegistry,
+  DigitalPassport,
+  CareerTimeline,
+  PlayerECard,
+  PlayerVerificationSystem,
+  PlayerStatsOverview,
+} from "./modules/player";
+
 // Owner pages
 import {
   OwnerOverview,
@@ -321,6 +331,16 @@ const competitionRoutes = [
   { path: "/competition/status", element: <RegistrationStatus /> },
 ];
 
+// Player Digital Ecosystem Routes (accessible by all roles)
+const playerEcosystemRoutes = [
+  { path: "/player/registry", element: <GlobalPlayerRegistry /> },
+  { path: "/player/passport/:id", element: <DigitalPassport /> },
+  { path: "/player/timeline/:id", element: <CareerTimeline /> },
+  { path: "/player/ecard", element: <PlayerECard /> },
+  { path: "/player/verification", element: <PlayerVerificationSystem /> },
+  { path: "/player/stats", element: <PlayerStatsOverview /> },
+];
+
 // Club System Routes
 const clubRoutes = [
   { path: "/club/overview", element: <ClubOverview /> },
@@ -381,6 +401,11 @@ const protectedRoutes: RouteWithRole[] = [
   })),
   // Competition routes (all roles)
   ...competitionRoutes.map((route) => ({
+    ...route,
+    allowedRoles: ["owner", "eo", "club", "admin"] as Role[],
+  })),
+  // Player Ecosystem routes (all roles)
+  ...playerEcosystemRoutes.map((route) => ({
     ...route,
     allowedRoles: ["owner", "eo", "club", "admin"] as Role[],
   })),

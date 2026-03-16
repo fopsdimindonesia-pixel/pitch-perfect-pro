@@ -10,7 +10,7 @@ import {
   Settings, CreditCard, ScrollText, Building2, UserCheck, Medal,
   Swords, ListOrdered, FileText, Shield, Shirt, History, Wallet, UserPlus, QrCode,
   Monitor, MoreVertical, Zap, Lock, CheckSquare, Code, Key, Webhook, Palette,
-  Activity, Archive, BarChart4, Target,
+  Activity, Archive, BarChart4, Target, Globe, ScanLine, IdCard, TrendingUp,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -34,6 +34,12 @@ const ownerNav = [
     { title: "Clubs", url: "/owner/organizations/clubs", icon: Building2 },
     { title: "Event Organizers", url: "/owner/organizations/event-organizers", icon: UserCheck },
     { title: "Monitoring", url: "/owner/organizations/monitoring", icon: Monitor },
+  ]},
+  { group: "Player Ecosystem", items: [
+    { title: "Player Registry", url: "/player/registry", icon: Globe },
+    { title: "E-Card (QR)", url: "/player/ecard", icon: IdCard },
+    { title: "Verification", url: "/player/verification", icon: ScanLine },
+    { title: "Player Stats", url: "/player/stats", icon: TrendingUp },
   ]},
   { group: "Competitions", items: [
     { title: "Monitoring", url: "/owner/competitions/monitoring", icon: Trophy },
@@ -108,6 +114,15 @@ const eoNav = [
   ]},
 ];
 
+const playerEcosystemNav = [
+  { group: "Player Ecosystem", items: [
+    { title: "Player Registry", url: "/player/registry", icon: Globe },
+    { title: "E-Card (QR)", url: "/player/ecard", icon: IdCard },
+    { title: "Verification", url: "/player/verification", icon: ScanLine },
+    { title: "Player Stats", url: "/player/stats", icon: TrendingUp },
+  ]},
+];
+
 const clubNav = [
   { group: "Dashboard", items: [
     { title: "Overview", url: "/club/overview", icon: LayoutDashboard },
@@ -137,7 +152,12 @@ const clubNav = [
 
 const adminNav = ownerNav; // Admin uses same navigation as Owner
 
-const navMap = { owner: ownerNav, eo: eoNav, club: clubNav, admin: adminNav };
+const navMap = {
+  owner: ownerNav,
+  eo: [...eoNav, ...playerEcosystemNav],
+  club: [...clubNav, ...playerEcosystemNav],
+  admin: adminNav,
+};
 
 export function AppSidebar() {
   const { role } = useRole();
