@@ -57,13 +57,11 @@ import {
 import {
   MatchProvider,
   DigitalMatchSheet,
-  MatchEventRecorder,
   LiveScoreboard,
   RefereeReport,
   MatchStatsDashboard,
   RefereeAssignment,
   LineupSubmission,
-  PlayerRatings,
   TacticalAnalysis,
   MatchArchive,
 } from "./modules/match";
