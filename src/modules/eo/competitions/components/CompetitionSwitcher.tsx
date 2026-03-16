@@ -2,12 +2,7 @@ import { useCompetition } from '../context/CompetitionContext';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
-
-const statusColors: Record<string, string> = {
-  Active: 'bg-primary/10 text-primary',
-  Draft: 'bg-secondary text-muted-foreground',
-  Finished: 'bg-muted text-muted-foreground',
-};
+import { STATUS_LABELS, STATUS_COLORS, type CompetitionStatus } from '../context/CompetitionContext';
 
 export function CompetitionSwitcher() {
   const { activeCompetition, competitions, setActiveCompetitionId } = useCompetition();
@@ -23,8 +18,8 @@ export function CompetitionSwitcher() {
             <SelectItem key={c.id} value={c.id} className="text-sm">
               <span className="flex items-center gap-2">
                 {c.name}
-                <Badge className={cn('text-[9px] px-1.5 py-0 rounded-full border-0 ml-1', statusColors[c.status])}>
-                  {c.status}
+                <Badge className={cn('text-[9px] px-1.5 py-0 rounded-full border-0 ml-1', STATUS_COLORS[c.status as CompetitionStatus])}>
+                  {STATUS_LABELS[c.status as CompetitionStatus] ?? c.status}
                 </Badge>
               </span>
             </SelectItem>
@@ -37,7 +32,7 @@ export function CompetitionSwitcher() {
           <span>·</span>
           <span>{activeCompetition.ageGroup}</span>
           <span>·</span>
-          <span>{activeCompetition.clubs} klub</span>
+          <span>{activeCompetition.season}</span>
         </div>
       )}
     </div>
