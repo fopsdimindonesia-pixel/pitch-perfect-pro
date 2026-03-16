@@ -10,6 +10,10 @@ import { globalPlayers, verificationLogs } from "@/lib/playerEcosystemData";
 import { useRole } from "@/context/RoleContext";
 
 export default function PlayerVerificationSystem() {
+  const { role } = useRole();
+  const isClub = role === "club";
+  const isEO = role === "eo";
+  
   const [scanInput, setScanInput] = useState("");
   const [scanResult, setScanResult] = useState<null | { found: boolean; player?: typeof globalPlayers[0] }>(null);
   const [filterResult, setFilterResult] = useState("all");
