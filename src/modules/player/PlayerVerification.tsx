@@ -7,6 +7,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { QrCode, ShieldCheck, ShieldAlert, Search, ScanLine, CheckCircle2, XCircle, AlertTriangle, Clock } from "lucide-react";
 import { globalPlayers, verificationLogs } from "@/lib/playerEcosystemData";
+import { useRole } from "@/context/RoleContext";
 
 export default function PlayerVerificationSystem() {
   const [scanInput, setScanInput] = useState("");
