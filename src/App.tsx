@@ -40,6 +40,7 @@ import {
   Reports,
   MatchSheet,
   // Competition sub-modules (Blueprint 76-120)
+  CompetitionProvider,
   CompetitionProfile,
   CompetitionCategories,
   CompetitionRules,
