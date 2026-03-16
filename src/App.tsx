@@ -276,7 +276,7 @@ const eoRoutes = [
   // Existing core EO pages
   { path: "/eo/registrations", element: <CompetitionProvider><ClubRegistrations /></CompetitionProvider> },
   { path: "/eo/schedule", element: <Schedule /> },
-  { path: "/eo/match-sheet", element: <MatchSheet /> },
+  { path: "/eo/match-sheet", element: <Navigate to="/match/match-sheet" replace /> },
   { path: "/eo/standings", element: <Standings /> },
   { path: "/eo/reports", element: <Reports /> },
   
