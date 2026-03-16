@@ -189,12 +189,12 @@ export const mockClubData = {
   ],
 
   youthTeams: [
-    { id: "yt1", name: "U8 Team", players: 20, coach: "Ahmad Yani", status: "Active" },
-    { id: "yt2", name: "U10 Team", players: 22, coach: "Budi Santoso", status: "Active" },
-    { id: "yt3", name: "U12 Team", players: 25, coach: "Eka Wijaya", status: "Active" },
-    { id: "yt4", name: "U14 Team", players: 24, coach: "Ahmad Yani", status: "Active" },
-    { id: "yt5", name: "U16 Team", players: 23, coach: "Budi Santoso", status: "Active" },
-    { id: "yt6", name: "U18 Team", players: 21, coach: "Eka Wijaya", status: "Active" },
+    { id: "yt1", name: "U8 Team", category: "U8", ageRange: "7-8", players: 20, playerCount: 20, coach: "Ahmad Yani", status: "Active", division: "Division 1" },
+    { id: "yt2", name: "U10 Team", category: "U10", ageRange: "9-10", players: 22, playerCount: 22, coach: "Budi Santoso", status: "Active", division: "Division 1" },
+    { id: "yt3", name: "U12 Team", category: "U12", ageRange: "11-12", players: 25, playerCount: 25, coach: "Eka Wijaya", status: "Active", division: "Division 1" },
+    { id: "yt4", name: "U14 Team", category: "U14", ageRange: "13-14", players: 24, playerCount: 24, coach: "Ahmad Yani", status: "Active", division: "Division 2" },
+    { id: "yt5", name: "U16 Team", category: "U16", ageRange: "15-16", players: 23, playerCount: 23, coach: "Budi Santoso", status: "Active", division: "Division 2" },
+    { id: "yt6", name: "U18 Team", category: "U18", ageRange: "17-18", players: 21, playerCount: 21, coach: "Eka Wijaya", status: "Active", division: "Division 2" },
   ],
 
   history: [
