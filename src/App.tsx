@@ -40,10 +40,7 @@ import {
   MatchSheet,
   // Competition sub-modules (Blueprint 76-120)
   CompetitionProvider,
-  CompetitionProfile,
-  CompetitionCategories,
-  CompetitionRules,
-  EligibilityRules,
+  CompetitionSetup,
   RegistrationApproval,
   TeamSlotManagement,
   GroupAllocation,
