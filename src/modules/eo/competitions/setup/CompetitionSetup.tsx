@@ -30,12 +30,51 @@ const LIFECYCLE_STEPS: { status: CompetitionStatus; icon: React.ElementType }[] 
   { status: 'archived', icon: Archive },
 ];
 
+interface ChecklistItem {
+  label: string;
+  passed: boolean;
+  description: string;
+}
+
+function usePrePublishChecklist(): ChecklistItem[] {
+  const { activeCompetition, competitionConfig } = useCompetition();
+  if (!activeCompetition || activeCompetition.status !== 'draft') return [];
+
+  const hasCategories = competitionConfig.categories.length >= 1;
+  const hasGeneralRules = competitionConfig.rules.general.trim().length > 10;
+  const hasMatchRules = competitionConfig.rules.match.trim().length > 10;
+  const hasDisciplineRules = competitionConfig.rules.discipline.trim().length > 10;
+  const hasStartDate = !!activeCompetition.startDate;
+  const hasEndDate = !!activeCompetition.endDate;
+
+  return [
+    { label: 'Minimal 1 kategori', passed: hasCategories, description: 'Tambahkan kategori di tab Kategori' },
+    { label: 'Peraturan umum terisi', passed: hasGeneralRules, description: 'Isi peraturan umum di tab Peraturan' },
+    { label: 'Peraturan pertandingan terisi', passed: hasMatchRules, description: 'Isi peraturan pertandingan di tab Peraturan' },
+    { label: 'Peraturan disiplin terisi', passed: hasDisciplineRules, description: 'Isi peraturan disiplin di tab Peraturan' },
+    { label: 'Tanggal mulai diatur', passed: hasStartDate, description: 'Atur tanggal mulai di tab Profil' },
+    { label: 'Tanggal selesai diatur', passed: hasEndDate, description: 'Atur tanggal selesai di tab Profil' },
+  ];
+}
+
 function StatusLifecycleBar() {
   const { activeCompetition, transitionStatus } = useCompetition();
+  const [showChecklist, setShowChecklist] = useState(false);
+  const checklist = usePrePublishChecklist();
   if (!activeCompetition) return null;
 
   const currentIdx = LIFECYCLE_STEPS.findIndex((s) => s.status === activeCompetition.status);
   const nextStatuses = STATUS_TRANSITIONS[activeCompetition.status];
+  const allChecksPassed = checklist.length === 0 || checklist.every((c) => c.passed);
+  const isDraftToOpen = activeCompetition.status === 'draft' && nextStatuses[0] === 'registration_open';
+
+  const handleTransition = () => {
+    if (isDraftToOpen && !allChecksPassed) {
+      setShowChecklist(true);
+      return;
+    }
+    transitionStatus(nextStatuses[0]);
+  };
 
   return (
     <Card className="p-4">
@@ -49,8 +88,9 @@ function StatusLifecycleBar() {
         {nextStatuses.length > 0 && (
           <Button
             size="sm"
-            onClick={() => transitionStatus(nextStatuses[0])}
+            onClick={handleTransition}
             className="gap-1.5 text-xs"
+            variant={isDraftToOpen && !allChecksPassed ? 'outline' : 'default'}
           >
             <ArrowRight className="w-3.5 h-3.5" />
             {STATUS_LABELS[nextStatuses[0]]}
@@ -85,6 +125,42 @@ function StatusLifecycleBar() {
           );
         })}
       </div>
+
+      {/* Pre-publish Checklist */}
+      {isDraftToOpen && showChecklist && (
+        <div className="mt-4 border border-border rounded-lg p-4 bg-muted/30">
+          <h4 className="text-sm font-semibold mb-3 flex items-center gap-2">
+            <AlertCircle className="w-4 h-4 text-chart-4" />
+            Checklist Sebelum Buka Registrasi
+          </h4>
+          <div className="space-y-2">
+            {checklist.map((item, i) => (
+              <div key={i} className="flex items-start gap-2.5 text-sm">
+                <div className={cn(
+                  "w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5",
+                  item.passed ? "bg-chart-2/15 text-chart-2" : "bg-destructive/15 text-destructive"
+                )}>
+                  {item.passed ? <Check className="w-3 h-3" /> : <AlertCircle className="w-3 h-3" />}
+                </div>
+                <div>
+                  <span className={cn(item.passed ? "text-muted-foreground line-through" : "text-foreground font-medium")}>
+                    {item.label}
+                  </span>
+                  {!item.passed && (
+                    <p className="text-xs text-muted-foreground mt-0.5">{item.description}</p>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+          {allChecksPassed && (
+            <Button size="sm" className="mt-4 w-full gap-1.5" onClick={() => { transitionStatus(nextStatuses[0]); setShowChecklist(false); }}>
+              <Send className="w-3.5 h-3.5" />
+              Buka Registrasi Sekarang
+            </Button>
+          )}
+        </div>
+      )}
     </Card>
   );
 }
