@@ -54,18 +54,7 @@ import {
   PublicStandings,
 } from "./modules/eo";
 
-// Match Management — legacy pages (kept for backward compat)
-import MatchScheduler from "./pages/match/setup/MatchScheduler";
-import RefereeAssignment from "./pages/match/setup/RefereeAssignment";
-import LineupSubmission from "./pages/match/lineup/LineupSubmission";
-import MatchEvents from "./pages/match/events/MatchEvents";
-import MatchTimeline from "./pages/match/data/MatchTimeline";
-import MatchStatistics from "./pages/match/data/MatchStatistics";
-import PlayerRatings from "./pages/match/data/PlayerRatings";
-import TacticalAnalysis from "./pages/match/analytics/TacticalAnalysis";
-import MatchArchive from "./pages/match/archive/MatchArchive";
-
-// Match Management — new modular system (Blueprint 201-240)
+// Match Management — all from modular system (Blueprint 201-240)
 import {
   MatchProvider,
   DigitalMatchSheet,
@@ -73,6 +62,11 @@ import {
   LiveScoreboard,
   RefereeReport,
   MatchStatsDashboard,
+  RefereeAssignment,
+  LineupSubmission,
+  PlayerRatings,
+  TacticalAnalysis,
+  MatchArchive,
 } from "./modules/match";
 
 // Club pages - all from new modular structure
