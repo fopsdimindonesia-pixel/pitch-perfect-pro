@@ -24,7 +24,7 @@ export default function GlobalPlayerRegistry() {
   const [verificationFilter, setVerificationFilter] = useState("all");
   const navigate = useNavigate();
 
-  const filtered = globalPlayers.filter((p) => {
+  const filtered = visiblePlayers.filter((p) => {
     const matchesSearch = p.name.toLowerCase().includes(search.toLowerCase()) ||
       p.globalId.toLowerCase().includes(search.toLowerCase()) ||
       p.currentClub.toLowerCase().includes(search.toLowerCase());
