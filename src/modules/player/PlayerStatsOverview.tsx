@@ -33,10 +33,10 @@ export default function PlayerStatsOverview() {
       {/* Global Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: "Total Pemain", value: globalPlayers.length, icon: <Medal className="w-5 h-5 text-primary" /> },
-          { label: "Total Gol", value: globalPlayers.reduce((a, p) => a + p.totalGoals, 0), icon: <Target className="w-5 h-5 text-gold" /> },
-          { label: "Total Assist", value: globalPlayers.reduce((a, p) => a + p.totalAssists, 0), icon: <TrendingUp className="w-5 h-5 text-navy" /> },
-          { label: "Caps Internasional", value: globalPlayers.reduce((a, p) => a + p.internationalCaps, 0), icon: <Trophy className="w-5 h-5 text-purple-600" /> },
+          { label: "Total Pemain", value: visiblePlayers.length, icon: <Medal className="w-5 h-5 text-primary" /> },
+          { label: "Total Gol", value: visiblePlayers.reduce((a, p) => a + p.totalGoals, 0), icon: <Target className="w-5 h-5 text-gold" /> },
+          { label: "Total Assist", value: visiblePlayers.reduce((a, p) => a + p.totalAssists, 0), icon: <TrendingUp className="w-5 h-5 text-navy" /> },
+          { label: "Caps Internasional", value: visiblePlayers.reduce((a, p) => a + p.internationalCaps, 0), icon: <Trophy className="w-5 h-5 text-purple-600" /> },
         ].map((s) => (
           <Card key={s.label}>
             <CardContent className="pt-6">
