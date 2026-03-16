@@ -60,7 +60,7 @@ export default function PlayerECard() {
             <SelectValue placeholder="Pilih pemain" />
           </SelectTrigger>
           <SelectContent>
-            {globalPlayers.map((p) => (
+            {visiblePlayers.map((p) => (
               <SelectItem key={p.id} value={p.id} className="text-sm">
                 {p.globalId} — {p.name} ({p.position})
               </SelectItem>
