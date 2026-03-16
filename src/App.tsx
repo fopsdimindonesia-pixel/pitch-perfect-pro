@@ -9,6 +9,16 @@ import { AppShell } from "@/components/layout/AppShell";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import type { Role } from "@/lib/mockData";
 
+// Player Digital Ecosystem pages
+import {
+  GlobalPlayerRegistry,
+  DigitalPassport,
+  CareerTimeline,
+  PlayerECard,
+  PlayerVerificationSystem,
+  PlayerStatsOverview,
+} from "./modules/player";
+
 // Owner pages
 import {
   OwnerOverview,
