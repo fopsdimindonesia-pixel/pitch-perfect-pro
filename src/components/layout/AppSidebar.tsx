@@ -114,6 +114,15 @@ const eoNav = [
   ]},
 ];
 
+const playerEcosystemNav = [
+  { group: "Player Ecosystem", items: [
+    { title: "Player Registry", url: "/player/registry", icon: Globe },
+    { title: "E-Card (QR)", url: "/player/ecard", icon: IdCard },
+    { title: "Verification", url: "/player/verification", icon: ScanLine },
+    { title: "Player Stats", url: "/player/stats", icon: TrendingUp },
+  ]},
+];
+
 const clubNav = [
   { group: "Dashboard", items: [
     { title: "Overview", url: "/club/overview", icon: LayoutDashboard },
