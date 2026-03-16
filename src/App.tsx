@@ -43,6 +43,7 @@ import {
   CompetitionSetup,
   TeamSlotManagement,
   GroupAllocation,
+  TeamEligibilityChecker,
   FixtureGenerator,
   BracketBuilder,
   CompetitionDashboard,
@@ -287,6 +288,7 @@ const eoRoutes = [
   { path: "/eo/competition/approval", element: <CompetitionProvider><ClubRegistrations /></CompetitionProvider> },
   { path: "/eo/competition/slots", element: <CompetitionProvider><TeamSlotManagement /></CompetitionProvider> },
   { path: "/eo/competition/groups", element: <CompetitionProvider><GroupAllocation /></CompetitionProvider> },
+  { path: "/eo/competition/eligibility", element: <CompetitionProvider><TeamEligibilityChecker /></CompetitionProvider> },
   
   // Tools & Operations (Blueprint 96-105)
   { path: "/eo/competition/fixtures", element: <CompetitionProvider><FixtureGenerator /></CompetitionProvider> },

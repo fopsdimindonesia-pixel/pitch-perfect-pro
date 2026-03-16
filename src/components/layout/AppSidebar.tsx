@@ -11,11 +11,25 @@ import {
   Swords, ListOrdered, FileText, Shield, Shirt, History, Wallet, UserPlus, QrCode,
   Monitor, MoreVertical, Zap, Lock, CheckSquare, Code, Key, Webhook, Palette,
   Activity, Archive, BarChart4, Target, Globe, ScanLine, IdCard, TrendingUp,
-  Plus, Grid3X3, GitBranch,
+  Plus, Grid3X3, GitBranch, Ribbon, Book,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const ownerNav = [
+// Navigation structure with optional phase badges (Phase 3 enhancement)
+interface NavItem {
+  title: string;
+  url: string;
+  icon: React.FC;
+}
+
+interface NavGroup {
+  group: string;
+  phase?: string;   // Phase 3: Visual phase label (Setup, Planning, Execution, Results, etc.)
+  badge?: string;   // Phase 3: Phase badge emoji (⚙️, 📋, 🔴, 🏆, etc.)
+  items: NavItem[];
+}
+
+const ownerNav: NavGroup[] = [
   { group: "Dashboard", items: [
     { title: "Dashboard", url: "/owner/dashboard", icon: LayoutDashboard },
     { title: "Overview", url: "/owner/overview", icon: BarChart3 },
@@ -72,44 +86,65 @@ const ownerNav = [
   ]},
 ];
 
-const eoNav = [
-  { group: "Dashboard", items: [
+const eoNav: NavGroup[] = [
+  // Phase 0: Dashboard & Overview
+  { group: "Dashboard", phase: "Overview", badge: "📊", items: [
     { title: "Overview", url: "/eo/overview", icon: LayoutDashboard },
     { title: "Competitions", url: "/eo/competitions", icon: Trophy },
   ]},
-  { group: "Setup & Rules", items: [
+  
+  // Phase 1: Competition Setup & Configuration
+  { group: "Competition Setup", phase: "Setup", badge: "⚙️", items: [
     { title: "Competition Setup", url: "/eo/competition/setup", icon: Settings },
-  ]},
-  { group: "Registration & Teams", items: [
-    { title: "Pendaftaran Klub", url: "/eo/registrations", icon: UserPlus },
     { title: "Team Slots", url: "/eo/competition/slots", icon: Users },
+    { title: "Club Registrations", url: "/eo/registrations", icon: UserPlus },
     { title: "Group Allocation", url: "/eo/competition/groups", icon: Grid3X3 },
-  ]},
-  { group: "Match & Tools", items: [
-    { title: "Schedule", url: "/eo/schedule", icon: Calendar },
-    { title: "Match Sheet", url: "/eo/match-sheet", icon: ClipboardList },
     { title: "Fixture Generator", url: "/eo/competition/fixtures", icon: Swords },
-    { title: "Bracket Builder", url: "/eo/competition/bracket", icon: GitBranch },
-    { title: "Standings", url: "/eo/standings", icon: ListOrdered },
-    { title: "Dashboard", url: "/eo/competition/dashboard", icon: BarChart3 },
+    { title: "Team Eligibility", url: "/eo/competition/eligibility", icon: CheckSquare },
+    // TODO: Phase 3 Enhancement - Add Venue Management item
+    // { title: "Venue Management", url: "/eo/competition/venues", icon: MapPin },
   ]},
-  { group: "Reports & Public", items: [
+  
+  // Phase 2: Match Planning & Preparation
+  { group: "Match Management", phase: "Planning", badge: "📋", items: [
+    { title: "Match Schedule", url: "/eo/schedule", icon: Calendar },
+    { title: "Bracket Builder", url: "/eo/competition/bracket", icon: GitBranch },
+    { title: "Match Sheet", url: "/match/match-sheet", icon: Book },
+    { title: "Lineup Management", url: "/match/lineup", icon: Shirt },
+    { title: "Referee Assignment", url: "/match/referees", icon: Shield },
+  ]},
+  
+  // Phase 3: Live Operations & Execution
+  { group: "Live Operations", phase: "Execution", badge: "🔴", items: [
+    { title: "Live Scoreboard", url: "/match/live", icon: Zap },
+    { title: "Referee Report", url: "/match/referee-report", icon: FileText },
+    { title: "Tactical Analysis", url: "/match/tactics", icon: BarChart4 },
+    { title: "Match Analytics", url: "/match/stats-dashboard", icon: TrendingUp },
+    // TODO: Phase 3 Enhancement - Add Referee Management panel
+    // { title: "Referee Management", url: "/match/referee-management", icon: Users },
+  ]},
+  
+  // Phase 4: Results, Standings & Awards
+  { group: "Standings & Awards", phase: "Results", badge: "🏆", items: [
+    { title: "Standings", url: "/eo/standings", icon: ListOrdered },
     { title: "Reports", url: "/eo/reports", icon: BarChart3 },
-    { title: "Analytics", url: "/eo/competition/analytics", icon: TrendingUp },
+    { title: "Analytics", url: "/eo/competition/analytics", icon: Activity },
     { title: "Documents", url: "/eo/competition/documents", icon: FileText },
-    { title: "Awards", url: "/eo/competition/awards", icon: Medal },
+    { title: "Awards", url: "/eo/competition/awards", icon: Ribbon },
+  ]},
+  
+  // Public Facing
+  { group: "Public Pages", phase: "Public", badge: "🌐", items: [
     { title: "Public Page", url: "/eo/competition/public", icon: Globe },
     { title: "Public Standings", url: "/eo/competition/public-standings", icon: ListOrdered },
   ]},
-  { group: "Match Operations", items: [
-    { title: "Digital Match Sheet", url: "/match/match-sheet", icon: ClipboardList },
-    { title: "Live Scoreboard", url: "/match/live", icon: Zap },
-    { title: "Referee Report", url: "/match/referee-report", icon: FileText },
-    { title: "Match Analytics", url: "/match/stats-dashboard", icon: BarChart3 },
-    { title: "Referee Assignment", url: "/match/referees", icon: UserCheck },
-    { title: "Lineup", url: "/match/lineup", icon: Users },
-    { title: "Tactical Analysis", url: "/match/tactics", icon: BarChart4 },
-    { title: "Archive", url: "/match/archive", icon: Archive },
+  
+  // Shared: Player Ecosystem
+  { group: "Player Ecosystem", phase: "Shared", badge: "👥", items: [
+    { title: "Player Registry", url: "/player/registry", icon: Globe },
+    { title: "E-Card (QR)", url: "/player/ecard", icon: IdCard },
+    { title: "Verification", url: "/player/verification", icon: ScanLine },
+    { title: "Player Stats", url: "/player/stats", icon: TrendingUp },
   ]},
 ];
 
@@ -122,7 +157,7 @@ const playerEcosystemNav = [
   ]},
 ];
 
-const clubNav = [
+const clubNav: NavGroup[] = [
   { group: "Dashboard", items: [
     { title: "Overview", url: "/club/overview", icon: LayoutDashboard },
     { title: "Daftar Kompetisi", url: "/club/competition", icon: Trophy },
@@ -201,8 +236,9 @@ export function AppSidebar() {
         {nav.map((group) => (
           <SidebarGroup key={group.group}>
             {!collapsed && (
-              <SidebarGroupLabel className="text-sidebar-foreground/40 text-[10px] uppercase tracking-widest px-4 py-2">
-                {group.group}
+              <SidebarGroupLabel className="text-sidebar-foreground/40 text-[10px] uppercase tracking-widest px-4 py-2 flex items-center gap-2 justify-between">
+                <span>{group.group}</span>
+                {group.phase && <span className="text-xs font-semibold text-sidebar-foreground/60">{group.badge} {group.phase}</span>}
               </SidebarGroupLabel>
             )}
             <SidebarGroupContent>

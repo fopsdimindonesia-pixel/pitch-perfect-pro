@@ -13,6 +13,7 @@ export { useCountdown } from './hooks/useCountdown';
 // Teams (91-95)
 export { default as TeamSlotManagement } from './teams/TeamSlotManagement';
 export { default as GroupAllocation } from './teams/GroupAllocation';
+export { default as TeamEligibilityChecker } from './teams/TeamEligibilityChecker';
 
 // Tools (96-100)
 export { default as FixtureGenerator } from './tools/FixtureGenerator';

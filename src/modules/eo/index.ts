@@ -9,6 +9,7 @@ export {
   CompetitionSetup,
   TeamSlotManagement,
   GroupAllocation,
+  TeamEligibilityChecker,
   FixtureGenerator,
   BracketBuilder,
   CompetitionDashboard,
