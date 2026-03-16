@@ -29,7 +29,7 @@ import {
   SystemConfig
 } from "./modules/owner";
 
-// EO pages
+// EO pages — all competition sub-modules now from modules/eo
 import {
   EOOverview,
   Competitions,
@@ -38,7 +38,23 @@ import {
   Standings,
   Schedule,
   Reports,
-  MatchSheet
+  MatchSheet,
+  // Competition sub-modules (Blueprint 76-120)
+  CompetitionProfile,
+  CompetitionCategories,
+  CompetitionRules,
+  EligibilityRules,
+  RegistrationApproval,
+  TeamSlotManagement,
+  GroupAllocation,
+  FixtureGenerator,
+  BracketBuilder,
+  CompetitionDashboard,
+  CompetitionDocuments,
+  CompetitionAnalytics,
+  AwardSystem,
+  PublicCompetitionPage,
+  PublicStandings,
 } from "./modules/eo";
 
 // Match Management pages
@@ -51,28 +67,6 @@ import MatchStatistics from "./pages/match/data/MatchStatistics";
 import PlayerRatings from "./pages/match/data/PlayerRatings";
 import TacticalAnalysis from "./pages/match/analytics/TacticalAnalysis";
 import MatchArchive from "./pages/match/archive/MatchArchive";
-
-// Competition pages
-import CompetitionOverview from "./pages/competition/CompetitionOverview";
-import CompetitionSetup from "./pages/competition/CompetitionSetup";
-import CompetitionDetails from "./pages/competition/CompetitionDetails";
-import CompetitionUserManagement from "./pages/competition/UserManagement";
-import CompetitionRules from "./pages/competition/CompetitionRules";
-import ParticipantRegistration from "./pages/competition/ParticipantRegistration";
-import WaiverManagement from "./pages/competition/WaiverManagement";
-import MatchManagement from "./pages/competition/MatchManagement";
-import CompetitionRefereeAssignment from "./pages/competition/RefereeAssignment";
-import ScoringSystem from "./pages/competition/ScoringSystem";
-import PrizePrizeDistribution from "./pages/competition/PrizePrizeDistribution";
-import DocumentManagement from "./pages/competition/DocumentManagement";
-import CompetitionBudget from "./pages/competition/CompetitionBudget";
-import CompetitionApproval from "./pages/competition/CompetitionApproval";
-import Announcement from "./pages/competition/Announcement";
-import CompetitionReports from "./pages/competition/CompetitionReports";
-import VolunteerManagement from "./pages/competition/VolunteerManagement";
-import VenueManagement from "./pages/competition/VenueManagement";
-import OrganizationHierarchy from "./pages/competition/OrganizationHierarchy";
-import RegistrationStatus from "./pages/competition/RegistrationStatus";
 
 // Club pages - all from new modular structure
 import {
@@ -203,19 +197,6 @@ import {
   IntegrationSettings
 } from "./modules/owner";
 
-// Aliases for backward compatibility with old names
-const PlatformDashboard = OwnerDashboard;
-const AdminUserManagement = UserManagement;
-const UserMonitoring = AdminUserManagement;
-const EventOrganizerManagement = EOManagement;
-const FeatureFlagManagement = FeatureFlags;
-const GlobalSettings = SystemSettings;
-const SystemLogs = LogManagement;
-const PlatformBilling = BillingManagement;
-const AdminActivityLog = SecurityAudit;
-const ComplianceDashboard = ComplianceReports;
-const AuditReports = SecurityAudit;
-
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -282,16 +263,47 @@ const ownerRoutes = [
   { path: "/admin/*", element: <Navigate to="/owner/dashboard" replace /> },
 ];
 
-// Event Organizer Routes
+// Event Organizer Routes — consolidated under /eo/
 const eoRoutes = [
+  // Dashboard
   { path: "/eo/overview", element: <EOOverview /> },
   { path: "/eo/competitions", element: <Competitions /> },
   { path: "/eo/competitions/create", element: <CreateCompetition /> },
+  
+  // Existing core EO pages
   { path: "/eo/registrations", element: <ClubRegistrations /> },
   { path: "/eo/schedule", element: <Schedule /> },
   { path: "/eo/match-sheet", element: <MatchSheet /> },
   { path: "/eo/standings", element: <Standings /> },
   { path: "/eo/reports", element: <Reports /> },
+  
+  // Setup & Rules (Blueprint 76-85)
+  { path: "/eo/competition/profile", element: <CompetitionProfile /> },
+  { path: "/eo/competition/categories", element: <CompetitionCategories /> },
+  { path: "/eo/competition/rules", element: <CompetitionRules /> },
+  { path: "/eo/competition/eligibility", element: <EligibilityRules /> },
+  
+  // Registration & Teams (Blueprint 86-95)
+  { path: "/eo/competition/approval", element: <RegistrationApproval /> },
+  { path: "/eo/competition/slots", element: <TeamSlotManagement /> },
+  { path: "/eo/competition/groups", element: <GroupAllocation /> },
+  
+  // Tools & Operations (Blueprint 96-105)
+  { path: "/eo/competition/fixtures", element: <FixtureGenerator /> },
+  { path: "/eo/competition/bracket", element: <BracketBuilder /> },
+  { path: "/eo/competition/dashboard", element: <CompetitionDashboard /> },
+  { path: "/eo/competition/documents", element: <CompetitionDocuments /> },
+  
+  // Advanced (Blueprint 106-110)
+  { path: "/eo/competition/analytics", element: <CompetitionAnalytics /> },
+  { path: "/eo/competition/awards", element: <AwardSystem /> },
+  
+  // Public (Blueprint 116-120)
+  { path: "/eo/competition/public", element: <PublicCompetitionPage /> },
+  { path: "/eo/competition/public-standings", element: <PublicStandings /> },
+  
+  // Backward compatibility: redirect old /competition/* to /eo/competition/*
+  { path: "/competition/*", element: <Navigate to="/eo/competitions" replace /> },
 ];
 
 // Match Management Routes
@@ -305,30 +317,6 @@ const matchRoutes = [
   { path: "/match/ratings", element: <PlayerRatings /> },
   { path: "/match/tactics", element: <TacticalAnalysis /> },
   { path: "/match/archive", element: <MatchArchive /> },
-];
-
-// Competition Routes
-const competitionRoutes = [
-  { path: "/competition/overview", element: <CompetitionOverview /> },
-  { path: "/competition/setup", element: <CompetitionSetup /> },
-  { path: "/competition/details", element: <CompetitionDetails /> },
-  { path: "/competition/users", element: <CompetitionUserManagement /> },
-  { path: "/competition/rules", element: <CompetitionRules /> },
-  { path: "/competition/registration", element: <ParticipantRegistration /> },
-  { path: "/competition/waivers", element: <WaiverManagement /> },
-  { path: "/competition/matches", element: <MatchManagement /> },
-  { path: "/competition/referees", element: <CompetitionRefereeAssignment /> },
-  { path: "/competition/scoring", element: <ScoringSystem /> },
-  { path: "/competition/prizes", element: <PrizePrizeDistribution /> },
-  { path: "/competition/documents", element: <DocumentManagement /> },
-  { path: "/competition/budget", element: <CompetitionBudget /> },
-  { path: "/competition/approval", element: <CompetitionApproval /> },
-  { path: "/competition/announcements", element: <Announcement /> },
-  { path: "/competition/reports", element: <CompetitionReports /> },
-  { path: "/competition/volunteers", element: <VolunteerManagement /> },
-  { path: "/competition/venues", element: <VenueManagement /> },
-  { path: "/competition/hierarchy", element: <OrganizationHierarchy /> },
-  { path: "/competition/status", element: <RegistrationStatus /> },
 ];
 
 // Player Digital Ecosystem Routes (accessible by all roles)
@@ -399,11 +387,6 @@ const protectedRoutes: RouteWithRole[] = [
     ...route,
     allowedRoles: ["owner", "eo", "club", "admin"] as Role[],
   })),
-  // Competition routes (all roles)
-  ...competitionRoutes.map((route) => ({
-    ...route,
-    allowedRoles: ["owner", "eo", "club", "admin"] as Role[],
-  })),
   // Player Ecosystem routes (all roles)
   ...playerEcosystemRoutes.map((route) => ({
     ...route,
@@ -441,18 +424,18 @@ const UnauthorizedPage = () => {
   const { role, tenantName } = useRole();
   
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 px-4">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-background px-4">
       <div className="text-center max-w-md">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Access Denied</h1>
-        <p className="text-gray-600 mb-4">
+        <h1 className="text-3xl font-bold text-foreground mb-2">Access Denied</h1>
+        <p className="text-muted-foreground mb-4">
           Your current role (<span className="font-mono font-semibold">{role}</span>) does not have permission to access this page.
         </p>
-        <p className="text-sm text-gray-500 mb-6">
+        <p className="text-sm text-muted-foreground mb-6">
           Logged in as: <span className="font-semibold">{tenantName}</span>
         </p>
         <button
           onClick={() => window.history.back()}
-          className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700"
+          className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-primary-foreground bg-primary hover:bg-primary/90"
         >
           Go Back
         </button>
@@ -460,12 +443,6 @@ const UnauthorizedPage = () => {
     </div>
   );
 };
-
-// Root redirect
-const rootRoute = { path: "/", element: <RootRedirect /> };
-
-// 404 fallback
-const notFoundRoute = { path: "*", element: <NotFound /> };
 
 // ============================================================================
 // Routes Renderer - Renders all routes with role protection

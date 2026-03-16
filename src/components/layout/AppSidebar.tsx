@@ -11,6 +11,7 @@ import {
   Swords, ListOrdered, FileText, Shield, Shirt, History, Wallet, UserPlus, QrCode,
   Monitor, MoreVertical, Zap, Lock, CheckSquare, Code, Key, Webhook, Palette,
   Activity, Archive, BarChart4, Target, Globe, ScanLine, IdCard, TrendingUp,
+  Plus, Grid3X3, GitBranch,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -72,16 +73,38 @@ const ownerNav = [
 ];
 
 const eoNav = [
-  { group: "Competition", items: [
+  { group: "Dashboard", items: [
     { title: "Overview", url: "/eo/overview", icon: LayoutDashboard },
     { title: "Competitions", url: "/eo/competitions", icon: Trophy },
-    { title: "Club Registration", url: "/eo/registrations", icon: UserCheck },
   ]},
-  { group: "Match Operations", items: [
+  { group: "Setup & Rules", items: [
+    { title: "Create Competition", url: "/eo/competitions/create", icon: Plus },
+    { title: "Competition Profile", url: "/eo/competition/profile", icon: Settings },
+    { title: "Categories", url: "/eo/competition/categories", icon: ListOrdered },
+    { title: "Rules", url: "/eo/competition/rules", icon: ScrollText },
+    { title: "Eligibility", url: "/eo/competition/eligibility", icon: UserCheck },
+  ]},
+  { group: "Registration & Teams", items: [
+    { title: "Club Registration", url: "/eo/registrations", icon: UserPlus },
+    { title: "Approval", url: "/eo/competition/approval", icon: CheckSquare },
+    { title: "Team Slots", url: "/eo/competition/slots", icon: Users },
+    { title: "Group Allocation", url: "/eo/competition/groups", icon: Grid3X3 },
+  ]},
+  { group: "Match & Tools", items: [
     { title: "Schedule", url: "/eo/schedule", icon: Calendar },
     { title: "Match Sheet", url: "/eo/match-sheet", icon: ClipboardList },
+    { title: "Fixture Generator", url: "/eo/competition/fixtures", icon: Swords },
+    { title: "Bracket Builder", url: "/eo/competition/bracket", icon: GitBranch },
     { title: "Standings", url: "/eo/standings", icon: ListOrdered },
+    { title: "Dashboard", url: "/eo/competition/dashboard", icon: BarChart3 },
+  ]},
+  { group: "Reports & Public", items: [
     { title: "Reports", url: "/eo/reports", icon: BarChart3 },
+    { title: "Analytics", url: "/eo/competition/analytics", icon: TrendingUp },
+    { title: "Documents", url: "/eo/competition/documents", icon: FileText },
+    { title: "Awards", url: "/eo/competition/awards", icon: Medal },
+    { title: "Public Page", url: "/eo/competition/public", icon: Globe },
+    { title: "Public Standings", url: "/eo/competition/public-standings", icon: ListOrdered },
   ]},
   { group: "Match Management", items: [
     { title: "Match Scheduler", url: "/match/scheduler", icon: Calendar },
@@ -93,24 +116,6 @@ const eoNav = [
     { title: "Player Ratings", url: "/match/ratings", icon: Target },
     { title: "Tactical Analysis", url: "/match/tactics", icon: BarChart4 },
     { title: "Archive", url: "/match/archive", icon: Archive },
-  ]},
-  { group: "Competition Mgmt", items: [
-    { title: "Competition Setup", url: "/competition/setup", icon: Settings },
-    { title: "User Management", url: "/competition/users", icon: Users },
-    { title: "Rules", url: "/competition/rules", icon: ScrollText },
-    { title: "Participant Registration", url: "/competition/registration", icon: UserPlus },
-    { title: "Waivers", url: "/competition/waivers", icon: FileText },
-    { title: "Matches", url: "/competition/matches", icon: Swords },
-    { title: "Referees", url: "/competition/referees", icon: UserCheck },
-    { title: "Scoring", url: "/competition/scoring", icon: BarChart3 },
-    { title: "Prizes", url: "/competition/prizes", icon: Trophy },
-    { title: "Documents", url: "/competition/documents", icon: ScrollText },
-    { title: "Budget", url: "/competition/budget", icon: CreditCard },
-    { title: "Approval", url: "/competition/approval", icon: CheckSquare },
-    { title: "Announcements", url: "/competition/announcements", icon: Zap },
-    { title: "Volunteers", url: "/competition/volunteers", icon: Users },
-    { title: "Venues", url: "/competition/venues", icon: Building2 },
-    { title: "Organization", url: "/competition/hierarchy", icon: Building2 },
   ]},
 ];
 
@@ -150,7 +155,7 @@ const clubNav = [
   ]},
 ];
 
-const adminNav = ownerNav; // Admin uses same navigation as Owner
+const adminNav = ownerNav;
 
 const navMap = {
   owner: ownerNav,
@@ -188,7 +193,7 @@ export function AppSidebar() {
           </div>
           {!collapsed && (
             <div>
-              <p className="text-sidebar-foreground font-semibold text-sm leading-tight">FootballOS</p>
+              <p className="text-sidebar-foreground font-semibold text-sm leading-tight">SoccerOS</p>
               <span className={cn("text-[10px] px-1.5 py-0.5 rounded font-semibold", roleColors[role])}>
                 {roleLabels[role]}
               </span>
