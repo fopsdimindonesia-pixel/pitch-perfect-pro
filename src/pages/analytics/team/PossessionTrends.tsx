@@ -174,7 +174,7 @@ export default function PossessionTrends() {
         </CardHeader>
         <CardContent className="space-y-3">
           <div className="border-l-4 border-green-500 pl-3 py-2">
-            <p className="text-sm font-semibold">High Possession (>55%)</p>
+            <p className="text-sm font-semibold">High Possession ({'>'}55%)</p>
             <p className="text-xs text-muted-foreground">Generally stronger performances with more control</p>
           </div>
           <div className="border-l-4 border-blue-500 pl-3 py-2">
