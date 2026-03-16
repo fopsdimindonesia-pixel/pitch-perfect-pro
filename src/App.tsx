@@ -275,7 +275,6 @@ const eoRoutes = [
   // Dashboard
   { path: "/eo/overview", element: <EOOverview /> },
   { path: "/eo/competitions", element: <Competitions /> },
-  { path: "/eo/competitions/create", element: <CreateCompetition /> },
   
   // Existing core EO pages
   { path: "/eo/registrations", element: <ClubRegistrations /> },
