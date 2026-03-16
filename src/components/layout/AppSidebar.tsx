@@ -131,6 +131,7 @@ const playerEcosystemNav = [
 const clubNav = [
   { group: "Dashboard", items: [
     { title: "Overview", url: "/club/overview", icon: LayoutDashboard },
+    { title: "Daftar Kompetisi", url: "/club/competition", icon: Trophy },
   ]},
   { group: "Squad Management", items: [
     { title: "Players", url: "/club/players", icon: Users },
@@ -152,9 +153,6 @@ const clubNav = [
   ]},
   { group: "Financial", items: [
     { title: "Financial Status", url: "/club/financial", icon: Wallet },
-  ]},
-  { group: "Kompetisi", items: [
-    { title: "Daftar Kompetisi", url: "/club/competition", icon: Trophy },
   ]},
 ];
 
