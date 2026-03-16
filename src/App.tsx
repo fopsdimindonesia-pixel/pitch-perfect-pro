@@ -309,24 +309,18 @@ const eoRoutes = [
   { path: "/competition/*", element: <Navigate to="/eo/competitions" replace /> },
 ];
 
-// Match Management Routes (Blueprint 201-240)
+// Match Management Routes (Blueprint 201-240) — All modular with MatchProvider
 const matchRoutes = [
-  // New modular pages (with MatchProvider)
   { path: "/match/match-sheet", element: <MatchProvider><DigitalMatchSheet /></MatchProvider> },
   { path: "/match/event-recorder", element: <MatchProvider><MatchEventRecorder /></MatchProvider> },
   { path: "/match/live", element: <MatchProvider><LiveScoreboard /></MatchProvider> },
   { path: "/match/referee-report", element: <MatchProvider><RefereeReport /></MatchProvider> },
   { path: "/match/stats-dashboard", element: <MatchProvider><MatchStatsDashboard /></MatchProvider> },
-  // Legacy pages (kept for backward compat)
-  { path: "/match/scheduler", element: <MatchScheduler /> },
-  { path: "/match/referees", element: <RefereeAssignment /> },
-  { path: "/match/lineup", element: <LineupSubmission /> },
-  { path: "/match/events", element: <MatchEvents /> },
-  { path: "/match/timeline", element: <MatchTimeline /> },
-  { path: "/match/statistics", element: <MatchStatistics /> },
-  { path: "/match/ratings", element: <PlayerRatings /> },
-  { path: "/match/tactics", element: <TacticalAnalysis /> },
-  { path: "/match/archive", element: <MatchArchive /> },
+  { path: "/match/referees", element: <MatchProvider><RefereeAssignment /></MatchProvider> },
+  { path: "/match/lineup", element: <MatchProvider><LineupSubmission /></MatchProvider> },
+  { path: "/match/ratings", element: <MatchProvider><PlayerRatings /></MatchProvider> },
+  { path: "/match/tactics", element: <MatchProvider><TacticalAnalysis /></MatchProvider> },
+  { path: "/match/archive", element: <MatchProvider><MatchArchive /></MatchProvider> },
 ];
 
 // Player Digital Ecosystem Routes (accessible by all roles)
