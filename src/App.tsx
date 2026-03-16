@@ -349,10 +349,11 @@ const clubRoutes = [
   { path: "/club/staff/medical", element: <MedicalStaff /> },
   { path: "/club/analytics/player-statistics", element: <PlayerStatistics /> },
   
-  // Competition Registration
+  // Competition Registration (wrapped in CompetitionDataProvider)
   { path: "/club/competition", element: <AvailableCompetitions /> },
   { path: "/club/competition/:competitionId", element: <CompetitionDetail /> },
   { path: "/club/competition/:competitionId/register", element: <RegistrationFlow /> },
+  { path: "/club/schedule", element: <ClubSchedule /> },
 ];
 
 // ============================================================================
