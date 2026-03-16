@@ -64,8 +64,12 @@ export default function GlobalPlayerRegistry() {
   return (
     <div className="space-y-6 animate-fade-in">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight">Global Player Registry</h1>
-        <p className="text-muted-foreground mt-1">Registry pemain nasional lintas club dan kompetisi</p>
+        <h1 className="text-3xl font-bold tracking-tight">
+          {isClub ? "Pemain Klub" : "Global Player Registry"}
+        </h1>
+        <p className="text-muted-foreground mt-1">
+          {isClub ? `Daftar pemain ${clubName}` : "Registry pemain nasional lintas club dan kompetisi"}
+        </p>
       </div>
 
       {/* Stats Cards */}
