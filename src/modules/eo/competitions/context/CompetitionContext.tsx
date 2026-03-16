@@ -59,6 +59,7 @@ export interface Category {
   ageGroup: string;
   maxTeams: number;
   maxPlayers: number;
+  minRoster: number;
   status: 'Active' | 'Draft' | 'Closed';
 }
 
@@ -82,19 +83,52 @@ export interface CompetitionConfig {
   eligibility: EligibilityConfig;
 }
 
+export interface RegistrationData {
+  id: string;
+  clubId: string;
+  clubName: string;
+  competitionId: string;
+  competitionName: string;
+  status: string;
+  paymentStatus: string;
+  registeredAt: string;
+  fee: number;
+}
+
+export interface MatchData {
+  id: string;
+  competitionId: string;
+  competitionName: string;
+  homeTeam: string;
+  awayTeam: string;
+  homeScore: number;
+  awayScore: number;
+  status: 'Scheduled' | 'Live' | 'Finished';
+  date: string;
+  time: string;
+  venue: string;
+  referee: string;
+  matchday: number;
+  round?: string;
+  group?: string;
+}
+
 // ─── Context Type ───────────────────────────────────────────────────────────
 interface CompetitionContextType {
   activeCompetition: CompetitionData | null;
   setActiveCompetitionId: (id: string) => void;
   competitions: CompetitionData[];
-  matches: typeof mockMatches;
-  registrations: typeof mockRegistrations;
+  matches: MatchData[];
+  registrations: RegistrationData[];
   standings: typeof mockStandings;
   competitionConfig: CompetitionConfig;
   addCompetition: (form: Omit<CompetitionData, 'id' | 'clubs' | 'status' | 'eoId'>) => void;
   updateCompetition: (partial: Partial<CompetitionData>) => void;
   transitionStatus: (to: CompetitionStatus) => boolean;
   updateConfig: (partial: Partial<CompetitionConfig>) => void;
+  updateRegistration: (id: string, status: 'Approved' | 'Rejected') => void;
+  addMatches: (newMatches: MatchData[]) => void;
+  clearMatches: () => void;
 }
 
 // ─── Defaults ───────────────────────────────────────────────────────────────
@@ -121,7 +155,6 @@ const defaultEligibility: EligibilityConfig = {
   allowExceptions: true,
 };
 
-// Map legacy status strings to new lifecycle
 function normalizeLegacyStatus(status: string): CompetitionStatus {
   const map: Record<string, CompetitionStatus> = {
     Active: 'active',
@@ -152,14 +185,16 @@ export function CompetitionProvider({ children }: { children: ReactNode }) {
   );
   const [activeId, setActiveId] = useState<string>(mockCompetitions[0]?.id ?? '');
   const [configMap, setConfigMap] = useState<Record<string, CompetitionConfig>>({});
+  const [allRegistrations, setAllRegistrations] = useState<RegistrationData[]>(mockRegistrations as RegistrationData[]);
+  const [allMatches, setAllMatches] = useState<MatchData[]>(mockMatches as MatchData[]);
 
   const activeCompetition = useMemo(
     () => competitions.find((c) => c.id === activeId) ?? null,
     [activeId, competitions]
   );
 
-  const matches = useMemo(() => mockMatches.filter((m) => m.competitionId === activeId), [activeId]);
-  const registrations = useMemo(() => mockRegistrations.filter((r) => r.competitionId === activeId), [activeId]);
+  const matches = useMemo(() => allMatches.filter((m) => m.competitionId === activeId), [activeId, allMatches]);
+  const registrations = useMemo(() => allRegistrations.filter((r) => r.competitionId === activeId), [activeId, allRegistrations]);
   const standings = useMemo(() => (activeId === 'comp-1' ? mockStandings : []), [activeId]);
 
   const competitionConfig = useMemo<CompetitionConfig>(() => {
@@ -168,7 +203,7 @@ export function CompetitionProvider({ children }: { children: ReactNode }) {
     const maxAge = parseInt(ag.replace(/\D/g, '')) || 18;
     return {
       categories: activeCompetition
-        ? [{ id: 'cat-default', name: ag, ageGroup: ag, maxTeams: 16, maxPlayers: 25, status: 'Active' as const }]
+        ? [{ id: 'cat-default', name: ag, ageGroup: ag, maxTeams: 16, maxPlayers: 25, minRoster: 11, status: 'Active' as const }]
         : [],
       rules: defaultRules,
       eligibility: { ...defaultEligibility, maxAge, deadline: activeCompetition?.startDate ?? '' },
@@ -211,6 +246,20 @@ export function CompetitionProvider({ children }: { children: ReactNode }) {
     return true;
   }, [activeId, competitions]);
 
+  const updateRegistration = useCallback((id: string, status: 'Approved' | 'Rejected') => {
+    setAllRegistrations((prev) =>
+      prev.map((r) => (r.id === id ? { ...r, status } : r))
+    );
+  }, []);
+
+  const addMatches = useCallback((newMatches: MatchData[]) => {
+    setAllMatches((prev) => [...prev, ...newMatches]);
+  }, []);
+
+  const clearMatches = useCallback(() => {
+    setAllMatches((prev) => prev.filter((m) => m.competitionId !== activeId));
+  }, [activeId]);
+
   return (
     <CompetitionContext.Provider
       value={{
@@ -225,6 +274,9 @@ export function CompetitionProvider({ children }: { children: ReactNode }) {
         updateCompetition,
         transitionStatus,
         updateConfig,
+        updateRegistration,
+        addMatches,
+        clearMatches,
       }}
     >
       {children}

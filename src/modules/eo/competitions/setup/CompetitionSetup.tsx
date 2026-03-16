@@ -385,7 +385,7 @@ function CategoriesTab() {
 
   const addCategory = () => {
     if (!newName.trim()) return;
-    const cat: Category = { id: `cat-${Date.now()}`, name: newName.trim(), ageGroup: newAge || activeCompetition.ageGroup, maxTeams: 16, maxPlayers: 25, status: 'Active' };
+    const cat: Category = { id: `cat-${Date.now()}`, name: newName.trim(), ageGroup: newAge || activeCompetition.ageGroup, maxTeams: 16, maxPlayers: 25, minRoster: 11, status: 'Active' };
     updateConfig({ categories: [...competitionConfig.categories, cat] });
     setNewName(""); setNewAge("");
   };
