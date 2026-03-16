@@ -101,17 +101,13 @@ const eoNav = [
     { title: "Public Page", url: "/eo/competition/public", icon: Globe },
     { title: "Public Standings", url: "/eo/competition/public-standings", icon: ListOrdered },
   ]},
-  { group: "Match Management", items: [
+  { group: "Match Operations", items: [
     { title: "Digital Match Sheet", url: "/match/match-sheet", icon: ClipboardList },
-    { title: "Event Recorder", url: "/match/event-recorder", icon: Activity },
     { title: "Live Scoreboard", url: "/match/live", icon: Zap },
     { title: "Referee Report", url: "/match/referee-report", icon: FileText },
-    { title: "Match Stats", url: "/match/stats-dashboard", icon: BarChart3 },
-  ]},
-  { group: "Match Tools", items: [
+    { title: "Match Analytics", url: "/match/stats-dashboard", icon: BarChart3 },
     { title: "Referee Assignment", url: "/match/referees", icon: UserCheck },
     { title: "Lineup", url: "/match/lineup", icon: Users },
-    { title: "Player Ratings", url: "/match/ratings", icon: Target },
     { title: "Tactical Analysis", url: "/match/tactics", icon: BarChart4 },
     { title: "Archive", url: "/match/archive", icon: Archive },
   ]},

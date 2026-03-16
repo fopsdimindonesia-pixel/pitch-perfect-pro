@@ -30,4 +30,3 @@ export { default as Schedule } from './schedule/Schedule';
 
 // Reports
 export { default as Reports } from './reports/Reports';
-export { default as MatchSheet } from './reports/MatchSheet';

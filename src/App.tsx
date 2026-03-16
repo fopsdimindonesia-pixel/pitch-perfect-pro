@@ -309,15 +309,16 @@ const eoRoutes = [
 // Match Management Routes (Blueprint 201-240) — All modular with MatchProvider
 const matchRoutes = [
   { path: "/match/match-sheet", element: <MatchProvider><DigitalMatchSheet /></MatchProvider> },
-  { path: "/match/event-recorder", element: <MatchProvider><MatchEventRecorder /></MatchProvider> },
   { path: "/match/live", element: <MatchProvider><LiveScoreboard /></MatchProvider> },
   { path: "/match/referee-report", element: <MatchProvider><RefereeReport /></MatchProvider> },
   { path: "/match/stats-dashboard", element: <MatchProvider><MatchStatsDashboard /></MatchProvider> },
   { path: "/match/referees", element: <MatchProvider><RefereeAssignment /></MatchProvider> },
   { path: "/match/lineup", element: <MatchProvider><LineupSubmission /></MatchProvider> },
-  { path: "/match/ratings", element: <MatchProvider><PlayerRatings /></MatchProvider> },
   { path: "/match/tactics", element: <MatchProvider><TacticalAnalysis /></MatchProvider> },
   { path: "/match/archive", element: <MatchProvider><MatchArchive /></MatchProvider> },
+  // Redirects for removed routes
+  { path: "/match/event-recorder", element: <Navigate to="/match/match-sheet" replace /> },
+  { path: "/match/ratings", element: <Navigate to="/match/stats-dashboard" replace /> },
 ];
 
 // Player Digital Ecosystem Routes (accessible by all roles)
