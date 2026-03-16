@@ -166,7 +166,7 @@ export default function ShotAccuracy() {
           </div>
           <div>
             <div className="flex justify-between items-center mb-1">
-              <span className="text-sm font-medium">Needs Improvement (<50%)</span>
+              <span className="text-sm font-medium">Needs Improvement ({'<'}50%)</span>
               <span className="text-sm font-bold text-orange-600">2 matches</span>
             </div>
             <div className="h-3 bg-orange-500 rounded" style={{ width: '25%' }}></div>
