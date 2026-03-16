@@ -321,6 +321,16 @@ const competitionRoutes = [
   { path: "/competition/status", element: <RegistrationStatus /> },
 ];
 
+// Player Digital Ecosystem Routes (accessible by all roles)
+const playerEcosystemRoutes = [
+  { path: "/player/registry", element: <GlobalPlayerRegistry /> },
+  { path: "/player/passport/:id", element: <DigitalPassport /> },
+  { path: "/player/timeline/:id", element: <CareerTimeline /> },
+  { path: "/player/ecard", element: <PlayerECard /> },
+  { path: "/player/verification", element: <PlayerVerificationSystem /> },
+  { path: "/player/stats", element: <PlayerStatsOverview /> },
+];
+
 // Club System Routes
 const clubRoutes = [
   { path: "/club/overview", element: <ClubOverview /> },
