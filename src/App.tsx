@@ -160,6 +160,7 @@ import {
   AvailableCompetitions,
   CompetitionDetail,
   RegistrationFlow,
+  ClubSchedule,
 } from "./modules/club";
 
 // Admin pages - imported from new modular structure
