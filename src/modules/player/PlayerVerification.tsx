@@ -47,8 +47,15 @@ export default function PlayerVerificationSystem() {
   return (
     <div className="space-y-6 animate-fade-in">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight">Player Verification System</h1>
-        <p className="text-muted-foreground mt-1">Sistem verifikasi identitas pemain via QR code, manual, atau biometric</p>
+        <h1 className="text-3xl font-bold tracking-tight">
+          {isClub ? "Status Verifikasi Pemain" : "Player Verification System"}
+        </h1>
+        <p className="text-muted-foreground mt-1">
+          {isClub
+            ? "Lihat status verifikasi pemain klub Anda"
+            : "Sistem verifikasi identitas pemain via QR code, manual, atau biometric"
+          }
+        </p>
       </div>
 
       {/* Stats */}
