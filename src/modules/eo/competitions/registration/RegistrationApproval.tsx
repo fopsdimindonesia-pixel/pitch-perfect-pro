@@ -1,15 +1,35 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { AlertCircle, Check, X, ShieldAlert, CreditCard, Users, Lock } from "lucide-react";
-import { useCompetition, STATUS_LABELS } from "../context/CompetitionContext";
+import { AlertCircle, Check, X, ShieldAlert, CreditCard, Users, Lock, Timer, Clock } from "lucide-react";
+import { useCompetition, STATUS_LABELS, STATUS_COLORS, type CompetitionStatus } from "../context/CompetitionContext";
 import { CompetitionSwitcher } from "../components/CompetitionSwitcher";
 import { ConfirmDialog } from "@/components/ConfirmDialog";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 
+// ─── Countdown Hook ─────────────────────────────────────────────────────────
+function useCountdown(targetDate: string | undefined) {
+  const [remaining, setRemaining] = useState<{ days: number; hours: number; minutes: number; expired: boolean } | null>(null);
+
+  useEffect(() => {
+    if (!targetDate) { setRemaining(null); return; }
+    const calc = () => {
+      const diff = new Date(targetDate).getTime() - Date.now();
+      if (diff <= 0) return { days: 0, hours: 0, minutes: 0, expired: true };
+      return { days: Math.floor(diff / 86400000), hours: Math.floor((diff % 86400000) / 3600000), minutes: Math.floor((diff % 3600000) / 60000), expired: false };
+    };
+    setRemaining(calc());
+    const interval = setInterval(() => setRemaining(calc()), 60000);
+    return () => clearInterval(interval);
+  }, [targetDate]);
+
+  return remaining;
+}
+
+// ─── Confirm State ──────────────────────────────────────────────────────────
 interface ConfirmState {
   open: boolean;
   action?: "approve" | "reject";
@@ -29,6 +49,8 @@ export default function RegistrationApproval() {
   const slotsAvailable = totalSlots - approvedCount;
 
   const isRegistrationOpen = activeCompetition?.status === "registration_open";
+  const deadline = competitionConfig.eligibility.deadline || activeCompetition?.startDate;
+  const countdown = useCountdown(deadline);
 
   const getStatusMessage = () => {
     if (!activeCompetition) return null;
@@ -101,8 +123,44 @@ export default function RegistrationApproval() {
             </Alert>
           )}
 
-          {/* Slot overview */}
-          <div className="grid grid-cols-3 gap-3">
+          {/* Countdown + Slot overview */}
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-3">
+            {/* Countdown */}
+            {isRegistrationOpen && countdown && !countdown.expired && (
+              <Card className={cn("p-4 lg:col-span-1", countdown.days <= 3 ? "border-chart-4/30 bg-chart-4/5" : "border-chart-2/30 bg-chart-2/5")}>
+                <div className="flex items-center gap-2 mb-2">
+                  <Timer className={cn("w-4 h-4", countdown.days <= 3 ? "text-chart-4" : "text-chart-2")} />
+                  <span className={cn("text-xs font-semibold", countdown.days <= 3 ? "text-chart-4" : "text-chart-2")}>Deadline</span>
+                </div>
+                <div className="flex gap-2 text-center">
+                  <div>
+                    <div className={cn("text-xl font-bold tabular-nums", countdown.days <= 3 && "text-chart-4")}>{countdown.days}</div>
+                    <div className="text-[9px] text-muted-foreground uppercase">Hari</div>
+                  </div>
+                  <span className="text-muted-foreground">:</span>
+                  <div>
+                    <div className={cn("text-xl font-bold tabular-nums", countdown.days <= 3 && "text-chart-4")}>{String(countdown.hours).padStart(2, "0")}</div>
+                    <div className="text-[9px] text-muted-foreground uppercase">Jam</div>
+                  </div>
+                  <span className="text-muted-foreground">:</span>
+                  <div>
+                    <div className={cn("text-xl font-bold tabular-nums", countdown.days <= 3 && "text-chart-4")}>{String(countdown.minutes).padStart(2, "0")}</div>
+                    <div className="text-[9px] text-muted-foreground uppercase">Mnt</div>
+                  </div>
+                </div>
+              </Card>
+            )}
+
+            {isRegistrationOpen && countdown?.expired && (
+              <Card className="p-4 border-chart-4/30 bg-chart-4/5">
+                <div className="flex items-center gap-2">
+                  <AlertCircle className="w-4 h-4 text-chart-4" />
+                  <span className="text-xs font-semibold text-chart-4">Deadline Terlewat</span>
+                </div>
+                <p className="text-[10px] text-muted-foreground mt-1">Pertimbangkan menutup registrasi.</p>
+              </Card>
+            )}
+
             <Card className="p-4">
               <div className="flex items-center gap-2 text-sm text-muted-foreground mb-1">
                 <Users className="w-4 h-4" /> Slot
