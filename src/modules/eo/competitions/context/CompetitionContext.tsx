@@ -1,7 +1,7 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
-import { mockCompetitions } from '@/lib/mockData';
+import React, { createContext, useContext, useState, useMemo, ReactNode } from 'react';
+import { mockCompetitions, mockMatches, mockRegistrations, mockStandings } from '@/lib/mockData';
 
-interface CompetitionData {
+export interface CompetitionData {
   id: string;
   name: string;
   format: string;
@@ -10,12 +10,18 @@ interface CompetitionData {
   clubs: number;
   startDate: string;
   endDate: string;
+  description: string;
+  registrationFee: number;
+  eoId: string;
 }
 
 interface CompetitionContextType {
   activeCompetition: CompetitionData | null;
   setActiveCompetitionId: (id: string) => void;
   competitions: typeof mockCompetitions;
+  matches: typeof mockMatches;
+  registrations: typeof mockRegistrations;
+  standings: typeof mockStandings;
 }
 
 const CompetitionContext = createContext<CompetitionContextType | undefined>(undefined);
@@ -23,14 +29,36 @@ const CompetitionContext = createContext<CompetitionContextType | undefined>(und
 export function CompetitionProvider({ children }: { children: ReactNode }) {
   const [activeId, setActiveId] = useState<string>(mockCompetitions[0]?.id ?? '');
 
-  const activeCompetition = mockCompetitions.find((c) => c.id === activeId) ?? null;
+  const activeCompetition = useMemo(
+    () => (mockCompetitions.find((c) => c.id === activeId) as CompetitionData | null) ?? null,
+    [activeId]
+  );
+
+  const matches = useMemo(
+    () => mockMatches.filter((m) => m.competitionId === activeId),
+    [activeId]
+  );
+
+  const registrations = useMemo(
+    () => mockRegistrations.filter((r) => r.competitionId === activeId),
+    [activeId]
+  );
+
+  // Standings are only for comp-1 in mock data; return all if match, empty otherwise
+  const standings = useMemo(
+    () => (activeId === 'comp-1' ? mockStandings : []),
+    [activeId]
+  );
 
   return (
     <CompetitionContext.Provider
       value={{
-        activeCompetition: activeCompetition as CompetitionData | null,
+        activeCompetition,
         setActiveCompetitionId: setActiveId,
         competitions: mockCompetitions,
+        matches,
+        registrations,
+        standings,
       }}
     >
       {children}

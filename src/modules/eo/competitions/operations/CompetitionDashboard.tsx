@@ -1,8 +1,17 @@
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Trophy, Users, Calendar, TrendingUp } from "lucide-react";
+import { useCompetition } from "../context/CompetitionContext";
+import { CompetitionSwitcher } from "../components/CompetitionSwitcher";
 
 export default function CompetitionDashboard() {
+  const { activeCompetition, matches, registrations } = useCompetition();
+
+  const finishedMatches = matches.filter((m) => m.status === "Finished");
+  const liveMatches = matches.filter((m) => m.status === "Live");
+  const scheduledMatches = matches.filter((m) => m.status === "Scheduled");
+  const approvedRegs = registrations.filter((r) => r.status === "Approved");
+
   return (
     <div className="space-y-6" role="main" aria-label="Competition dashboard">
       <div>
@@ -10,82 +19,101 @@ export default function CompetitionDashboard() {
         <p className="text-muted-foreground mt-1">Live competition overview</p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-        <Card className="p-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-xs text-muted-foreground">Matches Today</p>
-              <p className="text-2xl font-bold mt-1">3</p>
-            </div>
-            <Calendar className="w-8 h-8 text-blue-500" />
+      <CompetitionSwitcher />
+
+      {!activeCompetition ? (
+        <Card className="p-8 text-center text-muted-foreground">Pilih kompetisi untuk melihat dashboard</Card>
+      ) : (
+        <>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+            <Card className="p-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-xs text-muted-foreground">Total Matches</p>
+                  <p className="text-2xl font-bold mt-1">{matches.length}</p>
+                </div>
+                <Calendar className="w-8 h-8 text-primary/60" />
+              </div>
+            </Card>
+            <Card className="p-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-xs text-muted-foreground">Live Now</p>
+                  <p className="text-2xl font-bold mt-1">{liveMatches.length}</p>
+                </div>
+                <TrendingUp className="w-8 h-8 text-primary/60" />
+              </div>
+            </Card>
+            <Card className="p-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-xs text-muted-foreground">Registered Clubs</p>
+                  <p className="text-2xl font-bold mt-1">{registrations.length}</p>
+                </div>
+                <Users className="w-8 h-8 text-primary/60" />
+              </div>
+            </Card>
+            <Card className="p-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-xs text-muted-foreground">Approved</p>
+                  <p className="text-2xl font-bold mt-1">{approvedRegs.length}</p>
+                </div>
+                <Trophy className="w-8 h-8 text-primary/60" />
+              </div>
+            </Card>
           </div>
-        </Card>
 
-        <Card className="p-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-xs text-muted-foreground">Upcoming</p>
-              <p className="text-2xl font-bold mt-1">12</p>
-            </div>
-            <TrendingUp className="w-8 h-8 text-green-500" />
-          </div>
-        </Card>
+          {liveMatches.length > 0 && (
+            <Card className="p-6">
+              <h2 className="font-semibold mb-4">🔴 Live Matches</h2>
+              <div className="space-y-3">
+                {liveMatches.map((m) => (
+                  <div key={m.id} className="flex items-center justify-between p-3 rounded-lg border bg-destructive/5">
+                    <span className="text-sm font-medium flex-1">{m.homeTeam}</span>
+                    <Badge className="font-mono mx-3">{m.homeScore} - {m.awayScore}</Badge>
+                    <span className="text-sm font-medium flex-1 text-right">{m.awayTeam}</span>
+                  </div>
+                ))}
+              </div>
+            </Card>
+          )}
 
-        <Card className="p-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-xs text-muted-foreground">Teams</p>
-              <p className="text-2xl font-bold mt-1">24</p>
+          <Card className="p-6">
+            <h2 className="font-semibold mb-4">Upcoming Matches</h2>
+            <div className="space-y-3">
+              {scheduledMatches.length === 0 ? (
+                <p className="text-sm text-muted-foreground">Belum ada jadwal pertandingan</p>
+              ) : (
+                scheduledMatches.map((m) => (
+                  <div key={m.id} className="flex items-center justify-between p-3 rounded-lg border hover:bg-muted/50">
+                    <span className="text-sm font-mono text-muted-foreground">{m.date} {m.time}</span>
+                    <span className="text-sm font-medium flex-1 mx-4">{m.homeTeam}</span>
+                    <span className="text-xs text-muted-foreground">vs</span>
+                    <span className="text-sm font-medium flex-1 ml-4">{m.awayTeam}</span>
+                    <Badge variant="outline">Scheduled</Badge>
+                  </div>
+                ))
+              )}
             </div>
-            <Users className="w-8 h-8 text-purple-500" />
-          </div>
-        </Card>
+          </Card>
 
-        <Card className="p-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-xs text-muted-foreground">Participation</p>
-              <p className="text-2xl font-bold mt-1">75%</p>
-            </div>
-            <Trophy className="w-8 h-8 text-orange-500" />
-          </div>
-        </Card>
-      </div>
-
-      <Card className="p-6">
-        <h2 className="font-semibold mb-4">Today's Matches</h2>
-        <div className="space-y-3">
-          {[
-            { time: "14:00", home: "SSB Garuda Muda", away: "FC Makassar" },
-            { time: "16:00", home: "Youth Academy", away: "Training Center" },
-            { time: "18:00", home: "Elite FC", away: "Star Academy" },
-          ].map((match, i) => (
-            <div key={i} className="flex items-center justify-between p-3 rounded-lg border hover:bg-muted/50">
-              <span className="text-sm font-mono text-muted-foreground">{match.time}</span>
-              <span className="text-sm font-medium flex-1 mx-4">{match.home}</span>
-              <span className="text-xs text-muted-foreground">vs</span>
-              <span className="text-sm font-medium flex-1 ml-4">{match.away}</span>
-              <Badge variant="outline">Live Soon</Badge>
-            </div>
-          ))}
-        </div>
-      </Card>
-
-      <Card className="p-6">
-        <h2 className="font-semibold mb-4">Recent Results</h2>
-        <div className="space-y-2">
-          {[
-            { home: "Team A", score: "3-1", away: "Team B" },
-            { home: "Team C", score: "2-2", away: "Team D" },
-          ].map((result, i) => (
-            <div key={i} className="flex items-center justify-between p-2 text-sm border-b last:border-b-0">
-              <span>{result.home}</span>
-              <Badge className="font-mono">{result.score}</Badge>
-              <span>{result.away}</span>
-            </div>
-          ))}
-        </div>
-      </Card>
+          {finishedMatches.length > 0 && (
+            <Card className="p-6">
+              <h2 className="font-semibold mb-4">Recent Results</h2>
+              <div className="space-y-2">
+                {finishedMatches.map((m) => (
+                  <div key={m.id} className="flex items-center justify-between p-2 text-sm border-b last:border-b-0">
+                    <span>{m.homeTeam}</span>
+                    <Badge className="font-mono">{m.homeScore}-{m.awayScore}</Badge>
+                    <span>{m.awayTeam}</span>
+                  </div>
+                ))}
+              </div>
+            </Card>
+          )}
+        </>
+      )}
     </div>
   );
 }
