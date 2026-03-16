@@ -41,7 +41,6 @@ import {
   // Competition sub-modules (Blueprint 76-120)
   CompetitionProvider,
   CompetitionSetup,
-  RegistrationApproval,
   TeamSlotManagement,
   GroupAllocation,
   FixtureGenerator,
