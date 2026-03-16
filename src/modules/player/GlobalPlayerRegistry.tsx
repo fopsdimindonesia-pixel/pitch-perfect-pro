@@ -8,8 +8,17 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Search, Users, ShieldCheck, AlertTriangle, Globe, Eye } from "lucide-react";
 import { globalPlayers } from "@/lib/playerEcosystemData";
 import { useNavigate } from "react-router-dom";
+import { useRole } from "@/context/RoleContext";
 
 export default function GlobalPlayerRegistry() {
+  const { role } = useRole();
+  const isClub = role === "club";
+  const clubName = "SSB Garuda Muda";
+  
+  // Club sees only own players, EO/Owner sees all
+  const visiblePlayers = isClub
+    ? globalPlayers.filter(p => p.currentClub === clubName)
+    : globalPlayers;
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [verificationFilter, setVerificationFilter] = useState("all");
