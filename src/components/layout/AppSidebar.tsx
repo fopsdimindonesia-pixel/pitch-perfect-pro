@@ -81,8 +81,7 @@ const eoNav = [
     { title: "Competition Setup", url: "/eo/competition/setup", icon: Settings },
   ]},
   { group: "Registration & Teams", items: [
-    { title: "Club Registration", url: "/eo/registrations", icon: UserPlus },
-    { title: "Approval", url: "/eo/competition/approval", icon: CheckSquare },
+    { title: "Pendaftaran Klub", url: "/eo/registrations", icon: UserPlus },
     { title: "Team Slots", url: "/eo/competition/slots", icon: Users },
     { title: "Group Allocation", url: "/eo/competition/groups", icon: Grid3X3 },
   ]},

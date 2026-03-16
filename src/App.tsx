@@ -286,7 +286,7 @@ const eoRoutes = [
   { path: "/eo/competition/setup", element: <CompetitionProvider><CompetitionSetup /></CompetitionProvider> },
   
   // Registration & Teams (Blueprint 86-95)
-  { path: "/eo/competition/approval", element: <CompetitionProvider><RegistrationApproval /></CompetitionProvider> },
+  { path: "/eo/competition/approval", element: <CompetitionProvider><ClubRegistrations /></CompetitionProvider> },
   { path: "/eo/competition/slots", element: <CompetitionProvider><TeamSlotManagement /></CompetitionProvider> },
   { path: "/eo/competition/groups", element: <CompetitionProvider><GroupAllocation /></CompetitionProvider> },
   

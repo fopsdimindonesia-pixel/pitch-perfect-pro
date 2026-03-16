@@ -7,7 +7,6 @@ export {
   CompetitionProvider,
   useCompetition,
   CompetitionSetup,
-  RegistrationApproval,
   TeamSlotManagement,
   GroupAllocation,
   FixtureGenerator,
