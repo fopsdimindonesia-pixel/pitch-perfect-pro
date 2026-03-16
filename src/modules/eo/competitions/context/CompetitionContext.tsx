@@ -1,16 +1,54 @@
 import React, { createContext, useContext, useState, useMemo, useCallback, ReactNode } from 'react';
 import { mockCompetitions, mockMatches, mockRegistrations, mockStandings } from '@/lib/mockData';
 
+// ─── Competition Status Lifecycle ───────────────────────────────────────────
+export type CompetitionStatus = 
+  | 'draft' 
+  | 'registration_open' 
+  | 'registration_closed' 
+  | 'active' 
+  | 'completed' 
+  | 'archived';
+
+export const STATUS_LABELS: Record<CompetitionStatus, string> = {
+  draft: 'Draft',
+  registration_open: 'Registrasi Dibuka',
+  registration_closed: 'Registrasi Ditutup',
+  active: 'Berlangsung',
+  completed: 'Selesai',
+  archived: 'Diarsipkan',
+};
+
+export const STATUS_TRANSITIONS: Record<CompetitionStatus, CompetitionStatus[]> = {
+  draft: ['registration_open'],
+  registration_open: ['registration_closed'],
+  registration_closed: ['active'],
+  active: ['completed'],
+  completed: ['archived'],
+  archived: [],
+};
+
+export const STATUS_COLORS: Record<CompetitionStatus, string> = {
+  draft: 'bg-muted text-muted-foreground',
+  registration_open: 'bg-chart-2/15 text-chart-2',
+  registration_closed: 'bg-chart-4/15 text-chart-4',
+  active: 'bg-primary/15 text-primary',
+  completed: 'bg-chart-1/15 text-chart-1',
+  archived: 'bg-muted text-muted-foreground',
+};
+
+// ─── Data Types ─────────────────────────────────────────────────────────────
 export interface CompetitionData {
   id: string;
   name: string;
+  description: string;
   format: string;
+  season: string;
   ageGroup: string;
-  status: string;
+  status: CompetitionStatus;
   clubs: number;
   startDate: string;
   endDate: string;
-  description: string;
   registrationFee: number;
   eoId: string;
 }
@@ -18,6 +56,7 @@ export interface CompetitionData {
 export interface Category {
   id: string;
   name: string;
+  ageGroup: string;
   maxTeams: number;
   maxPlayers: number;
   status: 'Active' | 'Draft' | 'Closed';
@@ -43,6 +82,7 @@ export interface CompetitionConfig {
   eligibility: EligibilityConfig;
 }
 
+// ─── Context Type ───────────────────────────────────────────────────────────
 interface CompetitionContextType {
   activeCompetition: CompetitionData | null;
   setActiveCompetitionId: (id: string) => void;
@@ -52,9 +92,12 @@ interface CompetitionContextType {
   standings: typeof mockStandings;
   competitionConfig: CompetitionConfig;
   addCompetition: (form: Omit<CompetitionData, 'id' | 'clubs' | 'status' | 'eoId'>) => void;
+  updateCompetition: (partial: Partial<CompetitionData>) => void;
+  transitionStatus: (to: CompetitionStatus) => boolean;
   updateConfig: (partial: Partial<CompetitionConfig>) => void;
 }
 
+// ─── Defaults ───────────────────────────────────────────────────────────────
 const defaultRules: CompetitionRules = {
   general: `1. Semua pemain harus terdaftar dengan identitas valid
 2. Pelatih harus memiliki lisensi kepelatihan
@@ -78,10 +121,35 @@ const defaultEligibility: EligibilityConfig = {
   allowExceptions: true,
 };
 
+// Map legacy status strings to new lifecycle
+function normalizeLegacyStatus(status: string): CompetitionStatus {
+  const map: Record<string, CompetitionStatus> = {
+    Active: 'active',
+    Draft: 'draft',
+    Finished: 'completed',
+    active: 'active',
+    draft: 'draft',
+    completed: 'completed',
+  };
+  return map[status] ?? 'draft';
+}
+
+function getCurrentSeason(): string {
+  const now = new Date();
+  return `${now.getFullYear()}/${now.getFullYear() + 1}`;
+}
+
+// ─── Provider ───────────────────────────────────────────────────────────────
 const CompetitionContext = createContext<CompetitionContextType | undefined>(undefined);
 
 export function CompetitionProvider({ children }: { children: ReactNode }) {
-  const [competitions, setCompetitions] = useState<CompetitionData[]>(mockCompetitions as CompetitionData[]);
+  const [competitions, setCompetitions] = useState<CompetitionData[]>(
+    (mockCompetitions as any[]).map((c) => ({
+      ...c,
+      season: c.season ?? getCurrentSeason(),
+      status: normalizeLegacyStatus(c.status),
+    })) as CompetitionData[]
+  );
   const [activeId, setActiveId] = useState<string>(mockCompetitions[0]?.id ?? '');
   const [configMap, setConfigMap] = useState<Record<string, CompetitionConfig>>({});
 
@@ -100,7 +168,7 @@ export function CompetitionProvider({ children }: { children: ReactNode }) {
     const maxAge = parseInt(ag.replace(/\D/g, '')) || 18;
     return {
       categories: activeCompetition
-        ? [{ id: 'cat-default', name: ag, maxTeams: 16, maxPlayers: 25, status: 'Active' as const }]
+        ? [{ id: 'cat-default', name: ag, ageGroup: ag, maxTeams: 16, maxPlayers: 25, status: 'Active' as const }]
         : [],
       rules: defaultRules,
       eligibility: { ...defaultEligibility, maxAge, deadline: activeCompetition?.startDate ?? '' },
@@ -119,12 +187,29 @@ export function CompetitionProvider({ children }: { children: ReactNode }) {
       ...form,
       id: `comp-${Date.now()}`,
       clubs: 0,
-      status: 'Draft',
+      status: 'draft',
       eoId: 'eo-1',
     };
     setCompetitions((prev) => [...prev, newComp]);
     setActiveId(newComp.id);
   }, []);
+
+  const updateCompetition = useCallback((partial: Partial<CompetitionData>) => {
+    setCompetitions((prev) =>
+      prev.map((c) => (c.id === activeId ? { ...c, ...partial } : c))
+    );
+  }, [activeId]);
+
+  const transitionStatus = useCallback((to: CompetitionStatus): boolean => {
+    const current = competitions.find((c) => c.id === activeId);
+    if (!current) return false;
+    const allowed = STATUS_TRANSITIONS[current.status];
+    if (!allowed.includes(to)) return false;
+    setCompetitions((prev) =>
+      prev.map((c) => (c.id === activeId ? { ...c, status: to } : c))
+    );
+    return true;
+  }, [activeId, competitions]);
 
   return (
     <CompetitionContext.Provider
@@ -137,6 +222,8 @@ export function CompetitionProvider({ children }: { children: ReactNode }) {
         standings,
         competitionConfig,
         addCompetition,
+        updateCompetition,
+        transitionStatus,
         updateConfig,
       }}
     >
