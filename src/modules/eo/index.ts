@@ -4,13 +4,9 @@ export { default as EOOverview } from './dashboard/EOOverview';
 // Competitions - all sub-modules
 export {
   Competitions,
-  CreateCompetition,
   CompetitionProvider,
   useCompetition,
-  CompetitionProfile,
-  CompetitionCategories,
-  CompetitionRules,
-  EligibilityRules,
+  CompetitionSetup,
   RegistrationApproval,
   TeamSlotManagement,
   GroupAllocation,

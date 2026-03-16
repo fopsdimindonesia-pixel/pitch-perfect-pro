@@ -78,11 +78,7 @@ const eoNav = [
     { title: "Competitions", url: "/eo/competitions", icon: Trophy },
   ]},
   { group: "Setup & Rules", items: [
-    { title: "Create Competition", url: "/eo/competitions/create", icon: Plus },
-    { title: "Competition Profile", url: "/eo/competition/profile", icon: Settings },
-    { title: "Categories", url: "/eo/competition/categories", icon: ListOrdered },
-    { title: "Rules", url: "/eo/competition/rules", icon: ScrollText },
-    { title: "Eligibility", url: "/eo/competition/eligibility", icon: UserCheck },
+    { title: "Competition Setup", url: "/eo/competition/setup", icon: Settings },
   ]},
   { group: "Registration & Teams", items: [
     { title: "Club Registration", url: "/eo/registrations", icon: UserPlus },

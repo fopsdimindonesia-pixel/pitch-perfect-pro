@@ -1,17 +1,11 @@
-// Competitions - List & Create
+// Competitions - List
 export { default as Competitions } from './Competitions';
-export { default as CreateCompetition } from './CreateCompetition';
 
 // Context
 export { CompetitionProvider, useCompetition } from './context/CompetitionContext';
 
-// Setup (76-80)
-export { default as CompetitionProfile } from './setup/CompetitionProfile';
-export { default as CompetitionCategories } from './setup/CompetitionCategories';
-
-// Rules (81-85)
-export { default as CompetitionRules } from './rules/CompetitionRules';
-export { default as EligibilityRules } from './rules/EligibilityRules';
+// Setup (unified)
+export { default as CompetitionSetup } from './setup/CompetitionSetup';
 
 // Registration (86-90)
 export { default as RegistrationApproval } from './registration/RegistrationApproval';
