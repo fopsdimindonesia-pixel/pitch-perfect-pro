@@ -5,6 +5,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { RoleProvider, useRole } from "@/context/RoleContext";
+import { CompetitionDataProvider } from "@/context/CompetitionDataContext";
 import { AppShell } from "@/components/layout/AppShell";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import type { Role } from "@/lib/mockData";
@@ -53,18 +54,7 @@ import {
   PublicStandings,
 } from "./modules/eo";
 
-// Match Management — legacy pages (kept for backward compat)
-import MatchScheduler from "./pages/match/setup/MatchScheduler";
-import RefereeAssignment from "./pages/match/setup/RefereeAssignment";
-import LineupSubmission from "./pages/match/lineup/LineupSubmission";
-import MatchEvents from "./pages/match/events/MatchEvents";
-import MatchTimeline from "./pages/match/data/MatchTimeline";
-import MatchStatistics from "./pages/match/data/MatchStatistics";
-import PlayerRatings from "./pages/match/data/PlayerRatings";
-import TacticalAnalysis from "./pages/match/analytics/TacticalAnalysis";
-import MatchArchive from "./pages/match/archive/MatchArchive";
-
-// Match Management — new modular system (Blueprint 201-240)
+// Match Management — all from modular system (Blueprint 201-240)
 import {
   MatchProvider,
   DigitalMatchSheet,
@@ -72,6 +62,11 @@ import {
   LiveScoreboard,
   RefereeReport,
   MatchStatsDashboard,
+  RefereeAssignment,
+  LineupSubmission,
+  PlayerRatings,
+  TacticalAnalysis,
+  MatchArchive,
 } from "./modules/match";
 
 // Club pages - all from new modular structure
@@ -165,6 +160,7 @@ import {
   AvailableCompetitions,
   CompetitionDetail,
   RegistrationFlow,
+  ClubSchedule,
 } from "./modules/club";
 
 // Admin pages - imported from new modular structure
@@ -313,24 +309,18 @@ const eoRoutes = [
   { path: "/competition/*", element: <Navigate to="/eo/competitions" replace /> },
 ];
 
-// Match Management Routes (Blueprint 201-240)
+// Match Management Routes (Blueprint 201-240) — All modular with MatchProvider
 const matchRoutes = [
-  // New modular pages (with MatchProvider)
   { path: "/match/match-sheet", element: <MatchProvider><DigitalMatchSheet /></MatchProvider> },
   { path: "/match/event-recorder", element: <MatchProvider><MatchEventRecorder /></MatchProvider> },
   { path: "/match/live", element: <MatchProvider><LiveScoreboard /></MatchProvider> },
   { path: "/match/referee-report", element: <MatchProvider><RefereeReport /></MatchProvider> },
   { path: "/match/stats-dashboard", element: <MatchProvider><MatchStatsDashboard /></MatchProvider> },
-  // Legacy pages (kept for backward compat)
-  { path: "/match/scheduler", element: <MatchScheduler /> },
-  { path: "/match/referees", element: <RefereeAssignment /> },
-  { path: "/match/lineup", element: <LineupSubmission /> },
-  { path: "/match/events", element: <MatchEvents /> },
-  { path: "/match/timeline", element: <MatchTimeline /> },
-  { path: "/match/statistics", element: <MatchStatistics /> },
-  { path: "/match/ratings", element: <PlayerRatings /> },
-  { path: "/match/tactics", element: <TacticalAnalysis /> },
-  { path: "/match/archive", element: <MatchArchive /> },
+  { path: "/match/referees", element: <MatchProvider><RefereeAssignment /></MatchProvider> },
+  { path: "/match/lineup", element: <MatchProvider><LineupSubmission /></MatchProvider> },
+  { path: "/match/ratings", element: <MatchProvider><PlayerRatings /></MatchProvider> },
+  { path: "/match/tactics", element: <MatchProvider><TacticalAnalysis /></MatchProvider> },
+  { path: "/match/archive", element: <MatchProvider><MatchArchive /></MatchProvider> },
 ];
 
 // Player Digital Ecosystem Routes (accessible by all roles)
@@ -359,10 +349,11 @@ const clubRoutes = [
   { path: "/club/staff/medical", element: <MedicalStaff /> },
   { path: "/club/analytics/player-statistics", element: <PlayerStatistics /> },
   
-  // Competition Registration
+  // Competition Registration (wrapped in CompetitionDataProvider)
   { path: "/club/competition", element: <AvailableCompetitions /> },
   { path: "/club/competition/:competitionId", element: <CompetitionDetail /> },
   { path: "/club/competition/:competitionId/register", element: <RegistrationFlow /> },
+  { path: "/club/schedule", element: <ClubSchedule /> },
 ];
 
 // ============================================================================
@@ -503,9 +494,11 @@ const App = () => (
       <ErrorBoundary>
         <BrowserRouter>
           <RoleProvider>
-            <AppShell>
-              <RoutesRenderer />
-            </AppShell>
+            <CompetitionDataProvider>
+              <AppShell>
+                <RoutesRenderer />
+              </AppShell>
+            </CompetitionDataProvider>
           </RoleProvider>
         </BrowserRouter>
       </ErrorBoundary>

@@ -3,27 +3,40 @@ import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Trophy, Target, Medal, TrendingUp } from "lucide-react";
 import { globalPlayers, skillEvaluations } from "@/lib/playerEcosystemData";
+import { useRole } from "@/context/RoleContext";
 
 export default function PlayerStatsOverview() {
-  const topScorers = [...globalPlayers].sort((a, b) => b.totalGoals - a.totalGoals).slice(0, 10);
-  const topAssists = [...globalPlayers].sort((a, b) => b.totalAssists - a.totalAssists).slice(0, 10);
-  const topAppearances = [...globalPlayers].sort((a, b) => b.totalAppearances - a.totalAppearances).slice(0, 10);
-  const highPotential = [...globalPlayers].sort((a, b) => b.potentialScore - a.potentialScore).slice(0, 5);
+  const { role } = useRole();
+  const isClub = role === "club";
+  const clubName = "SSB Garuda Muda";
+  
+  const visiblePlayers = isClub
+    ? globalPlayers.filter(p => p.currentClub === clubName)
+    : globalPlayers;
+
+  const topScorers = [...visiblePlayers].sort((a, b) => b.totalGoals - a.totalGoals).slice(0, 10);
+  const topAssists = [...visiblePlayers].sort((a, b) => b.totalAssists - a.totalAssists).slice(0, 10);
+  const topAppearances = [...visiblePlayers].sort((a, b) => b.totalAppearances - a.totalAppearances).slice(0, 10);
+  const highPotential = [...visiblePlayers].sort((a, b) => b.potentialScore - a.potentialScore).slice(0, 5);
 
   return (
     <div className="space-y-6 animate-fade-in">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight">Player Statistics & Rankings</h1>
-        <p className="text-muted-foreground mt-1">Statistik dan peringkat pemain di seluruh platform</p>
+        <h1 className="text-3xl font-bold tracking-tight">
+          {isClub ? "Statistik Pemain Klub" : "Player Statistics & Rankings"}
+        </h1>
+        <p className="text-muted-foreground mt-1">
+          {isClub ? `Statistik dan peringkat pemain ${clubName}` : "Statistik dan peringkat pemain di seluruh platform"}
+        </p>
       </div>
 
       {/* Global Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: "Total Pemain", value: globalPlayers.length, icon: <Medal className="w-5 h-5 text-primary" /> },
-          { label: "Total Gol", value: globalPlayers.reduce((a, p) => a + p.totalGoals, 0), icon: <Target className="w-5 h-5 text-gold" /> },
-          { label: "Total Assist", value: globalPlayers.reduce((a, p) => a + p.totalAssists, 0), icon: <TrendingUp className="w-5 h-5 text-navy" /> },
-          { label: "Caps Internasional", value: globalPlayers.reduce((a, p) => a + p.internationalCaps, 0), icon: <Trophy className="w-5 h-5 text-purple-600" /> },
+          { label: "Total Pemain", value: visiblePlayers.length, icon: <Medal className="w-5 h-5 text-primary" /> },
+          { label: "Total Gol", value: visiblePlayers.reduce((a, p) => a + p.totalGoals, 0), icon: <Target className="w-5 h-5 text-gold" /> },
+          { label: "Total Assist", value: visiblePlayers.reduce((a, p) => a + p.totalAssists, 0), icon: <TrendingUp className="w-5 h-5 text-navy" /> },
+          { label: "Caps Internasional", value: visiblePlayers.reduce((a, p) => a + p.internationalCaps, 0), icon: <Trophy className="w-5 h-5 text-purple-600" /> },
         ].map((s) => (
           <Card key={s.label}>
             <CardContent className="pt-6">

@@ -109,10 +109,8 @@ const eoNav = [
     { title: "Match Stats", url: "/match/stats-dashboard", icon: BarChart3 },
   ]},
   { group: "Match Tools", items: [
-    { title: "Match Scheduler", url: "/match/scheduler", icon: Calendar },
     { title: "Referee Assignment", url: "/match/referees", icon: UserCheck },
     { title: "Lineup", url: "/match/lineup", icon: Users },
-    { title: "Timeline", url: "/match/timeline", icon: Activity },
     { title: "Player Ratings", url: "/match/ratings", icon: Target },
     { title: "Tactical Analysis", url: "/match/tactics", icon: BarChart4 },
     { title: "Archive", url: "/match/archive", icon: Archive },
@@ -139,6 +137,7 @@ const clubNav = [
     { title: "Roster", url: "/club/roster", icon: UserPlus },
   ]},
   { group: "Match Management", items: [
+    { title: "Jadwal Pertandingan", url: "/club/schedule", icon: Calendar },
     { title: "Match Day", url: "/club/match-day", icon: Swords },
     { title: "Match History", url: "/club/match-history", icon: History },
   ]},

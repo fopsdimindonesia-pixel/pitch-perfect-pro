@@ -5,11 +5,20 @@ import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Download, Printer, QrCode, ShieldCheck, AlertTriangle } from "lucide-react";
 import { globalPlayers } from "@/lib/playerEcosystemData";
+import { useRole } from "@/context/RoleContext";
 
 export default function PlayerECard() {
-  const [selectedId, setSelectedId] = useState(globalPlayers[0].id);
+  const { role } = useRole();
+  const isClub = role === "club";
+  const clubName = "SSB Garuda Muda";
+  
+  const visiblePlayers = isClub
+    ? globalPlayers.filter(p => p.currentClub === clubName)
+    : globalPlayers;
+
+  const [selectedId, setSelectedId] = useState(visiblePlayers[0]?.id || globalPlayers[0].id);
   const cardRef = useRef<HTMLDivElement>(null);
-  const player = globalPlayers.find((p) => p.id === selectedId) || globalPlayers[0];
+  const player = visiblePlayers.find((p) => p.id === selectedId) || visiblePlayers[0] || globalPlayers[0];
 
   const handlePrint = () => {
     window.print();
@@ -27,8 +36,12 @@ export default function PlayerECard() {
     <div className="space-y-6 animate-fade-in">
       <div className="flex items-center justify-between gap-4 flex-wrap print:hidden">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Player E-Card (QR)</h1>
-          <p className="text-muted-foreground text-sm mt-1">Kartu digital pemain dengan QR code verifikasi resmi SoccerOS.</p>
+          <h1 className="text-2xl font-bold tracking-tight">
+            {isClub ? "E-Card Pemain Klub" : "Player E-Card (QR)"}
+          </h1>
+          <p className="text-muted-foreground text-sm mt-1">
+            {isClub ? `Kartu digital pemain ${clubName}` : "Kartu digital pemain dengan QR code verifikasi resmi SoccerOS."}
+          </p>
         </div>
         <div className="flex gap-2">
           <Button variant="outline" size="sm" className="gap-2" onClick={handlePrint}>
@@ -47,7 +60,7 @@ export default function PlayerECard() {
             <SelectValue placeholder="Pilih pemain" />
           </SelectTrigger>
           <SelectContent>
-            {globalPlayers.map((p) => (
+            {visiblePlayers.map((p) => (
               <SelectItem key={p.id} value={p.id} className="text-sm">
                 {p.globalId} — {p.name} ({p.position})
               </SelectItem>

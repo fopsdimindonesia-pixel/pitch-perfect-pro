@@ -7,8 +7,13 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { QrCode, ShieldCheck, ShieldAlert, Search, ScanLine, CheckCircle2, XCircle, AlertTriangle, Clock } from "lucide-react";
 import { globalPlayers, verificationLogs } from "@/lib/playerEcosystemData";
+import { useRole } from "@/context/RoleContext";
 
 export default function PlayerVerificationSystem() {
+  const { role } = useRole();
+  const isClub = role === "club";
+  const isEO = role === "eo";
+  
   const [scanInput, setScanInput] = useState("");
   const [scanResult, setScanResult] = useState<null | { found: boolean; player?: typeof globalPlayers[0] }>(null);
   const [filterResult, setFilterResult] = useState("all");
@@ -42,8 +47,15 @@ export default function PlayerVerificationSystem() {
   return (
     <div className="space-y-6 animate-fade-in">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight">Player Verification System</h1>
-        <p className="text-muted-foreground mt-1">Sistem verifikasi identitas pemain via QR code, manual, atau biometric</p>
+        <h1 className="text-3xl font-bold tracking-tight">
+          {isClub ? "Status Verifikasi Pemain" : "Player Verification System"}
+        </h1>
+        <p className="text-muted-foreground mt-1">
+          {isClub
+            ? "Lihat status verifikasi pemain klub Anda"
+            : "Sistem verifikasi identitas pemain via QR code, manual, atau biometric"
+          }
+        </p>
       </div>
 
       {/* Stats */}

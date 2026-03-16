@@ -8,14 +8,23 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Search, Users, ShieldCheck, AlertTriangle, Globe, Eye } from "lucide-react";
 import { globalPlayers } from "@/lib/playerEcosystemData";
 import { useNavigate } from "react-router-dom";
+import { useRole } from "@/context/RoleContext";
 
 export default function GlobalPlayerRegistry() {
+  const { role } = useRole();
+  const isClub = role === "club";
+  const clubName = "SSB Garuda Muda";
+  
+  // Club sees only own players, EO/Owner sees all
+  const visiblePlayers = isClub
+    ? globalPlayers.filter(p => p.currentClub === clubName)
+    : globalPlayers;
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [verificationFilter, setVerificationFilter] = useState("all");
   const navigate = useNavigate();
 
-  const filtered = globalPlayers.filter((p) => {
+  const filtered = visiblePlayers.filter((p) => {
     const matchesSearch = p.name.toLowerCase().includes(search.toLowerCase()) ||
       p.globalId.toLowerCase().includes(search.toLowerCase()) ||
       p.currentClub.toLowerCase().includes(search.toLowerCase());
@@ -25,10 +34,10 @@ export default function GlobalPlayerRegistry() {
   });
 
   const stats = {
-    total: globalPlayers.length,
-    verified: globalPlayers.filter((p) => p.verificationStatus === "Verified").length,
-    pending: globalPlayers.filter((p) => p.verificationStatus === "Pending").length,
-    active: globalPlayers.filter((p) => p.status === "Active").length,
+    total: visiblePlayers.length,
+    verified: visiblePlayers.filter((p) => p.verificationStatus === "Verified").length,
+    pending: visiblePlayers.filter((p) => p.verificationStatus === "Pending").length,
+    active: visiblePlayers.filter((p) => p.status === "Active").length,
   };
 
   const getStatusColor = (status: string) => {
@@ -55,8 +64,12 @@ export default function GlobalPlayerRegistry() {
   return (
     <div className="space-y-6 animate-fade-in">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight">Global Player Registry</h1>
-        <p className="text-muted-foreground mt-1">Registry pemain nasional lintas club dan kompetisi</p>
+        <h1 className="text-3xl font-bold tracking-tight">
+          {isClub ? "Pemain Klub" : "Global Player Registry"}
+        </h1>
+        <p className="text-muted-foreground mt-1">
+          {isClub ? `Daftar pemain ${clubName}` : "Registry pemain nasional lintas club dan kompetisi"}
+        </p>
       </div>
 
       {/* Stats Cards */}

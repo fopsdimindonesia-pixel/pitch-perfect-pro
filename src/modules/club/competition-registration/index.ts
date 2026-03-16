@@ -6,6 +6,7 @@
 export { default as AvailableCompetitions } from "./pages/AvailableCompetitions";
 export { default as CompetitionDetail } from "./pages/CompetitionDetail";
 export { default as RegistrationFlow } from "./pages/RegistrationFlow";
+export { default as ClubSchedule } from "./pages/ClubSchedule";
 
 // Hooks
 export {
