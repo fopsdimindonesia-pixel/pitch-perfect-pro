@@ -45,9 +45,16 @@ export const generatePlayers = (clubId: string, count = 22) =>
     assists: Math.floor(Math.random() * 6),
     yellowCards: Math.floor(Math.random() * 3),
     redCards: i % 15 === 0 ? 1 : 0,
+    nationality: "Indonesia",
+    height: 165 + (i % 20),
+    weight: 60 + (i % 15),
+    cards: Math.floor(Math.random() * 4),
   }));
 
 export const mockPlayers = generatePlayers("club-1");
+
+// Alias for PlayerDetail compatibility
+export const mockPlayerData = { players: mockPlayers };
 
 // ─── Competitions ────────────────────────────────────────────────────────────────────
 export const mockCompetitions = [

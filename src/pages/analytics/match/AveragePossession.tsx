@@ -171,7 +171,7 @@ export default function AveragePossession() {
           </div>
           <div>
             <div className="flex justify-between items-center mb-1">
-              <span className="text-sm font-medium">Defensive (<50%)</span>
+              <span className="text-sm font-medium">Defensive ({'<'}50%)</span>
               <span className="text-sm font-bold">1 match</span>
             </div>
             <div className="h-3 bg-orange-500 rounded" style={{ width: '12%' }}></div>

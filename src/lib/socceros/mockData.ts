@@ -211,9 +211,8 @@ export const getChartData = (type: string): ChartDataPoint[] => {
 };
 
 export const mockFinancials = [
-  { id: 1, item: 'Player Salaries', amount: 45000, date: '2024-03-01', category: 'Expenses', status: 'Paid' },
-  { id: 2, item: 'Sponsorship Income', amount: 50000, date: '2024-03-05', category: 'Income', status: 'Received' },
-  { id: 3, item: 'Equipment & Kits', amount: 12000, date: '2024-03-08', category: 'Expenses', status: 'Pending' },
-  { id: 4, item: 'Ticket Revenue', amount: 28000, date: '2024-03-10', category: 'Income', status: 'Received' },
-  { id: 5, item: 'Training Facility', amount: 8500, date: '2024-03-12', category: 'Expenses', status: 'Paid' },
+  { id: 1, item: 'Q1 2025', revenue: 2500000, expenses: 2000000, profit: 500000, balance: 3200000, date: '2025-03-31', category: 'Quarterly', status: 'Finalized' },
+  { id: 2, item: 'Q4 2024', revenue: 2200000, expenses: 1800000, profit: 400000, balance: 2700000, date: '2024-12-31', category: 'Quarterly', status: 'Finalized' },
+  { id: 3, item: 'Q3 2024', revenue: 1900000, expenses: 1700000, profit: 200000, balance: 2300000, date: '2024-09-30', category: 'Quarterly', status: 'Finalized' },
+  { id: 4, item: 'Q2 2024', revenue: 2100000, expenses: 1600000, profit: 500000, balance: 2100000, date: '2024-06-30', category: 'Quarterly', status: 'Finalized' },
 ];

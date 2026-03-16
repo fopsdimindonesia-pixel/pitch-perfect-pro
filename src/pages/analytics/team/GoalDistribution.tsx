@@ -104,7 +104,7 @@ export default function GoalDistribution() {
                     cx="50%"
                     cy="50%"
                     labelLine={false}
-                    label={(entry) => `${entry.player}: ${entry.goals}`}
+                    label={(entry: { player?: string; goals?: number; name?: string; value?: number }) => `${entry.player ?? entry.name}: ${entry.goals ?? entry.value}`}
                     outerRadius={80}
                     fill="#8884d8"
                     dataKey="goals"

@@ -87,7 +87,7 @@ export default function PossessionTrends() {
               </div>
               <div>
                 <p className="text-2xl font-bold">83%</p>
-                <p className="text-xs text-muted-foreground">Matches >50%</p>
+                <p className="text-xs text-muted-foreground">Matches {'>'}50%</p>
               </div>
             </div>
           </CardContent>
@@ -174,7 +174,7 @@ export default function PossessionTrends() {
         </CardHeader>
         <CardContent className="space-y-3">
           <div className="border-l-4 border-green-500 pl-3 py-2">
-            <p className="text-sm font-semibold">High Possession (>55%)</p>
+            <p className="text-sm font-semibold">High Possession ({'>'}55%)</p>
             <p className="text-xs text-muted-foreground">Generally stronger performances with more control</p>
           </div>
           <div className="border-l-4 border-blue-500 pl-3 py-2">
@@ -182,7 +182,7 @@ export default function PossessionTrends() {
             <p className="text-xs text-muted-foreground">Competitive matches balanced between teams</p>
           </div>
           <div className="border-l-4 border-red-500 pl-3 py-2">
-            <p className="text-sm font-semibold">Low Possession (<45%)</p>
+            <p className="text-sm font-semibold">Low Possession ({'<'}45%)</p>
             <p className="text-xs text-muted-foreground">Only 1 match, tactical flexibility</p>
           </div>
         </CardContent>
