@@ -33,7 +33,6 @@ import {
 import {
   EOOverview,
   Competitions,
-  CreateCompetition,
   ClubRegistrations,
   Standings,
   Schedule,
