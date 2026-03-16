@@ -414,7 +414,6 @@ const protectedRoutes: RouteWithRole[] = [
     ...route,
     allowedRoles: ["club"] as Role[],
   })),
-  })),
 ];
 
 // Root redirect component - redirects based on current role
