@@ -38,7 +38,6 @@ import {
   Standings,
   Schedule,
   Reports,
-  MatchSheet,
   // Competition sub-modules (Blueprint 76-120)
   CompetitionProvider,
   CompetitionSetup,
