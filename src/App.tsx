@@ -404,10 +404,16 @@ const protectedRoutes: RouteWithRole[] = [
     ...route,
     allowedRoles: ["owner", "eo", "club", "admin"] as Role[],
   })),
+  // Player Ecosystem routes (all roles)
+  ...playerEcosystemRoutes.map((route) => ({
+    ...route,
+    allowedRoles: ["owner", "eo", "club", "admin"] as Role[],
+  })),
   // Club routes (club only)
   ...clubRoutes.map((route) => ({
     ...route,
     allowedRoles: ["club"] as Role[],
+  })),
   })),
 ];
 

@@ -10,7 +10,7 @@ import {
   Settings, CreditCard, ScrollText, Building2, UserCheck, Medal,
   Swords, ListOrdered, FileText, Shield, Shirt, History, Wallet, UserPlus, QrCode,
   Monitor, MoreVertical, Zap, Lock, CheckSquare, Code, Key, Webhook, Palette,
-  Activity, Archive, BarChart4, Target,
+  Activity, Archive, BarChart4, Target, Globe, ScanLine, IdCard, TrendingUp,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
