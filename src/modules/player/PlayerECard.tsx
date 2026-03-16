@@ -36,8 +36,12 @@ export default function PlayerECard() {
     <div className="space-y-6 animate-fade-in">
       <div className="flex items-center justify-between gap-4 flex-wrap print:hidden">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Player E-Card (QR)</h1>
-          <p className="text-muted-foreground text-sm mt-1">Kartu digital pemain dengan QR code verifikasi resmi SoccerOS.</p>
+          <h1 className="text-2xl font-bold tracking-tight">
+            {isClub ? "E-Card Pemain Klub" : "Player E-Card (QR)"}
+          </h1>
+          <p className="text-muted-foreground text-sm mt-1">
+            {isClub ? `Kartu digital pemain ${clubName}` : "Kartu digital pemain dengan QR code verifikasi resmi SoccerOS."}
+          </p>
         </div>
         <div className="flex gap-2">
           <Button variant="outline" size="sm" className="gap-2" onClick={handlePrint}>
