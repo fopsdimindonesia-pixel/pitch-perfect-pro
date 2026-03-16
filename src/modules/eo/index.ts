@@ -1,9 +1,28 @@
 // Dashboard
 export { default as EOOverview } from './dashboard/EOOverview';
 
-// Competitions
-export { default as Competitions } from './competitions/Competitions';
-export { default as CreateCompetition } from './competitions/CreateCompetition';
+// Competitions - all sub-modules
+export {
+  Competitions,
+  CreateCompetition,
+  CompetitionProvider,
+  useCompetition,
+  CompetitionProfile,
+  CompetitionCategories,
+  CompetitionRules,
+  EligibilityRules,
+  RegistrationApproval,
+  TeamSlotManagement,
+  GroupAllocation,
+  FixtureGenerator,
+  BracketBuilder,
+  CompetitionDashboard,
+  CompetitionDocuments,
+  CompetitionAnalytics,
+  AwardSystem,
+  PublicCompetitionPage,
+  PublicStandings,
+} from './competitions';
 
 // Registrations
 export { default as ClubRegistrations } from './registrations/ClubRegistrations';
