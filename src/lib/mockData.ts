@@ -53,6 +53,9 @@ export const generatePlayers = (clubId: string, count = 22) =>
 
 export const mockPlayers = generatePlayers("club-1");
 
+// Alias for PlayerDetail compatibility
+export const mockPlayerData = { players: mockPlayers };
+
 // ─── Competitions ────────────────────────────────────────────────────────────────────
 export const mockCompetitions = [
   { id: "comp-1", eoId: "eo-1", name: "Liga Makassar U13", format: "League", ageGroup: "U13", status: "Active", clubs: 8, registrationFee: 500000, startDate: "2024-03-01", endDate: "2024-06-30", description: "Kompetisi tahunan sepak bola kelompok umur 13 tahun di Makassar" },

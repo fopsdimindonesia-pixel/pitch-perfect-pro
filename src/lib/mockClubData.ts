@@ -3,7 +3,7 @@ export const mockClubData = {
   club: {
     id: "club-1",
     name: "SSB Garuda Muda",
-    founded: 2010,
+    founded: "2010",
     city: "Makassar",
     address: "Jl. Hasanuddin No. 123, Makassar",
     phone: "+62-411-1234567",
