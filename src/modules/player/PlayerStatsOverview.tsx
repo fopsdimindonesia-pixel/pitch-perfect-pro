@@ -22,8 +22,12 @@ export default function PlayerStatsOverview() {
   return (
     <div className="space-y-6 animate-fade-in">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight">Player Statistics & Rankings</h1>
-        <p className="text-muted-foreground mt-1">Statistik dan peringkat pemain di seluruh platform</p>
+        <h1 className="text-3xl font-bold tracking-tight">
+          {isClub ? "Statistik Pemain Klub" : "Player Statistics & Rankings"}
+        </h1>
+        <p className="text-muted-foreground mt-1">
+          {isClub ? `Statistik dan peringkat pemain ${clubName}` : "Statistik dan peringkat pemain di seluruh platform"}
+        </p>
       </div>
 
       {/* Global Stats */}
