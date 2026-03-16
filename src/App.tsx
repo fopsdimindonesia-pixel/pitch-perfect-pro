@@ -317,8 +317,15 @@ const eoRoutes = [
   { path: "/competition/*", element: <Navigate to="/eo/competitions" replace /> },
 ];
 
-// Match Management Routes
+// Match Management Routes (Blueprint 201-240)
 const matchRoutes = [
+  // New modular pages (with MatchProvider)
+  { path: "/match/match-sheet", element: <MatchProvider><DigitalMatchSheet /></MatchProvider> },
+  { path: "/match/event-recorder", element: <MatchProvider><MatchEventRecorder /></MatchProvider> },
+  { path: "/match/live", element: <MatchProvider><LiveScoreboard /></MatchProvider> },
+  { path: "/match/referee-report", element: <MatchProvider><RefereeReport /></MatchProvider> },
+  { path: "/match/stats-dashboard", element: <MatchProvider><MatchStatsDashboard /></MatchProvider> },
+  // Legacy pages (kept for backward compat)
   { path: "/match/scheduler", element: <MatchScheduler /> },
   { path: "/match/referees", element: <RefereeAssignment /> },
   { path: "/match/lineup", element: <LineupSubmission /> },
