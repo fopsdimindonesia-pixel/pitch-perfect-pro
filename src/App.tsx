@@ -160,6 +160,11 @@ import {
   SocialMedia,
   FanFeedback,
   ECard,
+  
+  // Competition Registration
+  AvailableCompetitions,
+  CompetitionDetail,
+  RegistrationFlow,
 } from "./modules/club";
 
 // Admin pages - imported from new modular structure
@@ -353,6 +358,11 @@ const clubRoutes = [
   { path: "/club/staff/coaches", element: <CoachManagement /> },
   { path: "/club/staff/medical", element: <MedicalStaff /> },
   { path: "/club/analytics/player-statistics", element: <PlayerStatistics /> },
+  
+  // Competition Registration
+  { path: "/club/competition", element: <AvailableCompetitions /> },
+  { path: "/club/competition/:competitionId", element: <CompetitionDetail /> },
+  { path: "/club/competition/:competitionId/register", element: <RegistrationFlow /> },
 ];
 
 // ============================================================================

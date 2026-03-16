@@ -10,3 +10,4 @@ export * from './analytics';
 export * from './finance';
 export * from './operations';
 export * from './fan';
+export * from './competition-registration';

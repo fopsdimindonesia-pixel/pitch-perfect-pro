@@ -153,6 +153,9 @@ const clubNav = [
   { group: "Financial", items: [
     { title: "Financial Status", url: "/club/financial", icon: Wallet },
   ]},
+  { group: "Kompetisi", items: [
+    { title: "Daftar Kompetisi", url: "/club/competition", icon: Trophy },
+  ]},
 ];
 
 const adminNav = ownerNav;
