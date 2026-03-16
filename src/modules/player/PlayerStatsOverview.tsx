@@ -3,12 +3,21 @@ import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Trophy, Target, Medal, TrendingUp } from "lucide-react";
 import { globalPlayers, skillEvaluations } from "@/lib/playerEcosystemData";
+import { useRole } from "@/context/RoleContext";
 
 export default function PlayerStatsOverview() {
-  const topScorers = [...globalPlayers].sort((a, b) => b.totalGoals - a.totalGoals).slice(0, 10);
-  const topAssists = [...globalPlayers].sort((a, b) => b.totalAssists - a.totalAssists).slice(0, 10);
-  const topAppearances = [...globalPlayers].sort((a, b) => b.totalAppearances - a.totalAppearances).slice(0, 10);
-  const highPotential = [...globalPlayers].sort((a, b) => b.potentialScore - a.potentialScore).slice(0, 5);
+  const { role } = useRole();
+  const isClub = role === "club";
+  const clubName = "SSB Garuda Muda";
+  
+  const visiblePlayers = isClub
+    ? globalPlayers.filter(p => p.currentClub === clubName)
+    : globalPlayers;
+
+  const topScorers = [...visiblePlayers].sort((a, b) => b.totalGoals - a.totalGoals).slice(0, 10);
+  const topAssists = [...visiblePlayers].sort((a, b) => b.totalAssists - a.totalAssists).slice(0, 10);
+  const topAppearances = [...visiblePlayers].sort((a, b) => b.totalAppearances - a.totalAppearances).slice(0, 10);
+  const highPotential = [...visiblePlayers].sort((a, b) => b.potentialScore - a.potentialScore).slice(0, 5);
 
   return (
     <div className="space-y-6 animate-fade-in">
