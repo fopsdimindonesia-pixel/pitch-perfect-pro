@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
-import { CreditCard, Bank, Smartphone } from 'lucide-react';
+import { CreditCard, Landmark, Smartphone } from 'lucide-react';
 
 const gateways = [
   { id: 1, name: 'Bank Transfer (BCA)', provider: 'BCA Virtual Account', status: 'active', fee: 0.5, icon: Bank },
