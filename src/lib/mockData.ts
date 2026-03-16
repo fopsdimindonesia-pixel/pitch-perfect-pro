@@ -66,12 +66,176 @@ export const mockCompetitions = [
 ];
 
 // ─── Registrations (Club to Competition) ─────────────────────────────────────
+export const createMockRegistration = (overrides = {}) => ({
+  // Base fields
+  id: "reg-1",
+  clubId: "club-1",
+  clubName: "SSB Garuda Muda",
+  competitionId: "comp-1",
+  competitionName: "Liga Makassar U13",
+  status: "Pending",
+  paymentStatus: "Paid",
+  registeredAt: "2024-02-15",
+  fee: 500000,
+  
+  // Enhanced fields for validation
+  playerCount: 22,
+  players: generatePlayers("club-1", 22),
+  
+  competitionConstraints: {
+    minRosterSize: 11,
+    maxRosterSize: 25,
+    ageLimit: 13,
+    maxTeams: 8,
+    currentRegistrations: 6,
+    slotsAvailable: 2,
+  },
+  
+  // Approval tracking
+  submittedAt: "2024-02-15T10:30:00Z",
+  ...overrides,
+});
+
 export const mockRegistrations = [
-  { id: "reg-1", clubId: "club-1", clubName: "SSB Garuda Muda", competitionId: "comp-1", competitionName: "Liga Makassar U13", status: "Approved", paymentStatus: "Paid", registeredAt: "2024-02-15", fee: 500000 },
-  { id: "reg-2", clubId: "club-2", clubName: "SSB Bintang Timur", competitionId: "comp-1", competitionName: "Liga Makassar U13", status: "Pending", paymentStatus: "Unpaid", registeredAt: "2024-02-18", fee: 500000 },
-  { id: "reg-3", clubId: "club-7", clubName: "SSB Anging Mammiri", competitionId: "comp-1", competitionName: "Liga Makassar U13", status: "Pending", paymentStatus: "Paid", registeredAt: "2024-02-20", fee: 500000 },
-  { id: "reg-4", clubId: "club-8", clubName: "Pusamania Junior", competitionId: "comp-1", competitionName: "Liga Makassar U13", status: "Approved", paymentStatus: "Paid", registeredAt: "2024-02-22", fee: 500000 },
-  { id: "reg-5", clubId: "club-1", clubName: "SSB Garuda Muda", competitionId: "comp-2", competitionName: "Cup Makassar U15", status: "Approved", paymentStatus: "Paid", registeredAt: "2024-03-10", fee: 750000 },
+  // REG-1: Valid registration - should be approvable
+  {
+    id: "reg-1",
+    clubId: "club-1",
+    clubName: "SSB Garuda Muda",
+    competitionId: "comp-1",
+    competitionName: "Liga Makassar U13",
+    status: "Pending",
+    paymentStatus: "Paid",
+    registeredAt: "2024-02-15",
+    fee: 500000,
+    playerCount: 22,
+    players: generatePlayers("club-1", 22),
+    competitionConstraints: {
+      minRosterSize: 11,
+      maxRosterSize: 25,
+      ageLimit: 13,
+      maxTeams: 8,
+      currentRegistrations: 6,
+      slotsAvailable: 2,
+    },
+    submittedAt: "2024-02-15T10:30:00Z",
+  },
+  
+  // REG-2: Unpaid registration - should block approval
+  {
+    id: "reg-2",
+    clubId: "club-2",
+    clubName: "SSB Bintang Timur",
+    competitionId: "comp-1",
+    competitionName: "Liga Makassar U13",
+    status: "Pending",
+    paymentStatus: "Unpaid",
+    registeredAt: "2024-02-18",
+    fee: 500000,
+    playerCount: 18,
+    players: generatePlayers("club-2", 18),
+    competitionConstraints: {
+      minRosterSize: 11,
+      maxRosterSize: 25,
+      ageLimit: 13,
+      maxTeams: 8,
+      currentRegistrations: 6,
+      slotsAvailable: 2,
+    },
+    submittedAt: "2024-02-18T14:00:00Z",
+  },
+  
+  // REG-3: Too few players - should block approval
+  {
+    id: "reg-3",
+    clubId: "club-7",
+    clubName: "SSB Anging Mammiri",
+    competitionId: "comp-1",
+    competitionName: "Liga Makassar U13",
+    status: "Pending",
+    paymentStatus: "Paid",
+    registeredAt: "2024-02-20",
+    fee: 500000,
+    playerCount: 8,
+    players: generatePlayers("club-7", 8),
+    competitionConstraints: {
+      minRosterSize: 11,
+      maxRosterSize: 25,
+      ageLimit: 13,
+      maxTeams: 8,
+      currentRegistrations: 6,
+      slotsAvailable: 2,
+    },
+    submittedAt: "2024-02-20T11:00:00Z",
+  },
+  
+  // REG-4: Has suspended player - should block approval
+  {
+    id: "reg-4",
+    clubId: "club-8",
+    clubName: "Pusamania Junior",
+    competitionId: "comp-1",
+    competitionName: "Liga Makassar U13",
+    status: "Pending",
+    paymentStatus: "Paid",
+    registeredAt: "2024-02-22",
+    fee: 500000,
+    playerCount: 20,
+    players: [
+      ...generatePlayers("club-8", 19),
+      {
+        id: "club-8-p20",
+        clubId: "club-8",
+        name: "Suspended Player",
+        position: "ST",
+        dob: "2011-05-10",
+        age: 12,
+        number: 20,
+        idNumber: "73710000000020",
+        eligibility: "Suspended",
+        photo: "https://api.dicebear.com/7.x/avataaars/svg?seed=club-8-20",
+        feeStatus: "Paid",
+        goals: 0,
+        assists: 0,
+        yellowCards: 0,
+        redCards: 0,
+      },
+    ],
+    competitionConstraints: {
+      minRosterSize: 11,
+      maxRosterSize: 25,
+      ageLimit: 13,
+      maxTeams: 8,
+      currentRegistrations: 6,
+      slotsAvailable: 2,
+    },
+    submittedAt: "2024-02-22T09:00:00Z",
+  },
+  
+  // REG-5: Already approved
+  {
+    id: "reg-5",
+    clubId: "club-1",
+    clubName: "SSB Garuda Muda",
+    competitionId: "comp-2",
+    competitionName: "Cup Makassar U15",
+    status: "Approved",
+    paymentStatus: "Paid",
+    registeredAt: "2024-03-10",
+    fee: 750000,
+    playerCount: 22,
+    players: generatePlayers("club-1", 22),
+    competitionConstraints: {
+      minRosterSize: 11,
+      maxRosterSize: 25,
+      ageLimit: 15,
+      maxTeams: 16,
+      currentRegistrations: 14,
+      slotsAvailable: 2,
+    },
+    submittedAt: "2024-03-10T10:00:00Z",
+    reviewedAt: "2024-03-10T15:00:00Z",
+  },
 ];
 
 // ─── Matches ─────────────────────────────────────────────────────────────────
